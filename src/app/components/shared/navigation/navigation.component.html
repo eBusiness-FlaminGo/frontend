@@ -1,0 +1,42 @@
+<div
+  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200"
+>
+  <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+    <button
+      routerLink="/facts"
+      type="button"
+      class="inline-flex flex-col items-center justify-center px-5 group"
+    >
+      <app-wand></app-wand>
+      <span
+        class="text-sm text-gray-500 group-hover:text-primary-500"
+        routerLinkActive="text-primary-500"
+        >Facts</span
+      >
+    </button>
+    <button
+      routerLink="/game"
+      type="button"
+      class="inline-flex flex-col items-center justify-center px-5 group"
+    >
+      <app-brain></app-brain>
+      <span
+        class="text-sm text-gray-500 group-hover:text-primary-500"
+        routerLinkActive="text-primary-500"
+        >Game</span
+      >
+    </button>
+    <button
+      routerLink="/shop"
+      type="button"
+      class="inline-flex flex-col items-center justify-center px-5 group"
+    >
+      <app-store></app-store>
+      <span
+        class="text-sm text-gray-500 group-hover:text-primary-500"
+        routerLinkActive="text-primary-500"
+        >Shop</span
+      >
+    </button>
+  </div>
+</div>

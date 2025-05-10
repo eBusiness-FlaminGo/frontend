@@ -1,5 +1,22 @@
 # Frontend GenAI Fun Facts App
 
+<!-- TOC -->
+
+- [Frontend GenAI Fun Facts App](#frontend-genai-fun-facts-app)
+  - [Personalising the theme](#personalising-the-theme)
+  - [Setting up the project](#setting-up-the-project)
+  - [Development server](#development-server)
+  - [Code scaffolding](#code-scaffolding)
+  - [Building](#building)
+  - [Running unit tests](#running-unit-tests)
+  - [Running end-to-end tests](#running-end-to-end-tests)
+  - [Additional Resources](#additional-resources)
+  <!-- TOC -->
+
+## Personalising the theme
+
+https://flowbite.com/docs/customize/theming/
+
 ## Setting up the project
 
 1. Install Node.js and npm

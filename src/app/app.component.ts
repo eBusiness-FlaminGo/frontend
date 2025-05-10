@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {initFlowbite} from 'flowbite';
+import { Component, OnInit } from '@angular/core';
+import { initFlowbite } from 'flowbite';
+import { RouterOutlet } from '@angular/router';
+import { NavigationComponent } from './components/shared/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [RouterOutlet, NavigationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -12,5 +14,5 @@ export class AppComponent implements OnInit {
     initFlowbite();
   }
 
-  title = 'frontend-genai-fun-facts-app';
+  title = 'Brainstorm';
 }
