@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-onboarding',
@@ -13,6 +14,17 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.css',
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ],
 })
 export class OnboardingComponent {
   step = 1;
