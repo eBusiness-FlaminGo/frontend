@@ -9,11 +9,14 @@
       </div>
 
       <div *ngSwitchCase="2" class="space-y-4 w-full">
-        <input
-          type="text"
-          placeholder="Quick search for anything"
-          class="input input-bordered w-full"
-        />
+        <div class="flex items-center gap-2">
+          <select [(ngModel)]="selectedCategory" class="input input-bordered w-full">
+            <option value="" disabled selected>Select a category</option>
+            <option *ngFor="let cat of allCategories" [value]="cat">{{ cat }}</option>
+          </select>
+          <button (click)="addToFavorites()" class="btn btn-sm btn-success">+ Fav</button>
+          <button (click)="addToExclusions()" class="btn btn-sm btn-error">+ Excl</button>
+        </div>
         <div>
           <h4 class="text-sm font-semibold text-left">Favoriten</h4>
           <div class="flex flex-wrap gap-2 mt-1">

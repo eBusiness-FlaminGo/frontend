@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-onboarding',
@@ -7,7 +8,8 @@ import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
     NgSwitch,
     NgSwitchCase,
     NgIf,
-    NgForOf
+    NgForOf,
+    FormsModule
   ],
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.css',
@@ -17,6 +19,9 @@ export class OnboardingComponent {
 
   favorites = ['Scifi', 'Art', 'Sport', 'Music', 'Weather'];
   exclusions = ['IT', 'Plants', 'Animals', 'Clothing', 'Finance'];
+
+  allCategories = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Household', 'Design', 'Basketball', 'Horses'];
+  selectedCategory = '';
 
   next() {
     if (this.step < 3) this.step++;
@@ -36,5 +41,17 @@ export class OnboardingComponent {
 
   removeExclusion(category: string) {
     this.exclusions = this.exclusions.filter(e => e !== category);
+  }
+
+  addToFavorites() {
+    if (this.selectedCategory && !this.favorites.includes(this.selectedCategory)) {
+      this.favorites.push(this.selectedCategory);
+    }
+  }
+
+  addToExclusions() {
+    if (this.selectedCategory && !this.exclusions.includes(this.selectedCategory)) {
+      this.exclusions.push(this.selectedCategory);
+    }
   }
 }
