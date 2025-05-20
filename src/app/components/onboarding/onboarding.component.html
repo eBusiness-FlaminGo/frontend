@@ -18,7 +18,7 @@
           <button (click)="addToExclusions()" class="btn btn-sm btn-error">+ Excl</button>
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-left">Favoriten</h4>
+          <h4 class="text-sm font-semibold text-left">Favourites</h4>
           <div class="flex flex-wrap gap-2 mt-1">
             <span *ngFor="let fav of favorites" class="badge badge-success">
               {{ fav }}
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-left">Ausschlüsse</h4>
+          <h4 class="text-sm font-semibold text-left">Exclusions</h4>
           <div class="flex flex-wrap gap-2 mt-1">
             <span *ngFor="let excl of exclusions" class="badge badge-error">
               {{ excl }}
@@ -36,17 +36,12 @@
           </div>
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-left">Kategorien</h4>
+          <h4 class="text-sm font-semibold text-left">Suggested favourite categories</h4>
           <div class="flex flex-wrap gap-2 mt-1">
-            <span class="badge badge-outline">Games</span>
-            <span class="badge badge-outline">Climbing</span>
-            <span class="badge badge-outline">Astronomy</span>
-            <span class="badge badge-outline">Party</span>
-            <span class="badge badge-outline">Food</span>
-            <span class="badge badge-outline">Household</span>
-            <span class="badge badge-outline">Design</span>
-            <span class="badge badge-outline">Basketball</span>
-            <span class="badge badge-outline">Horses</span>
+            <span *ngFor="let cat of suggestedCategories" class="badge badge-outline cursor-pointer"
+                  (click)="selectSuggestedCategory(cat)">
+              {{ cat }}
+            </span>
           </div>
         </div>
         <p class="text-gray-500 text-sm text-left mt-4">

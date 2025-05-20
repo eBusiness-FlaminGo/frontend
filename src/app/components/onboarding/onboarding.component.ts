@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
+import {FormsModule} from '@angular/forms';
+import {trigger, transition, style, animate} from '@angular/animations';
 
 @Component({
   selector: 'app-onboarding',
@@ -17,12 +17,12 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('fade', [
       transition(':enter', [
-        style({ position: 'absolute', width: '100%', opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
+        style({position: 'absolute', width: '100%', opacity: 0}),
+        animate('300ms ease-in', style({opacity: 1}))
       ]),
       transition(':leave', [
-        style({ position: 'absolute', width: '100%' }),
-        animate('200ms ease-out', style({ opacity: 0 }))
+        style({position: 'absolute', width: '100%'}),
+        animate('200ms ease-out', style({opacity: 0}))
       ])
     ])
   ],
@@ -35,6 +35,8 @@ export class OnboardingComponent {
 
   allCategories = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Household', 'Design', 'Basketball', 'Horses'];
   selectedCategory = '';
+
+  suggestedCategories = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Household', 'Design', 'Basketball', 'Horses'];
 
   next() {
     if (this.step < 3) this.step++;
@@ -73,6 +75,13 @@ export class OnboardingComponent {
       !this.favorites.includes(this.selectedCategory)
     ) {
       this.exclusions.push(this.selectedCategory);
+    }
+  }
+
+  selectSuggestedCategory(category: string) {
+    if (!this.favorites.includes(category) && !this.exclusions.includes(category)) {
+      this.favorites.push(category);
+      this.suggestedCategories = this.suggestedCategories.filter(c => c !== category);
     }
   }
 }
