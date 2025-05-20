@@ -17,10 +17,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('fade', [
       transition(':enter', [
-        style({ opacity: 0 }),
+        style({ position: 'absolute', width: '100%', opacity: 0 }),
         animate('300ms ease-in', style({ opacity: 1 }))
       ]),
       transition(':leave', [
+        style({ position: 'absolute', width: '100%' }),
         animate('200ms ease-out', style({ opacity: 0 }))
       ])
     ])

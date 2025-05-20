@@ -1,14 +1,14 @@
 <div class="main-wrapper flex flex-col justify-between items-center text-center p-6">
-  <div class="mt-12">
+  <div class="mt-12 relative h-[400px] w-full">
     <ng-container [ngSwitch]="step">
-      <div *ngSwitchCase="1" @fade class="space-y-6">
+      <div *ngSwitchCase="1" @fade class="absolute top-0 left-0 w-full space-y-6">
         <img src="logo.png" alt="Brainstorm Logo" class="mx-auto w-48 h-auto rounded-xl shadow-md"/>
         <h2 class="text-2xl font-bold">Let's Get Started</h2>
         <p class="text-gray-500">Nice to meet you!<br/>Let’s make sure you’ll get to see what you’re really interested
           in.</p>
       </div>
 
-      <div *ngSwitchCase="2" @fade class="space-y-4 w-full">
+      <div *ngSwitchCase="2" @fade class="absolute top-0 left-0 w-full space-y-4">
         <div class="flex items-center gap-2">
           <select [(ngModel)]="selectedCategory" class="input w-full">
             <option value="" disabled selected>Select a category</option>
@@ -56,7 +56,7 @@
         </p>
       </div>
 
-      <div *ngSwitchCase="3" @fade class="space-y-6">
+      <div *ngSwitchCase="3" @fade class="absolute top-0 left-0 w-full space-y-6">
         <h2 class="text-2xl font-bold">Done!</h2>
         <p class="text-gray-500">Now you’re ready to start your adventure.</p>
       </div>
