@@ -17,21 +17,13 @@
         <div>
           <h4 class="text-sm font-semibold text-left">Favoriten</h4>
           <div class="flex flex-wrap gap-2 mt-1">
-            <span class="badge badge-success">Scifi ✕</span>
-            <span class="badge badge-success">Art ✕</span>
-            <span class="badge badge-success">Sport ✕</span>
-            <span class="badge badge-success">Music ✕</span>
-            <span class="badge badge-success">Weather ✕</span>
+            <span *ngFor="let fav of favorites" class="badge badge-success">{{ fav }} ✕</span>
           </div>
         </div>
         <div>
           <h4 class="text-sm font-semibold text-left">Ausschlüsse</h4>
           <div class="flex flex-wrap gap-2 mt-1">
-            <span class="badge badge-error">IT ✕</span>
-            <span class="badge badge-error">Plants ✕</span>
-            <span class="badge badge-error">Animals ✕</span>
-            <span class="badge badge-error">Clothing ✕</span>
-            <span class="badge badge-error">Finance ✕</span>
+            <span *ngFor="let excl of exclusions" class="badge badge-error">{{ excl }} ✕</span>
           </div>
         </div>
         <div>
