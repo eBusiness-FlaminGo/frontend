@@ -10,7 +10,7 @@
 
       <div *ngSwitchCase="2" class="space-y-4 w-full">
         <div class="flex items-center gap-2">
-          <select [(ngModel)]="selectedCategory" class="input input-bordered w-full">
+          <select [(ngModel)]="selectedCategory" class="input w-full">
             <option value="" disabled selected>Select a category</option>
             <option *ngFor="let cat of allCategories" [value]="cat">{{ cat }}</option>
           </select>

@@ -24,3 +24,37 @@
   color: #111827;
   border: 1px solid #d1d5db;
 }
+
+select.input {
+  background-color: white;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 1rem 2.5rem 1rem 1.25rem;
+  font-size: 1.25rem;
+  color: #111827;
+  min-width: 260px;
+  min-height: 3.25rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+select.input option {
+  background: #fff;
+  color: #111827;
+  font-size: 1.15rem;
+  padding: 0.75rem 1rem;
+}
