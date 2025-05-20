@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+        <div class="flex justify-center mb-6">
+          <img src="logo.png" alt="Brainstorm Logo" />
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div>
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username or Email</label>
+            <input id="username" type="text" formControlName="username" placeholder="Username or Email"
+              class="form-input block w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+            <input id="password" type="password" formControlName="password" placeholder="Password"
+              class="form-input block w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="flex items-center">
+              <input type="checkbox" formControlName="rememberMe" class="form-checkbox rounded text-primary-600" />
+              <span class="ml-2 text-sm text-gray-600">Remember me</span>
+            </label>
+            <a href="#" class="text-sm text-primary-600 hover:underline">Forgot password?</a>
+          </div>
+          <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+        </form>
+        <div class="flex items-center my-6">
+          <hr class="flex-grow border-gray-200" />
+          <span class="mx-4 text-gray-400 text-sm">or sign in with</span>
+          <hr class="flex-grow border-gray-200" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <button type="button" (click)="continueWithFacebook()" class="flex items-center justify-center w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow focus:ring-4 focus:ring-blue-300">
+            <i class="fab fa-facebook mr-2"></i> Continue with Facebook
+          </button>
+          <button type="button" (click)="continueWithGoogle()" class="flex items-center justify-center w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-lg shadow focus:ring-4 focus:ring-red-300">
+            <i class="fab fa-google mr-2"></i> Continue with Google
+          </button>
+          <button type="button" (click)="continueWithApple()" class="flex items-center justify-center w-full px-4 py-2 text-white bg-black hover:bg-gray-900 rounded-lg shadow focus:ring-4 focus:ring-gray-400">
+            <i class="fab fa-apple mr-2"></i> Continue with Apple
+          </button>
+        </div>
+        <div class="mt-6 text-center">
+          <a href="#" class="text-primary-600 hover:underline">Create an account</a>
+        </div>
+      </div>
+    </div>
