@@ -29,4 +29,12 @@ export class OnboardingComponent {
   skip() {
     // Handle skip logic, e.g., navigate to main app
   }
+
+  removeFavorite(category: string) {
+    this.favorites = this.favorites.filter(f => f !== category);
+  }
+
+  removeExclusion(category: string) {
+    this.exclusions = this.exclusions.filter(e => e !== category);
+  }
 }
