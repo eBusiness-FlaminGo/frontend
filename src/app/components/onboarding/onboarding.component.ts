@@ -44,13 +44,21 @@ export class OnboardingComponent {
   }
 
   addToFavorites() {
-    if (this.selectedCategory && !this.favorites.includes(this.selectedCategory)) {
+    if (
+      this.selectedCategory &&
+      !this.favorites.includes(this.selectedCategory) &&
+      !this.exclusions.includes(this.selectedCategory)
+    ) {
       this.favorites.push(this.selectedCategory);
     }
   }
 
   addToExclusions() {
-    if (this.selectedCategory && !this.exclusions.includes(this.selectedCategory)) {
+    if (
+      this.selectedCategory &&
+      !this.exclusions.includes(this.selectedCategory) &&
+      !this.favorites.includes(this.selectedCategory)
+    ) {
       this.exclusions.push(this.selectedCategory);
     }
   }
