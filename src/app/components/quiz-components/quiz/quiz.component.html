@@ -1,1 +1,31 @@
-<p>quiz works!</p>
+<div class="p-4 max-w-md mx-auto text-center space-y-6">
+  <div class="text-lg font-semibold">{{ questions[currentQuestionIndex].question }}</div>
+
+  <div class="h-3 w-full bg-gray-300 rounded-full overflow-hidden">
+    <div class="h-full bg-cyan-600 transition-all duration-1000"
+         [style.width.%]="(timeLeft / 10) * 100"></div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mt-4">
+    <button *ngFor="let answer of questions[currentQuestionIndex].answers; let i = index"
+            (click)="selectAnswer(i)"
+            class="p-4 rounded-lg text-lg font-medium border transition
+                   duration-200"
+            [ngClass]="{
+              'bg-green-200 text-green-800': selectedAnswerIndex === i && i === questions[currentQuestionIndex].correctAnswerIndex,
+              'bg-red-200 text-red-800': selectedAnswerIndex === i && i !== questions[currentQuestionIndex].correctAnswerIndex,
+              'bg-white text-cyan-800 border-gray-200': selectedAnswerIndex === null,
+              'bg-gray-100 text-gray-400 cursor-not-allowed': selectedAnswerIndex !== null && selectedAnswerIndex !== i
+            }"
+            [disabled]="selectedAnswerIndex !== null">
+      {{ answer }}
+    </button>
+  </div>
+
+  <button *ngIf="selectedAnswerIndex !== null && currentQuestionIndex <= questions.length"
+          class="mt-6 w-full py-2 bg-cyan-600 text-white rounded-md"
+          (click)="nextQuestion()">
+    <span *ngIf="currentQuestionIndex < questions.length - 1">Next →</span>
+    <span *ngIf="currentQuestionIndex === questions.length - 1">Finish Quiz</span>
+  </button>
+</div>

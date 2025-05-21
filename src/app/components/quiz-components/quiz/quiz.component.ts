@@ -1,11 +1,99 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
+
+interface QuizQuestion {
+  question: string;
+  answers: string[];
+  correctAnswerIndex: number;
+}
 
 @Component({
   selector: 'app-quiz',
-  imports: [],
   templateUrl: './quiz.component.html',
-  styleUrl: './quiz.component.css'
+  styleUrls: ['./quiz.component.css'],
+  imports: [
+    NgClass,
+    NgForOf,
+    NgIf
+  ]
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit {
+  questions: QuizQuestion[] = [
+    {
+      question: 'What is the correct answer to this question?',
+      answers: ['Answer', 'Badge', 'Badge', 'Badge'],
+      correctAnswerIndex: 0
+    },
+    {
+      question: 'Another sample question?',
+      answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
+      correctAnswerIndex: 1
+    },
+    {
+      question: 'Yet another sample question?',
+      answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
+      correctAnswerIndex: 1
+    }
+  ];
 
+  currentQuestionIndex = 0;
+  selectedAnswerIndex: number | null = null;
+  correctAnswers = 0;
+  wrongAnswers = 0;
+  timeLeft = 10;
+  intervalId: any;
+
+  constructor(private router: Router) {
+  }
+
+  ngOnInit() {
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.endGame();
+      }
+    }, 1000);
+  }
+
+  selectAnswer(index: number) {
+    if (this.selectedAnswerIndex !== null) return;
+
+    this.selectedAnswerIndex = index;
+
+    if (index === this.questions[this.currentQuestionIndex].correctAnswerIndex) {
+      this.correctAnswers++;
+    } else {
+      this.wrongAnswers++;
+    }
+
+    clearInterval(this.intervalId);
+  }
+
+  nextQuestion() {
+    this.selectedAnswerIndex = null;
+    this.timeLeft = 10;
+    this.currentQuestionIndex++;
+
+    console.log(this.currentQuestionIndex);
+    console.log(this.questions.length);
+    if (this.currentQuestionIndex >= this.questions.length) {
+      this.endGame();
+      return;
+    }
+
+    this.startTimer();
+  }
+
+  endGame() {
+    clearInterval(this.intervalId);
+    console.log('Game Over');
+    // Navigate to results page or placeholder
+    this.router.navigate(['/results-placeholder']);
+  }
 }
