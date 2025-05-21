@@ -11,6 +11,7 @@ import {
 import {QuizComponent} from './components/quiz-components/quiz/quiz.component';
 import {QuizResultComponent} from './components/quiz-components/quiz-result/quiz-result.component';
 import {ShopComponent} from './components/shop/shop.component';
+import {LootBoxDetailPageComponent} from './components/loot-box-detail-page/loot-box-detail-page.component';
 
 
 export const ROUTES = {
@@ -23,6 +24,7 @@ export const ROUTES = {
   quizResults: "quiz-results",
   stats: "stats",
   shop: "shop",
+  lootBoxDetailPage: "loot-box-detail-page",
   pageNotFound: "page-not-found",
 }
 
@@ -40,6 +42,7 @@ export const routes: Routes = [
   {path: `${ROUTES.quizSelection}/${ROUTES.quizResults}`, component: QuizResultComponent},
   {path: ROUTES.stats, component: StatsComponent},
   {path: ROUTES.shop, component: ShopComponent},
+  {path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`, component: LootBoxDetailPageComponent},
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
