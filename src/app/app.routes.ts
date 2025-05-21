@@ -5,6 +5,7 @@ import {LoginComponent} from './components/login/login.component';
 import {OnboardingComponent} from './components/onboarding/onboarding.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {QuizSelectionPageComponent} from './components/quiz-selection-page/quiz-selection-page.component';
+import {StatsComponent} from './components/stats/stats.component';
 
 export const ROUTES = {
   facts: "facts",
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: ROUTES.login, component: LoginComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
   {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
+  {path: ROUTES.stats, component: StatsComponent},
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
