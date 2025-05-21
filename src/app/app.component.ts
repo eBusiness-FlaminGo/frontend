@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './components/shared/navigation/navigation.component';
+import {HeaderComponent} from './components/shared/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationComponent],
+  imports: [RouterOutlet, NavigationComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
