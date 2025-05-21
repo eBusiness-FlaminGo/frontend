@@ -31,7 +31,7 @@ export const routes: Routes = [
   {path: ROUTES.login, component: LoginComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
   {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
-  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}`, component: QuizComponent},
+  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent},
   {path: ROUTES.stats, component: StatsComponent},
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent},
   {path: '**', component: PageNotFoundComponent},

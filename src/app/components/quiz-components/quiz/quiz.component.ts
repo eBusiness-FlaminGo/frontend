@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 interface QuizQuestion {
   question: string;
@@ -20,6 +21,7 @@ interface QuizQuestion {
   ]
 })
 export class QuizComponent implements OnInit {
+  @Input() topic: string | null = null;
   questions: QuizQuestion[] = [
     {
       question: 'What is the correct answer to this question?',
@@ -48,10 +50,12 @@ export class QuizComponent implements OnInit {
   timeLeft = 10;
   intervalId: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.topic = this.route.snapshot.paramMap.get('topic');
+    console.log('Quiz topic:', this.topic);
     this.startTimer();
   }
 
