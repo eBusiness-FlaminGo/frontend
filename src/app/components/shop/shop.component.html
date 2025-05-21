@@ -1,0 +1,39 @@
+<div class="p-4 max-w-md mx-auto space-y-6">
+  <h2 class="text-center text-xl font-bold">Shop</h2>
+
+  <h3 class="text-lg font-semibold">Lootboxen</h3>
+  <div class="grid grid-cols-3 gap-4">
+    <div *ngFor="let box of lootboxes" class="bg-cyan-100 p-2 rounded-lg text-center space-y-2">
+      <img [src]="box.image" alt="lootbox" class="mx-auto h-16"/>
+      <div class="font-semibold">{{ box.label }}</div>
+      <div class="bg-cyan-600 text-white rounded-md px-2 py-1 text-sm">
+        {{ box.cost }} 🎟️
+      </div>
+      <div class="text-xs text-gray-500">umgerechnet {{ box.priceEUR }}</div>
+      <button class="text-sm text-cyan-700 underline" (click)="purchase(box)">Kaufen</button>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mt-4">Tickets</h3>
+  <div class="grid grid-cols-3 gap-4">
+    <div *ngFor="let ticket of tickets" class="bg-cyan-100 p-2 rounded-lg text-center space-y-2 relative">
+      <img src="./tickets.png" alt="lootbox" class="mx-auto h-16"/>
+      <div *ngIf="ticket.bonus" class="absolute top-1 left-1 bg-yellow-200 text-yellow-800 text-xs px-1 rounded">
+        +{{ ticket.bonus }} Bonus!
+      </div>
+      <div class="text-xl font-bold">{{ ticket.quantity + (ticket.bonus ?? 0) }}</div>
+      <div class="text-sm">{{ ticket.label }}</div>
+      <div class="bg-white rounded px-2 py-1 text-sm shadow">{{ ticket.priceEUR }}</div>
+      <button class="text-sm text-cyan-700 underline" (click)="purchase(ticket)">Kaufen</button>
+    </div>
+  </div>
+
+  <div class="text-center mt-4 text-sm">
+    Need more Tickets? Try these daily challenges!
+  </div>
+  <div class="flex justify-center">
+    <button class="bg-cyan-600 text-white px-4 py-2 rounded-full mt-2 text-sm flex items-center gap-1">
+      Daily Challenges →
+    </button>
+  </div>
+</div>
