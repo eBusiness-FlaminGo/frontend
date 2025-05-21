@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
+import {ROUTES} from '../../../app.routes';
 
 interface QuizQuestion {
   question: string;
@@ -102,6 +103,6 @@ export class QuizComponent implements OnInit {
     clearInterval(this.intervalId);
     console.log('Game Over');
     // Navigate to results page or placeholder
-    this.router.navigate(['/results-placeholder']);
+    this.router.navigate([ROUTES.quizSelection, ROUTES.quizResults]);
   }
 }
