@@ -6,6 +6,7 @@ interface QuizQuestion {
   question: string;
   answers: string[];
   correctAnswerIndex: number;
+  adText?: string;
 }
 
 @Component({
@@ -23,17 +24,20 @@ export class QuizComponent implements OnInit {
     {
       question: 'What is the correct answer to this question?',
       answers: ['Answer', 'Badge', 'Badge', 'Badge'],
-      correctAnswerIndex: 0
+      correctAnswerIndex: 0,
+      adText: 'Learn more about correct answers at QuizMaster Pro!'
     },
     {
       question: 'Another sample question?',
       answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
-      correctAnswerIndex: 1
+      correctAnswerIndex: 1,
+      adText: 'Boost your knowledge with our premium content.'
     },
     {
       question: 'Yet another sample question?',
       answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
-      correctAnswerIndex: 1
+      correctAnswerIndex: 1,
+      adText: 'Struggling with trivia? Try the SmartQuiz app now!'
     }
   ];
 
