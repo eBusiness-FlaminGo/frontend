@@ -1,4 +1,8 @@
 <header class="w-full flex justify-end bg-white py-2 shadow-md pr-4">
+  <a (click)="goBack()"
+     class="ml-2 mr-4 flex items-center justify-start w-10 h-10 text-black font-semibold hover:bg-gray-200">
+    <img src="./Back.svg" alt="Back" class="w-6 h-6"/>
+  </a>
   <div class="flex items-center gap-2 bg-red-200 text-orange-600 rounded-full px-4 py-1 font-semibold">
     <span>🔥</span>
     <span>123</span>
@@ -7,10 +11,11 @@
     <span>🎟</span>
     <span>420</span>
   </div>
-  <a [routerLink]="ROUTES.stats" class="ml-2 flex items-center justify-center w-10 h-10 rounded-full bg-yellow-50 text-black font-semibold">
+  <a [routerLink]="ROUTES.stats"
+     class="ml-2 flex items-center justify-center w-10 h-10 rounded-full bg-yellow-50 text-black font-semibold">
     <span class="text-xs">½</span>
     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-      <path d="M3 5h14a1 1 0 100-2H3a1 1 0 100 2zm0 6h14a1 1 0 100-2H3a1 1 0 100 2zm0 6h14a1 1 0 100-2H3a1 1 0 100 2z" />
+      <path d="M3 5h14a1 1 0 100-2H3a1 1 0 100 2zm0 6h14a1 1 0 100-2H3a1 1 0 100 2zm0 6h14a1 1 0 100-2H3a1 1 0 100 2z"/>
     </svg>
   </a>
 </header>
