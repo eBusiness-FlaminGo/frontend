@@ -6,15 +6,24 @@ import {OnboardingComponent} from './components/onboarding/onboarding.component'
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {QuizSelectionPageComponent} from './components/quiz-selection-page/quiz-selection-page.component';
 
+export const ROUTES = {
+  facts: "facts",
+  login: "login",
+  onboarding: "onboarding",
+  quizSelection: "quiz-selection",
+  pageNotFound: "page-not-found",
+}
+
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: isLoggedIn() && isSetUp() ? '/facts' : '/login',
+    redirectTo: isLoggedIn() && isSetUp() ? `/${ROUTES.facts}` : `/${ROUTES.login}`,
     pathMatch: 'full',
   },
-  {path: 'facts', component: FactsComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'onboarding', component: OnboardingComponent},
-  {path: 'quiz-selection', component: QuizSelectionPageComponent},
+  {path: ROUTES.facts, component: FactsComponent},
+  {path: ROUTES.login, component: LoginComponent},
+  {path: ROUTES.onboarding, component: OnboardingComponent},
+  {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
+  {path: ROUTES.pageNotFound, component: PageNotFoundComponent},
   {path: '**', component: PageNotFoundComponent},
 ];

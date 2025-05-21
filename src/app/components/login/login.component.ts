@@ -1,6 +1,8 @@
 import {Router} from '@angular/router';
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ROUTES} from '../../app.routes';
+import {login} from '../../utils/login';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/onboarding']);
+    login({username: this.loginForm.value.username, isSetUp: false});
+    this.router.navigate([`/${ROUTES.onboarding}`]);
     // if (this.loginForm.valid) {
     //   const {username, password, rememberMe} = this.loginForm.value;
     //   console.log('Login attempt:', {username, password, rememberMe});

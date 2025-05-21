@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { WandComponent } from '../icons/wand/wand.component';
 import { BrainComponent } from '../icons/brain/brain.component';
 import { StoreComponent } from '../icons/store/store.component';
+import {ROUTES} from '../../../app.routes';
 
 @Component({
   selector: 'app-navigation',
@@ -16,4 +17,6 @@ import { StoreComponent } from '../icons/store/store.component';
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css',
 })
-export class NavigationComponent {}
+export class NavigationComponent {
+  protected readonly ROUTES = ROUTES;
+}

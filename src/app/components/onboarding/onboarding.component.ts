@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {trigger, transition, style, animate} from '@angular/animations';
+import {Router} from '@angular/router';
+import {ROUTES} from '../../app.routes';
+import {toggleUserSetupState} from '../../utils/login';
 
 @Component({
   selector: 'app-onboarding',
@@ -38,8 +41,15 @@ export class OnboardingComponent {
 
   suggestedCategories = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Household', 'Design', 'Basketball', 'Horses'];
 
+  constructor(private router: Router) {
+  }
+
   next() {
     if (this.step < 3) this.step++;
+    if (this.step === 3) {
+      toggleUserSetupState(true)
+      this.router.navigate([ROUTES.quizSelection])
+    }
   }
 
   previous() {

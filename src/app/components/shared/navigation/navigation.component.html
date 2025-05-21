@@ -3,7 +3,7 @@
 >
   <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
     <button
-      routerLink="/facts"
+      [routerLink]="ROUTES.facts"
       type="button"
       class="inline-flex flex-col items-center justify-center px-5 group"
     >
@@ -15,7 +15,7 @@
       >
     </button>
     <button
-      routerLink="/quiz-selection"
+      [routerLink]="ROUTES.quizSelection"
       type="button"
       class="inline-flex flex-col items-center justify-center px-5 group"
     >
