@@ -11,6 +11,7 @@ export const ROUTES = {
   login: "login",
   onboarding: "onboarding",
   quizSelection: "quiz-selection",
+  stats: "stats",
   pageNotFound: "page-not-found",
 }
 
