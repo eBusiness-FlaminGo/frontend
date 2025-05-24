@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NgIf} from '@angular/common';
+import {QuizService} from '../../../services/quiz.service';
 
 @Component({
   selector: 'app-quiz-dropdown',

@@ -1,38 +1,41 @@
-class Timer {
+export class Timer {
   private intervalId: any;
   private remainingTime: number;
-  private duration: number;
+  private readonly duration: number;
+  private callback: () => void;
 
-  constructor(duration: number) {
+  get timeLeft(): number {
+    return this.remainingTime;
+  }
+
+  constructor(duration: number, callback: () => void = () => {
+  }) {
     this.duration = duration; // Total duration in seconds
     this.remainingTime = duration;
+    this.callback = callback;
   }
 
   start() {
     this.intervalId = setInterval(() => {
       if (this.remainingTime > 0) {
         this.remainingTime--;
-        console.log(`Time left: ${this.remainingTime}s`);
       } else {
         this.stop();
-        console.log('Timer finished');
+        this.callback();
       }
     }, 1000);
   }
 
   pause() {
     clearInterval(this.intervalId);
-    console.log('Timer paused');
   }
 
   resume() {
     this.start();
-    console.log('Timer resumed');
   }
 
   stop() {
     clearInterval(this.intervalId);
     this.remainingTime = this.duration;
-    console.log('Timer stopped');
   }
 }

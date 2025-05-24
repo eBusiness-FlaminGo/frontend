@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ROUTES} from '../app.routes';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Timer} from '../classes/Timer';
 
 interface QuizQuestion {
   question: string;
@@ -38,10 +39,10 @@ export class QuizService {
   selectedAnswerIndex: number | null = null;
   correctAnswers = 0;
   wrongAnswers = 0;
-  timeLeft = 10;
-  intervalId: any;
+  timer: Timer;
 
   constructor(private router: Router, private route: ActivatedRoute) {
+    this.timer = new Timer(10);
   }
 
   startGame() {
@@ -49,18 +50,8 @@ export class QuizService {
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
-    this.timeLeft = 10
-    this.startTimer();
-  }
-
-  startTimer() {
-    this.intervalId = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        this.endGame();
-      }
-    }, 1000);
+    this.timer = new Timer(10, () => this.endGame());
+    this.timer.start();
   }
 
   selectAnswer(index: number) {
@@ -74,27 +65,24 @@ export class QuizService {
       this.wrongAnswers++;
     }
 
-    clearInterval(this.intervalId);
+    this.timer.stop();
   }
 
   nextQuestion() {
     this.selectedAnswerIndex = null;
-    this.timeLeft = 10;
     this.currentQuestionIndex++;
 
-    console.log(this.currentQuestionIndex);
-    console.log(this.questions.length);
     if (this.currentQuestionIndex >= this.questions.length) {
       this.endGame();
       return;
     }
 
-    this.startTimer();
+    this.timer = new Timer(10, () => this.endGame());
+    this.timer.start();
   }
 
   endGame() {
-    clearInterval(this.intervalId);
-    console.log('Game Over');
+    this.timer.stop();
     this.router.navigate([ROUTES.quizSelection, ROUTES.quizResults]);
   }
 }

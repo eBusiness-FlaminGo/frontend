@@ -10,7 +10,7 @@
 
   <div class="h-3 w-full bg-gray-300 rounded-full overflow-hidden">
     <div class="h-full bg-cyan-600 transition-all duration-1000"
-         [style.width.%]="(quizService.timeLeft / 10) * 100"></div>
+         [style.width.%]="(quizService.timer.timeLeft / 10) * 100"></div>
   </div>
 
   <div class="grid grid-cols-2 gap-4 mt-4">
