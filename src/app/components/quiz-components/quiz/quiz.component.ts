@@ -19,6 +19,7 @@ export class QuizComponent implements OnInit {
   @Input() topic: string | null = null;
 
   constructor(private route: ActivatedRoute, protected quizService: QuizService) {
+    this.quizService.isActive = true;
   }
 
   ngOnInit() {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { initFlowbite } from 'flowbite';
-import { RouterOutlet } from '@angular/router';
-import { NavigationComponent } from './components/shared/navigation/navigation.component';
+import {Component, OnInit} from '@angular/core';
+import {initFlowbite} from 'flowbite';
+import {RouterOutlet} from '@angular/router';
+import {NavigationComponent} from './components/shared/navigation/navigation.component';
 import {HeaderComponent} from './components/shared/header/header.component';
 import {NgIf} from '@angular/common';
 import {isLoggedIn, isSetUp} from './utils/login';
+import {QuizService} from './services/quiz.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,10 @@ import {isLoggedIn, isSetUp} from './utils/login';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+
+  constructor(protected quizService: QuizService) {
+  }
+
   ngOnInit(): void {
     initFlowbite();
   }

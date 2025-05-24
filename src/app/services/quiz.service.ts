@@ -40,12 +40,14 @@ export class QuizService {
   correctAnswers = 0;
   wrongAnswers = 0;
   timer: Timer;
+  isActive = false;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.timer = new Timer(10);
   }
 
   startGame() {
+    this.isActive = true;
     this.currentQuestionIndex = 0;
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
@@ -82,6 +84,7 @@ export class QuizService {
   }
 
   endGame() {
+    this.isActive = false;
     this.timer.stop();
     this.router.navigate([ROUTES.quizSelection, ROUTES.quizResults]);
   }
