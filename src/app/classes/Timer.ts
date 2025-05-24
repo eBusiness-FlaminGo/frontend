@@ -2,7 +2,8 @@ export class Timer {
   private intervalId: any;
   private remainingTime: number;
   private readonly duration: number;
-  private callback: () => void;
+  private readonly callback: () => void;
+  public isStopped: boolean;
 
   get timeLeft(): number {
     return this.remainingTime;
@@ -10,12 +11,15 @@ export class Timer {
 
   constructor(duration: number, callback: () => void = () => {
   }) {
-    this.duration = duration; // Total duration in seconds
+    this.duration = duration;
     this.remainingTime = duration;
     this.callback = callback;
+    this.isStopped = true;
   }
 
-  start() {
+  start(isResume: boolean = false) {
+    if (!this.isStopped && !isResume) return;
+    this.isStopped = false;
     this.intervalId = setInterval(() => {
       if (this.remainingTime > 0) {
         this.remainingTime--;
@@ -27,15 +31,18 @@ export class Timer {
   }
 
   pause() {
+    if (this.isStopped) return;
     clearInterval(this.intervalId);
   }
 
   resume() {
-    this.start();
+    if (this.isStopped) return;
+    this.start(true);
   }
 
   stop() {
     clearInterval(this.intervalId);
+    this.isStopped = true;
     this.remainingTime = this.duration;
   }
 }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
+import {resolve} from '@angular/compiler-cli';
 
 @Component({
   selector: 'app-quiz-dropdown',
@@ -18,10 +19,12 @@ export class QuizDropdownComponent {
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
-    if (this.dropdownVisible && this.quizService.timer.) {
-      this.quizService.timer.pause();
-    } else {
-      this.quizService.timer.resume();
+    if (!this.quizService.timer.isStopped) {
+      if (this.dropdownVisible) {
+        this.quizService.timer.pause();
+      } else {
+        this.quizService.timer.resume();
+      }
     }
   }
 
