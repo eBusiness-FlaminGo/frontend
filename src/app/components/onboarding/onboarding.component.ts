@@ -48,7 +48,7 @@ export class OnboardingComponent {
     if (this.step < 3) this.step++;
     if (this.step === 3) {
       toggleUserSetupState(true)
-      this.router.navigate([ROUTES.quizSelection])
+      this.router.navigate([ROUTES.facts])
     }
   }
 
