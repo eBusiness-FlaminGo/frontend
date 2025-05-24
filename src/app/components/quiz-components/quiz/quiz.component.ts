@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ROUTES} from '../../../app.routes';
+import {QuizDropdownComponent} from '../quiz-dropdown/quiz-dropdown.component';
 
 interface QuizQuestion {
   question: string;
@@ -18,7 +19,8 @@ interface QuizQuestion {
   imports: [
     NgClass,
     NgForOf,
-    NgIf
+    NgIf,
+    QuizDropdownComponent
   ]
 })
 export class QuizComponent implements OnInit {
