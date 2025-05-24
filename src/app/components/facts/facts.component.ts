@@ -9,7 +9,8 @@ import {
   state,
   style,
   animate,
-  transition
+  transition,
+  keyframes
 } from '@angular/animations';
 
 @Injectable()
@@ -52,6 +53,18 @@ type Ad = { imageUrl: string; link: string; category: string };
       transition('right => center', [
         style({opacity: 0, transform: 'translateX(100%)'}),
         animate('300ms ease-out', style({opacity: 1, transform: 'translateX(0)'}))
+      ])
+    ]),
+    trigger('thumbsAnimation', [
+      transition(':enter', [
+        animate(
+          '1s',
+          keyframes([
+            style({opacity: 0, transform: 'scale(0.5) translateY(0)', offset: 0}),
+            style({opacity: 1, transform: 'scale(1) translateY(-20px)', offset: 0.5}),
+            style({opacity: 0, transform: 'scale(1) translateY(-40px)', offset: 1})
+          ])
+        )
       ])
     ])
   ]
@@ -99,7 +112,14 @@ export class FactsComponent {
     this.likedFacts = storedLikes ? JSON.parse(storedLikes) : [];
   }
 
+  showThumbsUp = false;
+  showThumbsDown = false;
+
   like() {
+    this.showThumbsUp = true;
+    setTimeout(() => {
+      this.showThumbsUp = false;
+    }, 1000); // Reset after animation
     this.animationState = 'left';
     setTimeout(() => {
       const current = this.facts[this.currentIndex];
@@ -113,6 +133,10 @@ export class FactsComponent {
   }
 
   dislike() {
+    this.showThumbsDown = true;
+    setTimeout(() => {
+      this.showThumbsDown = false;
+    }, 1000); // Reset after animation
     this.animationState = 'right';
     setTimeout(() => {
       this.nextFact();
