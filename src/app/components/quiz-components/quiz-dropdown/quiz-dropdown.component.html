@@ -1,4 +1,6 @@
-<div class="fixed bottom-20 left-1/2 transform -translate-x-1/2">
+<div *ngIf="dropdownVisible" class="fixed inset-0 bg-black backdrop-blur-sm z-10 overlay"></div>
+
+<div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-20">
   <div class="relative group">
     <button (click)="toggleDropdown()"
             class="w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-lg hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 transition-all duration-300">

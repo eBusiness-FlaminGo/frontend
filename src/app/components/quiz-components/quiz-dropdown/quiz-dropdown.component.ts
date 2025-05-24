@@ -18,7 +18,7 @@ export class QuizDropdownComponent {
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
-    if (this.dropdownVisible) {
+    if (this.dropdownVisible && this.quizService.timer.) {
       this.quizService.timer.pause();
     } else {
       this.quizService.timer.resume();
