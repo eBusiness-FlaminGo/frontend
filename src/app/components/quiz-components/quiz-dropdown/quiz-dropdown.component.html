@@ -18,30 +18,40 @@
     </button>
 
     <div class="absolute w-64 h-32 -top-32 left-1/2 transform -translate-x-1/2">
-      <!-- Using opacity-0 as initial state and menu-button class for animations -->
       <button (click)="useFiftyFifty()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
-              [class.visible]="dropdownVisible">
+              [class.visible]="dropdownVisible"
+              [class.disabled]="jokers[0].count === 0">
         50/50
+        <span class="badge" *ngIf="jokers[0].count > 0">{{ jokers[0].count }}</span>
       </button>
+
       <button (click)="useBoost()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
-              [class.visible]="dropdownVisible">
+              [class.visible]="dropdownVisible"
+              [class.disabled]="jokers[1].count === 0">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
         </svg>
+        <span class="badge" *ngIf="jokers[1].count > 0">{{ jokers[1].count }}</span>
       </button>
+
       <button (click)="useTime()"
               class="menu-button absolute w-18 h-18 rounded-full bg-gray-600 text-white flex items-center justify-center shadow-2xl hover:bg-gray-700"
-              [class.visible]="dropdownVisible">
+              [class.visible]="dropdownVisible"
+              [class.disabled]="jokers[2].count === 0">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
         </svg>
+        <span class="badge" *ngIf="jokers[2].count > 0">{{ jokers[2].count }}</span>
       </button>
+
       <button (click)="addAction()"
               class="menu-button absolute w-18 h-18 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl hover:bg-green-600"
-              [class.visible]="dropdownVisible">
+              [class.visible]="dropdownVisible"
+              [class.disabled]="jokers[3].count === 0">
         +
+        <span class="badge" *ngIf="jokers[3].count > 0">{{ jokers[3].count }}</span>
       </button>
     </div>
   </div>

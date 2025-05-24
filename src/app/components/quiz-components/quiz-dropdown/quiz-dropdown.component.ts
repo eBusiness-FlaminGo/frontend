@@ -1,18 +1,28 @@
 import {Component} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {NgIf, NgClass} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
-import {resolve} from '@angular/compiler-cli';
+
+interface Joker {
+  type: string;
+  count: number;
+}
 
 @Component({
   selector: 'app-quiz-dropdown',
   templateUrl: './quiz-dropdown.component.html',
   imports: [
-    NgIf
+    NgIf,
   ],
   styleUrls: ['./quiz-dropdown.component.css']
 })
 export class QuizDropdownComponent {
   dropdownVisible = false;
+  jokers: Joker[] = [
+    {type: 'fiftyFifty', count: 2},
+    {type: 'boost', count: 1},
+    {type: 'time', count: 3},
+    {type: 'add', count: 1}
+  ];
 
   constructor(private quizService: QuizService) {
   }
@@ -28,20 +38,31 @@ export class QuizDropdownComponent {
     }
   }
 
-  // Placeholder methods for dropdown buttons
   useFiftyFifty() {
-    console.log("50/50 used");
+    if (this.jokers[0].count > 0) {
+      this.jokers[0].count--;
+      console.log("50/50 used, remaining:", this.jokers[0].count);
+    }
   }
 
   useBoost() {
-    console.log("Boost used");
+    if (this.jokers[1].count > 0) {
+      this.jokers[1].count--;
+      console.log("Boost used, remaining:", this.jokers[1].count);
+    }
   }
 
   useTime() {
-    console.log("Time booster used");
+    if (this.jokers[2].count > 0) {
+      this.jokers[2].count--;
+      console.log("Time booster used, remaining:", this.jokers[2].count);
+    }
   }
 
   addAction() {
-    console.log("Add action triggered");
+    if (this.jokers[3].count > 0) {
+      this.jokers[3].count--;
+      console.log("Add action triggered, remaining:", this.jokers[3].count);
+    }
   }
 }
