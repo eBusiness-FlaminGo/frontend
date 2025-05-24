@@ -56,10 +56,6 @@ export class OnboardingComponent {
     if (this.step > 1) this.step--;
   }
 
-  skip() {
-    // Handle skip logic, e.g., navigate to main app
-  }
-
   removeFavorite(category: string) {
     this.favorites = this.favorites.filter(f => f !== category);
   }

@@ -65,8 +65,7 @@
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 3"></div>
     </div>
 
-    <div class="flex justify-between items-center">
-      <button class="text-gray-500 text-sm" (click)="skip()">Skip</button>
+    <div class="flex justify-end items-center">
       <div class="space-x-2">
         <button *ngIf="step > 1" (click)="previous()" class="btn btn-outline btn-sm">Previous</button>
         <button (click)="next()" class="btn btn-sm btn-next">Next →</button>
