@@ -1,38 +1,39 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
   <app-quiz-dropdown></app-quiz-dropdown>
   <div class="bg-white p-6 rounded-lg shadow text-lg font-semibold">
-    {{ questions[currentQuestionIndex].question }}
+    {{ quizService.questions[quizService.currentQuestionIndex].question }}
   </div>
 
   <div class="bg-yellow-100 text-yellow-800 p-2 text-sm rounded shadow">
-    {{ questions[currentQuestionIndex].adText }}
+    {{ quizService.questions[quizService.currentQuestionIndex].adText }}
   </div>
 
   <div class="h-3 w-full bg-gray-300 rounded-full overflow-hidden">
     <div class="h-full bg-cyan-600 transition-all duration-1000"
-         [style.width.%]="(timeLeft / 10) * 100"></div>
+         [style.width.%]="(quizService.timeLeft / 10) * 100"></div>
   </div>
 
   <div class="grid grid-cols-2 gap-4 mt-4">
-    <button *ngFor="let answer of questions[currentQuestionIndex].answers; let i = index"
-            (click)="selectAnswer(i)"
+    <button *ngFor="let answer of quizService.questions[quizService.currentQuestionIndex].answers; let i = index"
+            (click)="quizService.selectAnswer(i)"
             class="p-4 rounded-lg text-lg font-medium border transition
                    duration-200"
             [ngClass]="{
-              'bg-green-200 text-green-800': selectedAnswerIndex === i && i === questions[currentQuestionIndex].correctAnswerIndex,
-              'bg-red-200 text-red-800': selectedAnswerIndex === i && i !== questions[currentQuestionIndex].correctAnswerIndex,
-              'bg-white text-cyan-800 border-gray-200': selectedAnswerIndex === null,
-              'bg-gray-100 text-gray-400 cursor-not-allowed': selectedAnswerIndex !== null && selectedAnswerIndex !== i
+              'bg-green-200 text-green-800': quizService.selectedAnswerIndex === i && i === quizService.questions[quizService.currentQuestionIndex].correctAnswerIndex,
+              'bg-red-200 text-red-800': quizService.selectedAnswerIndex === i && i !== quizService.questions[quizService.currentQuestionIndex].correctAnswerIndex,
+              'bg-white text-cyan-800 border-gray-200': quizService.selectedAnswerIndex === null,
+              'bg-gray-100 text-gray-400 cursor-not-allowed': quizService.selectedAnswerIndex !== null && quizService.selectedAnswerIndex !== i
             }"
-            [disabled]="selectedAnswerIndex !== null">
+            [disabled]="quizService.selectedAnswerIndex !== null">
       {{ answer }}
     </button>
   </div>
 
-  <button *ngIf="selectedAnswerIndex !== null && currentQuestionIndex <= questions.length"
-          class="mt-6 w-full py-2 bg-cyan-600 text-white rounded-md"
-          (click)="nextQuestion()">
-    <span *ngIf="currentQuestionIndex < questions.length - 1">Next →</span>
-    <span *ngIf="currentQuestionIndex === questions.length - 1">Finish Quiz</span>
+  <button
+    *ngIf="quizService.selectedAnswerIndex !== null && quizService.currentQuestionIndex <= quizService.questions.length"
+    class="mt-6 w-full py-2 bg-cyan-600 text-white rounded-md"
+    (click)="quizService.nextQuestion()">
+    <span *ngIf="quizService.currentQuestionIndex < quizService.questions.length - 1">Next →</span>
+    <span *ngIf="quizService.currentQuestionIndex === quizService.questions.length - 1">Finish Quiz</span>
   </button>
 </div>

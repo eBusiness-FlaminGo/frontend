@@ -12,8 +12,16 @@ import {NgIf} from '@angular/common';
 export class QuizDropdownComponent {
   dropdownVisible = false;
 
+  constructor(private quizService: QuizService) {
+  }
+
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
+    if (this.dropdownVisible) {
+      this.quizService.timer.pause();
+    } else {
+      this.quizService.timer.resume();
+    }
   }
 
   // Placeholder methods for dropdown buttons
