@@ -59,15 +59,17 @@ export class QuizService {
   selectAnswer(index: number) {
     if (this.selectedAnswerIndex !== null) return;
 
+    this.timer.pause()
     this.selectedAnswerIndex = index;
 
     if (index === this.questions[this.currentQuestionIndex].correctAnswerIndex) {
       this.correctAnswers++;
+      this.timer.addTime(2)
     } else {
       this.wrongAnswers++;
     }
 
-    this.timer.stop();
+    //this.timer.stop();
   }
 
   nextQuestion() {
@@ -79,8 +81,9 @@ export class QuizService {
       return;
     }
 
-    this.timer = new Timer(10, () => this.endGame());
-    this.timer.start();
+    //this.timer = new Timer(10, () => this.endGame());
+    //this.timer.start();
+    this.timer.resume()
   }
 
   endGame() {

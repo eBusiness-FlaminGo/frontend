@@ -32,6 +32,7 @@ export class Timer {
 
   pause() {
     if (this.isStopped) return;
+    console.log("Pausing timer");
     clearInterval(this.intervalId);
   }
 
@@ -44,5 +45,25 @@ export class Timer {
     clearInterval(this.intervalId);
     this.isStopped = true;
     this.remainingTime = this.duration;
+  }
+
+  addTime(seconds: number): void {
+    if (seconds <= 0) return;
+    this.remainingTime += seconds;
+  }
+
+  removeTime(seconds: number): void {
+    if (seconds <= 0) return;
+    this.remainingTime = Math.max(0, this.remainingTime - seconds);
+
+    if (this.remainingTime === 0 && !this.isStopped) {
+      this.stop();
+      this.callback();
+    }
+  }
+
+  setTime(seconds: number): void {
+    if (seconds < 0) return;
+    this.remainingTime = seconds;
   }
 }
