@@ -1,7 +1,6 @@
 import {
   Component,
   Injectable,
-  HostListener
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';

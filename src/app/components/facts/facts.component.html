@@ -26,9 +26,9 @@
 
       <div class="mt-6" *ngIf="getFilteredAd(facts[currentIndex].category) as ad">
         <h4 class="text-lg font-semibold mb-2">Sponsored Ad</h4>
-        <div class="rounded-lg shadow-md overflow-hidden">
-          <a [href]="ad.link" target="_blank" rel="noopener noreferrer">
-            <img [src]="ad.imageUrl" alt="Ad" class="w-full h-auto">
+        <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/6]">
+          <a [href]="ad.link" target="_blank" rel="noopener noreferrer" class="absolute inset-0">
+            <img [src]="ad.imageUrl" alt="Ad" class="w-full h-full object-cover">
           </a>
         </div>
       </div>
@@ -53,7 +53,7 @@
         (click)="like()"
         aria-label="Like"
       >
-        <svg class="text-primary-800 w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        <svg class="text-primary-500 w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
           <path
             d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"/>
@@ -66,24 +66,38 @@
         class="text-green-500 text-6xl animate-thumbs"
         [@thumbsAnimation]
       >
-        👍
+        <svg class="w-25 h-25 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+             height="24"
+             fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd"
+                d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z"
+                clip-rule="evenodd"/>
+        </svg>
+
       </div>
       <div
         *ngIf="showThumbsDown"
         class="text-red-500 text-6xl animate-thumbs"
         [@thumbsAnimation]
       >
-        👎
+        <svg class="w-25 h-25 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+             fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd"
+                d="M8.97 14.316H5.004c-.322 0-.64-.08-.925-.232a2.022 2.022 0 0 1-.717-.645 2.108 2.108 0 0 1-.242-1.883l2.36-7.201C5.769 3.54 5.96 3 7.365 3c2.072 0 4.276.678 6.156 1.256.473.145.925.284 1.35.404h.114v9.862a25.485 25.485 0 0 0-4.238 5.514c-.197.376-.516.67-.901.83a1.74 1.74 0 0 1-1.21.048 1.79 1.79 0 0 1-.96-.757 1.867 1.867 0 0 1-.269-1.211l1.562-4.63ZM19.822 14H17V6a2 2 0 1 1 4 0v6.823c0 .65-.527 1.177-1.177 1.177Z"
+                clip-rule="evenodd"/>
+        </svg>
+
       </div>
     </div>
   </ng-container>
 
   <ng-template #emptyMessage>
     <div class="text-center text-gray-500 mt-12">
+      <img src="./whoops.png" alt="Whoops!" class="mx-auto mb-4 w-32 h-32 object-contain"/>
       <p class="text-2xl font-semibold">Whoops!</p>
       <p class="mt-2">You’ve hit your fact limit for now.</p>
       <p>Looks like the fact machine needs a quick nap.</p>
-      <p class="mt-4">Come back soon or test your skills in the Quiz.</p>
+      <p class="mt-4">Come back soon or test your skills in the quiz.</p>
     </div>
   </ng-template>
 </div>
