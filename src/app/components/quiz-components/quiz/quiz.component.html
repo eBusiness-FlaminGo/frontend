@@ -1,11 +1,19 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
   <app-quiz-dropdown></app-quiz-dropdown>
-  <div class="bg-white p-6 rounded-lg shadow text-lg font-semibold">
-    {{ quizService.questions[quizService.currentQuestionIndex].question }}
+  <div class="mt-2">
+    <div class="text-sm text-gray-500 mb-1">Sponsored</div>
+    <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/5]">
+      <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="absolute inset-0">
+        <img
+          [src]="'./ads/' + (quizService.questions[quizService.currentQuestionIndex].category || 'ad_fallback') + '.png'"
+          alt="Advertisement"
+          class="w-full h-full object-cover">
+      </a>
+    </div>
   </div>
 
-  <div class="bg-yellow-100 text-yellow-800 p-2 text-sm rounded shadow">
-    {{ quizService.questions[quizService.currentQuestionIndex].adText }}
+  <div class="bg-white p-6 rounded-lg shadow text-lg font-semibold">
+    {{ quizService.questions[quizService.currentQuestionIndex].question }}
   </div>
 
   <div class="h-3 w-full bg-gray-300 rounded-full overflow-hidden">

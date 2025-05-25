@@ -8,6 +8,7 @@ interface QuizQuestion {
   answers: string[];
   correctAnswerIndex: number;
   adText?: string;
+  category: string;
 }
 
 @Injectable({
@@ -19,19 +20,19 @@ export class QuizService {
       question: 'What is the correct answer to this question?',
       answers: ['Answer', 'Badge', 'Badge', 'Badge'],
       correctAnswerIndex: 0,
-      adText: 'Learn more about correct answers at QuizMaster Pro!'
+      category: 'ad1'
     },
     {
       question: 'Another sample question?',
       answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
       correctAnswerIndex: 1,
-      adText: 'Boost your knowledge with our premium content.'
+      category: 'ad2'
     },
     {
       question: 'Yet another sample question?',
       answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
       correctAnswerIndex: 1,
-      adText: 'Struggling with trivia? Try the SmartQuiz app now!'
+      category: ''
     }
   ];
 
