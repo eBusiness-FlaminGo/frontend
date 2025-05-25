@@ -97,6 +97,8 @@ type Ad = { imageUrl: string; link: string; category: string };
   ]
 })
 export class FactsComponent {
+  lastExitDirection: 'left' | 'right' = 'left';
+
   fallbackAd: Ad = {imageUrl: './ads/ad_fallback.png', link: 'https://example.com/ad1', category: '*'};
   ads: Ad[] = [
     {imageUrl: './ads/ad1.png', link: 'https://example.com/ad1', category: 'Botany'},
@@ -130,6 +132,7 @@ export class FactsComponent {
       this.showThumbsUp = false;
     }, 1000);
 
+    this.lastExitDirection = 'right';
     this.animationState = 'right';
     setTimeout(() => {
       const current = this.factService.facts()[this.currentIndex];
@@ -138,8 +141,7 @@ export class FactsComponent {
         localStorage.setItem('likedFacts', JSON.stringify(this.likedFacts));
       }
       this.nextFact();
-      this.animationState = 'center';
-    }, 400);
+    }, 650);
   }
 
   dislike() {
@@ -148,11 +150,11 @@ export class FactsComponent {
       this.showThumbsDown = false;
     }, 1000);
 
+    this.lastExitDirection = 'left';
     this.animationState = 'left';
     setTimeout(() => {
       this.nextFact();
-      this.animationState = 'center';
-    }, 400);
+    }, 650);
   }
 
   nextFact() {
@@ -161,6 +163,12 @@ export class FactsComponent {
     } else {
       this.currentIndex = -1;
     }
+
+    this.animationState = this.lastExitDirection === 'left' ? 'right' : 'left';
+
+    setTimeout(() => {
+      this.animationState = 'center';
+    }, 50);
   }
 
   swipe(e: TouchEvent, when: string): void {
