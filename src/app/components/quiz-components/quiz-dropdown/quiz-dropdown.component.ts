@@ -19,21 +19,21 @@ export class QuizDropdownComponent {
   dropdownVisible = false;
   jokers: Joker[] = [
     {type: 'fiftyFifty', count: 2},
-    {type: 'boost', count: 1},
+    {type: 'askAFriend', count: 1},
     {type: 'time', count: 3},
-    {type: 'add', count: 1}
+    {type: 'skip', count: 3}
   ];
   fiftyFiftyIndex: number = 0;
   askAFriendIndex: number = 1;
   timeIndex: number = 2;
-  actionIndex: number = 3;
+  skipQuestionIndex: number = 3;
 
   constructor(private quizService: QuizService) {
   }
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
-    if (!this.quizService.timer.isStopped) {
+    if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
       if (this.dropdownVisible) {
         this.quizService.timer.pause();
       } else {
@@ -61,16 +61,21 @@ export class QuizDropdownComponent {
   addTime() {
     if (this.jokers[this.timeIndex].count > 0) {
       this.jokers[this.timeIndex].count--;
-      console.log("Time booster used, remaining:", this.jokers[this.timeIndex].count);
+      console.log("Ask a friend used, remaining:", this.jokers[this.timeIndex].count);
       this.quizService.timer.addTime(5);
       this.toggleDropdown();
     }
   }
 
-  addAction() {
-    if (this.jokers[this.actionIndex].count > 0) {
-      this.jokers[this.actionIndex].count--;
-      console.log("Add action triggered, remaining:", this.jokers[this.actionIndex].count);
+  skipQuestion() {
+    if (this.jokers[this.skipQuestionIndex].count > 0) {
+      this.toggleDropdown();
+      if (this.quizService.skipQuestion()) {
+        this.jokers[this.skipQuestionIndex].count--;
+        console.log("Question skipped, remaining skips:", this.jokers[this.skipQuestionIndex].count);
+      } else {
+        console.log("Cannot skip the last question");
+      }
     }
   }
 }

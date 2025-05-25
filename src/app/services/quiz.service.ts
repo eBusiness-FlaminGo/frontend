@@ -114,4 +114,13 @@ export class QuizService {
 
     return true;
   }
+
+  skipQuestion(): boolean {
+    if (this.currentQuestionIndex >= this.questions.length - 1) {
+      return false;
+    }
+    this.timer.pause()
+    this.nextQuestion()
+    return true;
+  }
 }
