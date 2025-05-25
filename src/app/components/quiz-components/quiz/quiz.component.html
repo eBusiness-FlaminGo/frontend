@@ -15,14 +15,15 @@
 
   <div class="grid grid-cols-2 gap-4 mt-4">
     <button *ngFor="let answer of quizService.questions[quizService.currentQuestionIndex].answers; let i = index"
-            (click)="quizService.selectAnswer(i)"
+            (click)="answer.length > 0 ? quizService.selectAnswer(i) : null"
             class="p-4 rounded-lg text-lg font-medium border transition
                    duration-200"
             [ngClass]="{
               'bg-green-200 text-green-800': quizService.selectedAnswerIndex === i && i === quizService.questions[quizService.currentQuestionIndex].correctAnswerIndex,
               'bg-red-200 text-red-800': quizService.selectedAnswerIndex === i && i !== quizService.questions[quizService.currentQuestionIndex].correctAnswerIndex,
               'bg-white text-cyan-800 border-gray-200': quizService.selectedAnswerIndex === null,
-              'bg-gray-100 text-gray-400 cursor-not-allowed': quizService.selectedAnswerIndex !== null && quizService.selectedAnswerIndex !== i
+              'bg-gray-100 text-gray-400 cursor-not-allowed': quizService.selectedAnswerIndex !== null && quizService.selectedAnswerIndex !== i,
+              'cursor-not-allowed': answer.length <= 0
             }"
             [disabled]="quizService.selectedAnswerIndex !== null">
       {{ answer }}

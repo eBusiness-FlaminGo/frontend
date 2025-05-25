@@ -21,37 +21,50 @@
       <button (click)="useFiftyFifty()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[0].count === 0">
+              [class.disabled]="jokers[this.fiftyFiftyIndex].count === 0">
         50/50
-        <span class="badge" *ngIf="jokers[0].count > 0">{{ jokers[0].count }}</span>
+        <span class="badge"
+              *ngIf="jokers[this.fiftyFiftyIndex].count > 0">{{ jokers[this.fiftyFiftyIndex].count }}</span>
       </button>
 
-      <button (click)="useBoost()"
+      <button (click)="askAFriend()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[1].count === 0">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+              [class.disabled]="jokers[this.askAFriendIndex].count === 0">
+        <svg class="w-9 h-9 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M17.5 3a3.5 3.5 0 0 0-3.456 4.06L8.143 9.704a3.5 3.5 0 1 0-.01 4.6l5.91 2.65a3.5 3.5 0 1 0 .863-1.805l-5.94-2.662a3.53 3.53 0 0 0 .002-.961l5.948-2.667A3.5 3.5 0 1 0 17.5 3Z"/>
         </svg>
-        <span class="badge" *ngIf="jokers[1].count > 0">{{ jokers[1].count }}</span>
+
+        <span class="badge"
+              *ngIf="jokers[this.askAFriendIndex].count > 0">{{ jokers[this.askAFriendIndex].count }}</span>
       </button>
 
-      <button (click)="useTime()"
+      <button (click)="addTime()"
               class="menu-button absolute w-18 h-18 rounded-full bg-gray-600 text-white flex items-center justify-center shadow-2xl hover:bg-gray-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[2].count === 0">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
+              [class.disabled]="jokers[this.timeIndex].count === 0">
+        <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd"
+                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                clip-rule="evenodd"/>
         </svg>
-        <span class="badge" *ngIf="jokers[2].count > 0">{{ jokers[2].count }}</span>
+        <span class="badge" *ngIf="jokers[this.timeIndex].count > 0">{{ jokers[this.timeIndex].count }}</span>
       </button>
 
       <button (click)="addAction()"
               class="menu-button absolute w-18 h-18 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl hover:bg-green-600"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[3].count === 0">
-        +
-        <span class="badge" *ngIf="jokers[3].count > 0">{{ jokers[3].count }}</span>
+              [class.disabled]="jokers[this.actionIndex].count === 0">
+        <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h14m-7 7V5"/>
+        </svg>
+
+        <!--        <span class="badge" *ngIf="jokers[this.actionIndex].count > 0">{{ jokers[this.actionIndex].count }}</span>-->
       </button>
     </div>
   </div>

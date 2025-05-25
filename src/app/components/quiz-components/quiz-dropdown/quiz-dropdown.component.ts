@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgIf, NgClass} from '@angular/common';
+import {NgIf} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
 
 interface Joker {
@@ -23,6 +23,10 @@ export class QuizDropdownComponent {
     {type: 'time', count: 3},
     {type: 'add', count: 1}
   ];
+  fiftyFiftyIndex: number = 0;
+  askAFriendIndex: number = 1;
+  timeIndex: number = 2;
+  actionIndex: number = 3;
 
   constructor(private quizService: QuizService) {
   }
@@ -39,30 +43,34 @@ export class QuizDropdownComponent {
   }
 
   useFiftyFifty() {
-    if (this.jokers[0].count > 0) {
-      this.jokers[0].count--;
-      console.log("50/50 used, remaining:", this.jokers[0].count);
+    if (this.jokers[this.fiftyFiftyIndex].count > 0) {
+      if (this.quizService.useFiftyFifty()) {
+        this.jokers[this.fiftyFiftyIndex].count--;
+        this.toggleDropdown();
+      }
     }
   }
 
-  useBoost() {
-    if (this.jokers[1].count > 0) {
-      this.jokers[1].count--;
-      console.log("Boost used, remaining:", this.jokers[1].count);
+  askAFriend() {
+    if (this.jokers[this.askAFriendIndex].count > 0) {
+      this.jokers[this.askAFriendIndex].count--;
+      console.log("Asked a friend:", this.jokers[this.askAFriendIndex].count);
     }
   }
 
-  useTime() {
-    if (this.jokers[2].count > 0) {
-      this.jokers[2].count--;
-      console.log("Time booster used, remaining:", this.jokers[2].count);
+  addTime() {
+    if (this.jokers[this.timeIndex].count > 0) {
+      this.jokers[this.timeIndex].count--;
+      console.log("Time booster used, remaining:", this.jokers[this.timeIndex].count);
+      this.quizService.timer.addTime(5);
+      this.toggleDropdown();
     }
   }
 
   addAction() {
-    if (this.jokers[3].count > 0) {
-      this.jokers[3].count--;
-      console.log("Add action triggered, remaining:", this.jokers[3].count);
+    if (this.jokers[this.actionIndex].count > 0) {
+      this.jokers[this.actionIndex].count--;
+      console.log("Add action triggered, remaining:", this.jokers[this.actionIndex].count);
     }
   }
 }
