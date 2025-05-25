@@ -1,8 +1,8 @@
 <div class="container mx-auto py-10 px-4 max-w-xl">
   <ng-container *ngIf="currentIndex >= 0 && facts[currentIndex]; else emptyMessage">
     <div
-      class="rounded-4xl p-6 shadow-md cursor-default"
-      [@cardAnimation]="animationState"
+      class="rounded-4xl p-6 shadow-md cursor-default card"
+      [@cardAnimation]="{ value: animationState, params: animationParams }"
       [ngClass]="facts[currentIndex].bg"
       (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')"
     >

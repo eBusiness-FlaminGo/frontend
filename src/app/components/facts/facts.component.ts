@@ -1,6 +1,7 @@
 import {
   Component,
-  Injectable
+  Injectable,
+  HostListener
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -33,26 +34,52 @@ type Ad = { imageUrl: string; link: string; category: string };
   ],
   animations: [
     trigger('cardAnimation', [
-      state('center', style({opacity: 1, transform: 'translateX(0)'})),
-      state('left', style({opacity: 0, transform: 'translateX(-100%)'})),
-      state('right', style({opacity: 0, transform: 'translateX(100%)'})),
+      state('center', style({
+        opacity: 1,
+        transform: 'translateX(0) rotate(0deg)',
+        zIndex: 5
+      })),
+      state('left', style({
+        opacity: 0,
+        transform: 'translateX(-150%) rotate(-10deg)',
+        zIndex: 1
+      })),
+      state('right', style({
+        opacity: 0,
+        transform: 'translateX(150%) rotate(10deg)',
+        zIndex: 1
+      })),
+      state('dragging', style({
+        transform: '{{transform}}',
+        opacity: '{{opacity}}',
+        zIndex: 10
+      }), {params: {transform: 'translateX(0) rotate(0deg)', opacity: 1}}),
       transition('center => left', [
-        animate('300ms ease-in')
+        animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
       ]),
       transition('center => right', [
-        animate('300ms ease-in')
+        animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+      ]),
+      transition('dragging => center', [
+        animate('550ms cubic-bezier(0.215, 0.61, 0.355, 1)')
+      ]),
+      transition('dragging => left', [
+        animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+      ]),
+      transition('dragging => right', [
+        animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
       ]),
       transition('void => center', [
-        style({opacity: 0, transform: 'translateX(0)'}),
-        animate('300ms ease-out')
+        style({opacity: 0, transform: 'translateX(0) scale(0.9)'}),
+        animate('550ms ease-out')
       ]),
       transition('left => center', [
-        style({opacity: 0, transform: 'translateX(-100%)'}),
-        animate('300ms ease-out', style({opacity: 1, transform: 'translateX(0)'}))
+        style({opacity: 0, transform: 'translateX(-100%) rotate(-10deg)'}),
+        animate('550ms ease-out')
       ]),
       transition('right => center', [
-        style({opacity: 0, transform: 'translateX(100%)'}),
-        animate('300ms ease-out', style({opacity: 1, transform: 'translateX(0)'}))
+        style({opacity: 0, transform: 'translateX(100%) rotate(10deg)'}),
+        animate('550ms ease-out')
       ])
     ]),
     trigger('thumbsAnimation', [
@@ -91,7 +118,7 @@ export class FactsComponent {
     }
   ];
 
-  fallbackAd: Ad = {imageUrl: './ads/ad_fallback.png', link: 'https://example.com/ad1', category: '*'}
+  fallbackAd: Ad = {imageUrl: './ads/ad_fallback.png', link: 'https://example.com/ad1', category: '*'};
   ads: Ad[] = [
     {imageUrl: './ads/ad1.png', link: 'https://example.com/ad1', category: 'Botany'},
     {imageUrl: './ads/ad2.png', link: 'https://example.com/ad3', category: 'Biotechnology'}
@@ -104,8 +131,11 @@ export class FactsComponent {
 
   currentIndex = 0;
   likedFacts: { title: string; content: string }[] = [];
+  private swipeCoord?: [number, number];
+  private swipeTime?: number;
 
-  animationState: 'center' | 'left' | 'right' = 'center';
+  animationState: 'center' | 'left' | 'right' | 'dragging' = 'center';
+  animationParams = {transform: 'translateX(0) rotate(0deg)', opacity: 1};
 
   constructor() {
     const storedLikes = localStorage.getItem('likedFacts');
@@ -119,8 +149,9 @@ export class FactsComponent {
     this.showThumbsUp = true;
     setTimeout(() => {
       this.showThumbsUp = false;
-    }, 1000); // Reset after animation
-    this.animationState = 'left';
+    }, 1000);
+
+    this.animationState = 'right';
     setTimeout(() => {
       const current = this.facts[this.currentIndex];
       if (current) {
@@ -129,19 +160,20 @@ export class FactsComponent {
       }
       this.nextFact();
       this.animationState = 'center';
-    }, 300);
+    }, 400);
   }
 
   dislike() {
     this.showThumbsDown = true;
     setTimeout(() => {
       this.showThumbsDown = false;
-    }, 1000); // Reset after animation
-    this.animationState = 'right';
+    }, 1000);
+
+    this.animationState = 'left';
     setTimeout(() => {
       this.nextFact();
       this.animationState = 'center';
-    }, 300);
+    }, 400);
   }
 
   nextFact() {
@@ -151,9 +183,6 @@ export class FactsComponent {
       this.currentIndex = -1;
     }
   }
-
-  private swipeCoord?: [number, number];
-  private swipeTime?: number;
 
   swipe(e: TouchEvent, when: string): void {
     const coord: [number, number] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
@@ -168,7 +197,7 @@ export class FactsComponent {
 
       if (duration < 1000 && Math.abs(direction[0]) > 30 && Math.abs(direction[0]) > Math.abs(direction[1]) * 3) {
         const swipe = direction[0] < 0 ? 'left' : 'right';
-        swipe === 'left' ? this.like() : this.dislike();
+        swipe === 'left' ? this.dislike() : this.like();
       }
     }
   }
