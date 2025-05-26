@@ -26,6 +26,7 @@ export const ROUTES = {
   shop: "shop",
   lootBoxDetailPage: "loot-box-detail-page",
   pageNotFound: "page-not-found",
+  settings: "settings"
 }
 
 export const routes: Routes = [
@@ -38,11 +39,12 @@ export const routes: Routes = [
   {path: ROUTES.login, component: LoginComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
   {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
-  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent},
+  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent, data: { hasBackButton: true }},
   {path: `${ROUTES.quizSelection}/${ROUTES.quizResults}`, component: QuizResultComponent},
-  {path: ROUTES.stats, component: StatsComponent},
+  {path: ROUTES.stats, component: StatsComponent, data: { hasBackButton: true }},
   {path: ROUTES.shop, component: ShopComponent},
-  {path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`, component: LootBoxDetailPageComponent},
-  {path: ROUTES.pageNotFound, component: PageNotFoundComponent},
-  {path: '**', component: PageNotFoundComponent},
+  {path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`, component: LootBoxDetailPageComponent, data: { hasBackButton: true }},
+  {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: { hasBackButton: true }},
+  {path: ROUTES.settings, component: PageNotFoundComponent, data: { hasBackButton: true }}, // TODO add settings component
+  {path: '**', component: PageNotFoundComponent, data: { hasBackButton: true }},
 ];
