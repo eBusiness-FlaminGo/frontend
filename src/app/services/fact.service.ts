@@ -29,6 +29,8 @@ export class FactService {
     }
   ]);
 
+  currentIndex = signal(0);
+
   constructor() {
   }
 }

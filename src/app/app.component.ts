@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {initFlowbite} from 'flowbite';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {NavigationComponent} from './components/shared/navigation/navigation.component';
 import {HeaderComponent} from './components/shared/header/header.component';
 import {NgIf} from '@angular/common';
 import {isLoggedIn, isSetUp} from './utils/login';
+import { isOnboarding } from './utils/onboarding';
 import {QuizService} from './services/quiz.service';
 
 @Component({
@@ -15,7 +16,7 @@ import {QuizService} from './services/quiz.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(protected quizService: QuizService) {
+  constructor(protected quizService: QuizService, public router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,4 +26,5 @@ export class AppComponent implements OnInit {
   title = 'Brainstorm';
   protected readonly isLoggedIn = isLoggedIn;
   protected readonly isSetUp = isSetUp;
+  protected readonly isOnboarding = () => isOnboarding(this.router);
 }
