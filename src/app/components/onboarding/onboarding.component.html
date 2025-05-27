@@ -1,20 +1,15 @@
 <div class="main-wrapper flex flex-col items-center text-center p-6 gap-4">
-
-  <!-- Schritt 1 -->
   <div class="w-full space-y-4" *ngIf="step === 1">
     <img src="logo.png" alt="Brainstorm Logo" class="mx-auto w-32 h-auto rounded-xl shadow-md"/>
     <h2 class="text-2xl font-bold">Let's Get Started</h2>
     <p class="text-gray-500">Nice to meet you! Let’s make sure you’ll get to see what you’re really interested in.</p>
   </div>
-
-  <!-- Schritt 2 -->
   <div class="w-full space-y-4" *ngIf="step === 2">
     <h2 class="text-xl font-bold">Sort your categories</h2>
     <p class="text-gray-500 text-sm">Drag the categories into your favourites or exclusions.</p>
-
-    <!-- Drop Target: Favourites -->
     <div
       cdkDropList
+      cdkDropListSortingDisabled="true"
       [cdkDropListData]="favorites"
       [cdkDropListConnectedTo]="['exclusionsList', 'suggestedList']"
       class="drop-zone bg-green-50 p-3 rounded-md"
@@ -33,10 +28,9 @@
         </div>
       </div>
     </div>
-
-    <!-- Drop Target: Exclusions -->
     <div
       cdkDropList
+      cdkDropListSortingDisabled="true"
       [cdkDropListData]="exclusions"
       [cdkDropListConnectedTo]="['favoritesList', 'suggestedList']"
       class="drop-zone bg-red-50 p-3 rounded-md"
@@ -55,10 +49,9 @@
         </div>
       </div>
     </div>
-
-    <!-- Suggested Categories (unten) -->
     <div
       cdkDropList
+      cdkDropListSortingDisabled="true"
       [cdkDropListData]="suggestedCategories"
       [cdkDropListConnectedTo]="['favoritesList', 'exclusionsList']"
       class="drop-zone bg-gray-100 p-3 rounded-md shadow-inner"
@@ -77,26 +70,20 @@
         </div>
       </div>
     </div>
-
     <p class="text-gray-500 text-sm mt-2">
       Choose at least three favourites to continue. You can always change this later in settings.
     </p>
   </div>
-
-  <!-- Schritt 3 -->
   <div class="w-full space-y-4" *ngIf="step === 3">
     <h2 class="text-2xl font-bold">Done!</h2>
     <p class="text-gray-500">Now you’re ready to start your adventure.</p>
   </div>
-
-  <!-- Fortschrittsanzeige + Buttons -->
   <div class="w-full">
     <div class="flex justify-center mb-4 space-x-2">
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 1"></div>
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 2"></div>
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 3"></div>
     </div>
-
     <div class="flex justify-end items-center">
       <div class="space-x-2">
         <button *ngIf="step > 1" (click)="previous()" class="btn btn-outline btn-sm">Previous</button>

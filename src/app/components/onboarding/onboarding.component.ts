@@ -45,7 +45,6 @@ export class OnboardingComponent {
   suggestedCategories: string[] = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Design', 'Basketball'];
 
   constructor(private router: Router) {
-    // Vorherige Daten aus dem localStorage laden
     const savedFavs = localStorage.getItem('onboarding-favorites');
     const savedExcls = localStorage.getItem('onboarding-exclusions');
 
@@ -64,7 +63,6 @@ export class OnboardingComponent {
     }
 
     if (this.step === 3) {
-      // Favoriten und Exclusions speichern
       localStorage.setItem('onboarding-favorites', JSON.stringify(this.favorites));
       localStorage.setItem('onboarding-exclusions', JSON.stringify(this.exclusions));
 
