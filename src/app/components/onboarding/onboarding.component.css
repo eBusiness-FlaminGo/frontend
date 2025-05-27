@@ -1,12 +1,24 @@
 .main-wrapper {
-  height: calc(100vh - 63px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* Badge Styles */
 .badge {
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   font-weight: 500;
   display: inline-block;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+  user-select: none;
+  white-space: nowrap;
 }
 
 .badge-success {
@@ -25,40 +37,19 @@
   border: 1px solid #d1d5db;
 }
 
-select.input {
-  background-color: white;
-  border: 1.5px solid #d1d5db;
-  border-radius: 0.75rem;
-  padding: 1rem 2.5rem 1rem 1.25rem;
-  font-size: 1.25rem;
-  color: #111827;
-  min-width: 260px;
-  min-height: 3.25rem;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1.5rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.2s, box-shadow 0.2s;
+/* Drop-Zonen */
+.drop-zone {
+  min-height: 4rem;
+  transition: background-color 0.2s ease;
+  border: 2px dashed transparent;
 }
 
-select.input:focus {
-  outline: none;
+.drop-zone.cdk-drop-list-dragging {
   border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background-color: #e0e7ff !important;
 }
 
-select.input option {
-  background: #fff;
-  color: #111827;
-  font-size: 1.15rem;
-  padding: 0.75rem 1rem;
-}
-
+/* Button Styling */
 .btn-next {
   background-color: #0694A2;
   color: #fff;
@@ -74,4 +65,21 @@ select.input option {
 .btn-next:hover,
 .btn-next:focus {
   background-color: #047481;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Drag Handle Cursor */
+[cdkDrag] {
+  cursor: grab;
 }
