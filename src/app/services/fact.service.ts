@@ -26,12 +26,6 @@ export class FactService {
   }
 
   loadFacts(category?: string) {
-    if (!this.canLoadMoreFacts()) {
-      const remainingTime = Math.ceil((this.lastLoadTime + 60000 - Date.now()) / 1000);
-      this.error.set(`Rate limit reached. Try again in ${remainingTime} seconds.`);
-      return;
-    }
-
     this.loading.set(true);
     this.error.set(null);
 
@@ -64,52 +58,8 @@ export class FactService {
     this.loading.set(false);
   }
 
-  canLoadMoreFacts(): boolean {
-    if (this.isPremium) {
-      return true;
-    }
-
-    const cooldownExpired = Date.now() > this.lastLoadTime + 60000; // 1 minute in ms
-
-    if (this.factsLoaded >= 10 && !cooldownExpired) {
-      return false;
-    }
-
-    // Reset counter if cooldown has expired
-    if (cooldownExpired && this.factsLoaded >= 10) {
-      this.factsLoaded = 0;
-    }
-
-    return true;
-  }
-
   isLoading() {
     return this.loading();
-  }
-
-  getError() {
-    return this.error();
-  }
-
-  setPremiumStatus(isPremium: boolean) {
-    this.isPremium = isPremium;
-  }
-
-  isPremiumUser() {
-    return this.isPremium;
-  }
-
-  getCooldownTimeRemaining(): number {
-    if (this.isPremium || this.factsLoaded < 10) {
-      return 0;
-    }
-
-    const timeRemaining = (this.lastLoadTime + 60000 - Date.now()) / 1000;
-    return timeRemaining > 0 ? Math.ceil(timeRemaining) : 0;
-  }
-
-  shouldShowSkeleton(): boolean {
-    return this.isLoading() && this.canLoadMoreFacts();
   }
 
   cleanup() {
