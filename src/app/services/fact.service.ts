@@ -48,7 +48,6 @@ export class FactService {
             bg: `hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`
           }
           this.facts.update(facts => [...facts, factWithBg]);
-          console.log('Fact loaded:', fact);
         }),
         catchError(_ => {
           this.error.set('Failed to load fact. Please try again later.');

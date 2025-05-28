@@ -12,7 +12,8 @@ import {QuizComponent} from './components/quiz-components/quiz/quiz.component';
 import {QuizResultComponent} from './components/quiz-components/quiz-result/quiz-result.component';
 import {ShopComponent} from './components/shop/shop.component';
 import {LootBoxDetailPageComponent} from './components/loot-box-detail-page/loot-box-detail-page.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {LikedFactsComponent} from './components/liked-facts/liked-facts.component';
 
 
 export const ROUTES = {
@@ -27,7 +28,8 @@ export const ROUTES = {
   shop: "shop",
   lootBoxDetailPage: "loot-box-detail-page",
   pageNotFound: "page-not-found",
-  settings: "settings"
+  settings: "settings",
+  likedFacts: "liked-facts",
 }
 
 export const routes: Routes = [
@@ -40,12 +42,17 @@ export const routes: Routes = [
   {path: ROUTES.login, component: LoginComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
   {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
-  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent, data: { hasBackButton: true }},
+  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent, data: {hasBackButton: true}},
   {path: `${ROUTES.quizSelection}/${ROUTES.quizResults}`, component: QuizResultComponent},
-  {path: ROUTES.stats, component: StatsComponent, data: { hasBackButton: true }},
+  {path: ROUTES.stats, component: StatsComponent, data: {hasBackButton: true}},
   {path: ROUTES.shop, component: ShopComponent},
-  {path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`, component: LootBoxDetailPageComponent, data: { hasBackButton: true }},
-  {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: { hasBackButton: true }},
-  {path: ROUTES.settings, component: SettingsComponent, data: { hasBackButton: true }},
-  {path: '**', component: PageNotFoundComponent, data: { hasBackButton: true }},
+  {
+    path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`,
+    component: LootBoxDetailPageComponent,
+    data: {hasBackButton: true}
+  },
+  {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: {hasBackButton: true}},
+  {path: ROUTES.settings, component: SettingsComponent, data: {hasBackButton: true}},
+  {path: ROUTES.likedFacts, component: LikedFactsComponent, data: {hasBackButton: true}},
+  {path: '**', component: PageNotFoundComponent, data: {hasBackButton: true}},
 ];
