@@ -119,7 +119,6 @@ export class FactsComponent implements OnInit, OnDestroy {
     return filteredAds.length > 0 ? filteredAds[0] : this.fallbackAd;
   }
 
-  currentIndex = 0;
   likedFacts: { title: string; content: string }[] = [];
   private swipeCoord?: [number, number];
   private swipeTime?: number;
@@ -197,4 +196,13 @@ export class FactsComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  get currentIndex() {
+  return this.factService.currentIndex();
+  }
+
+  set currentIndex(value: number) {
+  this.factService.currentIndex.set(value);
+  }
+
 }

@@ -1,7 +1,7 @@
 <div class="layout">
-  <app-header *ngIf="isLoggedIn() && isSetUp()"></app-header>
+  <app-header *ngIf="isLoggedIn() && isSetUp() && !isInSettings()"></app-header>
   <main class="content">
     <router-outlet></router-outlet>
   </main>
-  <app-navigation *ngIf="isLoggedIn() && isSetUp() && !this.quizService.isActive"></app-navigation>
+  <app-navigation *ngIf="isLoggedIn() && isSetUp() && !this.quizService.isActive && !isInSettings()"></app-navigation>
 </div>

@@ -20,6 +20,7 @@ export class FactService {
   private isPremium = false;
   private loading = signal<boolean>(false);
   private error = signal<string | null>(null);
+  currentIndex = signal(0);
 
   constructor(private http: HttpClient) {
   }

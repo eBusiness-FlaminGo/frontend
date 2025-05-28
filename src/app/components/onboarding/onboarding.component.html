@@ -1,70 +1,89 @@
-<div class="main-wrapper flex flex-col justify-between items-center text-center p-6">
-  <div class="mt-12 relative h-[400px] w-full">
-    <ng-container [ngSwitch]="step">
-      <div *ngSwitchCase="1" @fade class="absolute top-0 left-0 w-full space-y-6">
-        <img src="logo.png" alt="Brainstorm Logo" class="mx-auto w-48 h-auto rounded-xl shadow-md"/>
-        <h2 class="text-2xl font-bold">Let's Get Started</h2>
-        <p class="text-gray-500">Nice to meet you!<br/>Let’s make sure you’ll get to see what you’re really interested
-          in.</p>
-      </div>
-
-      <div *ngSwitchCase="2" @fade class="absolute top-0 left-0 w-full space-y-4">
-        <div class="flex items-center gap-2">
-          <select [(ngModel)]="selectedCategory" class="input w-full">
-            <option value="" disabled selected>Select a category</option>
-            <option *ngFor="let cat of allCategories" [value]="cat">{{ cat }}</option>
-          </select>
-          <button (click)="addToFavorites()" class="btn btn-sm btn-success">+ Fav</button>
-          <button (click)="addToExclusions()" class="btn btn-sm btn-error">+ Excl</button>
-        </div>
-        <div>
-          <h4 class="text-sm font-semibold text-left">Favourites</h4>
-          <div class="flex flex-wrap gap-2 mt-1">
-            <span *ngFor="let fav of favorites" class="badge badge-success">
-              {{ fav }}
-              <button type="button" class="ml-1 font-bold" (click)="removeFavorite(fav)">✕</button>
-            </span>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-sm font-semibold text-left">Exclusions</h4>
-          <div class="flex flex-wrap gap-2 mt-1">
-            <span *ngFor="let excl of exclusions" class="badge badge-error">
-              {{ excl }}
-              <button type="button" class="ml-1 font-bold" (click)="removeExclusion(excl)">✕</button>
-            </span>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-sm font-semibold text-left">Suggested favourite categories</h4>
-          <div class="flex flex-wrap gap-2 mt-1">
-            <span *ngFor="let cat of suggestedCategories" class="badge badge-outline cursor-pointer"
-                  (click)="selectSuggestedCategory(cat)">
-              {{ cat }}
-            </span>
-          </div>
-        </div>
-        <p class="text-gray-500 text-sm text-left mt-4">
-          Choose at least three categories you’re interested in. You can also tell us what you’re not interested
-          in.<br/><br/>
-          You can always change your preferences in the settings later.
-        </p>
-      </div>
-
-      <div *ngSwitchCase="3" @fade class="absolute top-0 left-0 w-full space-y-6">
-        <h2 class="text-2xl font-bold">Done!</h2>
-        <p class="text-gray-500">Now you’re ready to start your adventure.</p>
-      </div>
-    </ng-container>
+<div class="main-wrapper flex flex-col items-center text-center p-6 gap-4">
+  <div class="w-full space-y-4" *ngIf="step === 1">
+    <img src="logo.png" alt="Brainstorm Logo" class="mx-auto w-32 h-auto rounded-xl shadow-md"/>
+    <h2 class="text-2xl font-bold">Let's Get Started</h2>
+    <p class="text-gray-500">Nice to meet you! Let’s make sure you’ll get to see what you’re really interested in.</p>
   </div>
-
+  <div class="w-full space-y-4" *ngIf="step === 2">
+    <h2 class="text-xl font-bold">Sort your categories</h2>
+    <p class="text-gray-500 text-sm">Drag the categories into your favourites or exclusions.</p>
+    <div
+      cdkDropList
+      cdkDropListSortingDisabled="true"
+      [cdkDropListData]="favorites"
+      [cdkDropListConnectedTo]="['exclusionsList', 'suggestedList']"
+      class="drop-zone bg-green-50 p-3 rounded-md"
+      (cdkDropListDropped)="drop($event, 'favorites')"
+      id="favoritesList"
+    >
+      <h4 class="text-sm font-semibold text-left mb-2">Favourites</h4>
+      <div class="flex flex-wrap gap-2 min-h-[2rem]">
+        <div
+          *ngFor="let fav of favorites"
+          cdkDrag
+          class="badge badge-success"
+          [cdkDragData]="fav"
+        >
+          {{ fav }}
+        </div>
+      </div>
+    </div>
+    <div
+      cdkDropList
+      cdkDropListSortingDisabled="true"
+      [cdkDropListData]="exclusions"
+      [cdkDropListConnectedTo]="['favoritesList', 'suggestedList']"
+      class="drop-zone bg-red-50 p-3 rounded-md"
+      (cdkDropListDropped)="drop($event, 'exclusions')"
+      id="exclusionsList"
+    >
+      <h4 class="text-sm font-semibold text-left mb-2">Exclusions</h4>
+      <div class="flex flex-wrap gap-2 min-h-[2rem]">
+        <div
+          *ngFor="let excl of exclusions"
+          cdkDrag
+          class="badge badge-error"
+          [cdkDragData]="excl"
+        >
+          {{ excl }}
+        </div>
+      </div>
+    </div>
+    <div
+      cdkDropList
+      cdkDropListSortingDisabled="true"
+      [cdkDropListData]="suggestedCategories"
+      [cdkDropListConnectedTo]="['favoritesList', 'exclusionsList']"
+      class="drop-zone bg-gray-100 p-3 rounded-md shadow-inner"
+      (cdkDropListDropped)="drop($event, 'suggested')"
+      id="suggestedList"
+    >
+      <h4 class="text-sm font-semibold mb-2">Suggested Categories</h4>
+      <div class="flex flex-wrap gap-2">
+        <div
+          *ngFor="let cat of suggestedCategories"
+          cdkDrag
+          class="badge badge-outline cursor-move"
+          [cdkDragData]="cat"
+        >
+          {{ cat }}
+        </div>
+      </div>
+    </div>
+    <p class="text-gray-500 text-sm mt-2">
+      Choose at least three favourites to continue. You can always change this later in settings.
+    </p>
+  </div>
+  <div class="w-full space-y-4" *ngIf="step === 3">
+    <h2 class="text-2xl font-bold">Done!</h2>
+    <p class="text-gray-500">Now you’re ready to start your adventure.</p>
+  </div>
   <div class="w-full">
     <div class="flex justify-center mb-4 space-x-2">
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 1"></div>
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 2"></div>
       <div class="w-2 h-2 rounded-full bg-gray-300" [class.bg-purple-500]="step === 3"></div>
     </div>
-
     <div class="flex justify-end items-center">
       <div class="space-x-2">
         <button *ngIf="step > 1" (click)="previous()" class="btn btn-outline btn-sm">Previous</button>
