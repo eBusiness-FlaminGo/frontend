@@ -17,10 +17,10 @@ describe('AppComponent', () => {
   it(`should have the 'frontend-genai-fun-facts-app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend-genai-fun-facts-app');
+    expect(app.message).toEqual('frontend-genai-fun-facts-app');
   });
 
-  it('should render title', () => {
+  it('should render message', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

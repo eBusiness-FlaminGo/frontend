@@ -1,5 +1,6 @@
 <div class="container mx-auto py-10 px-4 max-w-xl">
-  <ng-container *ngIf="currentIndex >= 0 && this.factService.facts()[currentIndex]; else emptyMessage">
+  <ng-container
+    *ngIf="!factService.isLoading() && currentIndex >= 0 && this.factService.facts()[currentIndex]; else emptyMessage">
     <div
       class="rounded-4xl p-6 shadow-md cursor-default card"
       [@cardAnimation]="{ value: animationState, params: animationParams }"
@@ -7,9 +8,9 @@
       (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')"
     >
       <h3 class="text-xl font-bold mb-2 text-gray-900">
-        {{ this.factService.facts()[currentIndex].title }}
+        {{ this.factService.facts()[currentIndex].message }}
       </h3>
-      <p class="text-gray-700 mb-2">{{ this.factService.facts()[currentIndex].content }}</p>
+      <p class="text-gray-700 mb-2">{{ this.factService.facts()[currentIndex].message }}</p>
 
       <div class="flex justify-center mt-4">
         <button
@@ -25,7 +26,6 @@
           <span>Share the fact</span>
         </button>
       </div>
-
       <div class="mt-4" *ngIf="getFilteredAd(this.factService.facts()[currentIndex].category) as ad">
         <h4 class="text-lg font-semibold mb-2">Sponsored Ad</h4>
         <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/6]">
@@ -75,14 +75,14 @@
                 d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z"
                 clip-rule="evenodd"/>
         </svg>
-
       </div>
       <div
         *ngIf="showThumbsDown"
         class="text-red-500 text-6xl animate-thumbs"
         [@thumbsAnimation]
       >
-        <svg class="w-25 h-25 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        <svg class="w-25 h-25 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+             height="24"
              fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd"
                 d="M8.97 14.316H5.004c-.322 0-.64-.08-.925-.232a2.022 2.022 0 0 1-.717-.645 2.108 2.108 0 0 1-.242-1.883l2.36-7.201C5.769 3.54 5.96 3 7.365 3c2.072 0 4.276.678 6.156 1.256.473.145.925.284 1.35.404h.114v9.862a25.485 25.485 0 0 0-4.238 5.514c-.197.376-.516.67-.901.83a1.74 1.74 0 0 1-1.21.048 1.79 1.79 0 0 1-.96-.757 1.867 1.867 0 0 1-.269-1.211l1.562-4.63ZM19.822 14H17V6a2 2 0 1 1 4 0v6.823c0 .65-.527 1.177-1.177 1.177Z"
@@ -92,7 +92,6 @@
       </div>
     </div>
   </ng-container>
-
   <ng-template #emptyMessage>
     <div class="text-center text-gray-500 mt-12">
       <img src="./whoops.png" alt="Whoops!" class="mx-auto mb-4 w-32 h-32 object-contain"/>

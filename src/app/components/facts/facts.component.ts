@@ -1,6 +1,7 @@
 import {
   Component,
-  Injectable,
+  Injectable, OnDestroy,
+  OnInit,
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HammerGestureConfig, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -12,7 +13,7 @@ import {
   transition,
   keyframes
 } from '@angular/animations';
-import {Fact, FactService} from '../../services/fact.service';
+import {FactService} from '../../services/fact.service';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -96,7 +97,7 @@ type Ad = { imageUrl: string; link: string; category: string };
     ])
   ]
 })
-export class FactsComponent {
+export class FactsComponent implements OnInit, OnDestroy {
   lastExitDirection: 'left' | 'right' = 'left';
 
   fallbackAd: Ad = {imageUrl: './ads/ad_fallback.png', link: 'https://example.com/ad1', category: '*'};
@@ -104,6 +105,14 @@ export class FactsComponent {
     {imageUrl: './ads/ad1.png', link: 'https://example.com/ad1', category: 'Botany'},
     {imageUrl: './ads/ad2.png', link: 'https://example.com/ad3', category: 'Biotechnology'}
   ];
+
+  ngOnInit() {
+    this.factService.loadFacts();
+  }
+
+  ngOnDestroy() {
+    this.factService.cleanup();
+  }
 
   getFilteredAd(category: string): Ad {
     const filteredAds = this.ads.filter(ad => ad.category === category);
@@ -137,7 +146,7 @@ export class FactsComponent {
     setTimeout(() => {
       const current = this.factService.facts()[this.currentIndex];
       if (current) {
-        this.likedFacts.push({title: current.title, content: current.content});
+        this.likedFacts.push({title: current.message, content: current.message});
         localStorage.setItem('likedFacts', JSON.stringify(this.likedFacts));
       }
       this.nextFact();
