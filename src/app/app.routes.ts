@@ -12,6 +12,7 @@ import {QuizComponent} from './components/quiz-components/quiz/quiz.component';
 import {QuizResultComponent} from './components/quiz-components/quiz-result/quiz-result.component';
 import {ShopComponent} from './components/shop/shop.component';
 import {LootBoxDetailPageComponent} from './components/loot-box-detail-page/loot-box-detail-page.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 export const ROUTES = {
@@ -45,6 +46,6 @@ export const routes: Routes = [
   {path: ROUTES.shop, component: ShopComponent},
   {path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`, component: LootBoxDetailPageComponent, data: { hasBackButton: true }},
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: { hasBackButton: true }},
-  {path: ROUTES.settings, component: PageNotFoundComponent, data: { hasBackButton: true }}, // TODO add settings component
+  {path: ROUTES.settings, component: SettingsComponent, data: { hasBackButton: true }},
   {path: '**', component: PageNotFoundComponent, data: { hasBackButton: true }},
 ];

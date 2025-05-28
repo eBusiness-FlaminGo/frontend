@@ -5,8 +5,8 @@ import {NavigationComponent} from './components/shared/navigation/navigation.com
 import {HeaderComponent} from './components/shared/header/header.component';
 import {NgIf} from '@angular/common';
 import {isLoggedIn, isSetUp} from './utils/login';
-import { isOnboarding } from './utils/onboarding';
 import {QuizService} from './services/quiz.service';
+import { isInSettings } from './utils/settings';
 
 @Component({
   selector: 'app-root',
@@ -26,5 +26,5 @@ export class AppComponent implements OnInit {
   title = 'Brainstorm';
   protected readonly isLoggedIn = isLoggedIn;
   protected readonly isSetUp = isSetUp;
-  protected readonly isOnboarding = () => isOnboarding(this.router);
+  protected readonly isInSettings = () => isInSettings(this.router);
 }
