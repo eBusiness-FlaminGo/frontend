@@ -81,6 +81,7 @@ export class UserService {
         }
         return profile;
       });
+      this.saveProfileChanges({tickets: this._userProfile()?.tickets});
     } else {
       this._tickets.update(current => current + amount);
     }
@@ -98,6 +99,7 @@ export class UserService {
         }
         return profile;
       });
+      this.saveProfileChanges({flames: this._userProfile()?.flames});
     }
   }
 
@@ -109,6 +111,7 @@ export class UserService {
         }
         return profile;
       });
+      this.saveProfileChanges({flames: this._userProfile()?.flames});
     }
   }
 
@@ -125,6 +128,7 @@ export class UserService {
         }
         return profile;
       });
+      this.saveProfileChanges({username: this._userProfile()?.username});
     }
   }
 
@@ -174,6 +178,14 @@ export class UserService {
     this.http.put(url, body).subscribe({
       next: () => {
         console.log('User data saved successfully.');
+        if (this._userProfile()) {
+          this._userProfile.update(profile => {
+            if (profile) {
+              return {...profile, ...userData};
+            }
+            return profile;
+          });
+        }
       },
       error: (error) => {
         console.error('Error saving user data:', error);
@@ -188,6 +200,14 @@ export class UserService {
     this.http.patch(url, body).subscribe({
       next: () => {
         console.log('Jokers updated successfully.');
+        if (this._userProfile()) {
+          this._userProfile.update(profile => {
+            if (profile) {
+              return {...profile, jokers};
+            }
+            return profile;
+          });
+        }
       },
       error: (error) => {
         console.error('Error updating jokers:', error);
@@ -202,10 +222,41 @@ export class UserService {
     this.http.patch(url, body).subscribe({
       next: () => {
         console.log('Friends updated successfully.');
+        if (this._userProfile()) {
+          this._userProfile.update(profile => {
+            if (profile) {
+              return {...profile, friends};
+            }
+            return profile;
+          });
+        }
       },
       error: (error) => {
         console.error('Error updating friends:', error);
       }
     });
+  }
+
+  public saveProfileChanges(userData: Partial<UserProfile> | null = null): void {
+    const userId = this._userProfile()?.id
+    const password = localStorage.getItem(STORAGE_KEYS.USER_PASSWORD);
+    if (!password || !userId) {
+      console.error('Password not found in localStorage. Cannot save profile changes.');
+      return;
+    }
+    if (!userData) {
+      userData = this._userProfile();
+    }
+    if (!userData) {
+      console.error('User data is null. Cannot save profile changes.');
+      return;
+    }
+    this.saveUserData(userId, userData, password);
+    if (userData.jokers) {
+      this.updateJokers(userId, userData.jokers, password);
+    }
+    if (userData.friends) {
+      this.updateFriends(userId, userData.friends, password);
+    }
   }
 }
