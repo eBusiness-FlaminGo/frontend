@@ -26,16 +26,16 @@
       <button (click)="useFiftyFifty()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[this.fiftyFiftyIndex].count === 0">
+              [class.disabled]="fiftyFiftyIndex === -1 || jokers[fiftyFiftyIndex].count === 0">
         50/50
         <span class="badge"
-              *ngIf="jokers[this.fiftyFiftyIndex].count > 0">{{ jokers[this.fiftyFiftyIndex].count }}</span>
+              *ngIf="fiftyFiftyIndex !== -1 && (jokers[fiftyFiftyIndex]?.count ?? -1) > 0">{{ jokers[fiftyFiftyIndex].count }}</span>
       </button>
 
       <button (click)="askAFriend()"
               class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[this.askAFriendIndex].count === 0">
+              [class.disabled]="askAFriendIndex === -1 || jokers[askAFriendIndex].count === 0">
         <svg class="w-7 h-7 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
           <path
@@ -48,28 +48,28 @@
                 clip-rule="evenodd"/>
         </svg>
 
-
         <span class="badge"
-              *ngIf="jokers[this.askAFriendIndex].count > 0">{{ jokers[this.askAFriendIndex].count }}</span>
+              *ngIf="askAFriendIndex !== -1 && (jokers[askAFriendIndex]?.count ?? -1) > 0">{{ jokers[askAFriendIndex].count }}</span>
       </button>
 
       <button (click)="addTime()"
               class="menu-button absolute w-18 h-18 rounded-full bg-gray-600 text-white flex items-center justify-center shadow-2xl hover:bg-gray-700"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[this.timeIndex].count === 0">
+              [class.disabled]="timeIndex === -1 || jokers[timeIndex].count === 0">
         <svg class="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd"
                 d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
                 clip-rule="evenodd"/>
         </svg>
-        <span class="badge" *ngIf="jokers[this.timeIndex].count > 0">{{ jokers[this.timeIndex].count }}</span>
+        <span class="badge"
+              *ngIf="timeIndex !== -1 && (jokers[timeIndex]?.count ?? -1) > 0">{{ jokers[timeIndex].count }}</span>
       </button>
 
       <button (click)="skipQuestion()"
               class="menu-button absolute w-18 h-18 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl hover:bg-green-600"
               [class.visible]="dropdownVisible"
-              [class.disabled]="jokers[this.skipQuestionIndex].count === 0">
+              [class.disabled]="skipQuestionIndex === -1 || jokers[skipQuestionIndex].count === 0">
         <svg class="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd"
@@ -78,7 +78,7 @@
         </svg>
 
         <span class="badge"
-              *ngIf="jokers[this.skipQuestionIndex].count > 0">{{ jokers[this.skipQuestionIndex].count }}</span>
+              *ngIf="skipQuestionIndex !== -1 && (jokers[skipQuestionIndex]?.count ?? -1) > 0">{{ jokers[skipQuestionIndex].count }}</span>
       </button>
     </div>
   </div>

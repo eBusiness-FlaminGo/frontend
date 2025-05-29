@@ -1,11 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, effect, OnInit} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
-
-interface Joker {
-  type: string;
-  count: number;
-}
+import {UserService} from '../../../services/user.service';
+import {Joker} from '../../../models/joker.model';
 
 @Component({
   selector: 'app-quiz-dropdown',
@@ -16,21 +13,35 @@ interface Joker {
   ],
   styleUrls: ['./quiz-dropdown.component.css']
 })
-export class QuizDropdownComponent {
+export class QuizDropdownComponent implements OnInit {
   dropdownVisible = false;
-  jokers: Joker[] = [
-    {type: 'fiftyFifty', count: 2},
-    {type: 'askAFriend', count: 1},
-    {type: 'time', count: 3},
-    {type: 'skip', count: 3}
-  ];
-  fiftyFiftyIndex: number = 0;
-  askAFriendIndex: number = 1;
-  timeIndex: number = 2;
-  skipQuestionIndex: number = 3;
+  jokers: Joker[] = [];
+  fiftyFiftyIndex: number = -1;
+  askAFriendIndex: number = -1;
+  timeIndex: number = -1;
+  skipQuestionIndex: number = -1;
   fadeOutActive: boolean = false;
 
-  constructor(private quizService: QuizService) {
+  constructor(private quizService: QuizService, private userService: UserService) {
+    this.loadJokersFromUserService();
+
+    // execute the loadJokerFromUserService function when the user profile signal changes
+    effect(() => {
+      const profile = this.userService.userProfile();
+      this.loadJokersFromUserService();
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadJokersFromUserService()
+  }
+
+  private loadJokersFromUserService(): void {
+    this.jokers = [...this.userService.getJokers()];
+    this.fiftyFiftyIndex = this.jokers.findIndex(joker => joker.type === 'FIFTY_FIFTY');
+    this.askAFriendIndex = this.jokers.findIndex(joker => joker.type === 'ASK_A_FRIEND');
+    this.timeIndex = this.jokers.findIndex(joker => joker.type === 'EXTRA_TIME');
+    this.skipQuestionIndex = this.jokers.findIndex(joker => joker.type === 'SKIP_QUESTION');
   }
 
   toggleDropdown() {
@@ -47,36 +58,38 @@ export class QuizDropdownComponent {
   }
 
   useFiftyFifty() {
-    if (this.jokers[this.fiftyFiftyIndex].count > 0) {
+    if (this.fiftyFiftyIndex !== -1 && this.jokers[this.fiftyFiftyIndex].count > 0) {
       if (this.quizService.useFiftyFifty()) {
-        this.jokers[this.fiftyFiftyIndex].count--;
+        this.userService.useJoker('FIFTY_FIFTY');
         this.toggleDropdown();
       }
     }
   }
 
   askAFriend() {
-    if (this.jokers[this.askAFriendIndex].count > 0) {
-      this.jokers[this.askAFriendIndex].count--;
-      console.log("Asked a friend:", this.jokers[this.askAFriendIndex].count);
+    if (this.askAFriendIndex !== -1 && this.jokers[this.askAFriendIndex].count > 0) {
+      // Use the joker through the user service
+      this.userService.useJoker('ASK_A_FRIEND');
+      console.log("Asked a friend, remaining:", this.jokers[this.askAFriendIndex].count - 1);
+      this.toggleDropdown();
     }
   }
 
   addTime() {
-    if (this.jokers[this.timeIndex].count > 0) {
-      this.jokers[this.timeIndex].count--;
-      console.log("Ask a friend used, remaining:", this.jokers[this.timeIndex].count);
+    if (this.timeIndex !== -1 && this.jokers[this.timeIndex].count > 0) {
+      this.userService.useJoker('EXTRA_TIME');
       this.quizService.timer.addTime(5);
+      console.log("Extra time added, remaining:", this.jokers[this.timeIndex].count - 1);
       this.toggleDropdown();
     }
   }
 
   async skipQuestion() {
-    if (this.jokers[this.skipQuestionIndex].count > 0) {
+    if (this.skipQuestionIndex !== -1 && this.jokers[this.skipQuestionIndex].count > 0) {
       this.toggleDropdown();
       if (await this.quizService.skipQuestion()) {
-        this.jokers[this.skipQuestionIndex].count--;
-        console.log("Question skipped, remaining skips:", this.jokers[this.skipQuestionIndex].count);
+        this.userService.useJoker('SKIP_QUESTION');
+        console.log("Question skipped, remaining skips:", this.jokers[this.skipQuestionIndex].count - 1);
       } else {
         console.log("Cannot skip the last question");
       }

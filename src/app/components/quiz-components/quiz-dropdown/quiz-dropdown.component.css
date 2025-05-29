@@ -3,7 +3,6 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Common styles for menu buttons */
 .menu-button {
   opacity: 0;
   top: 50%;
@@ -14,13 +13,11 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* When buttons are visible */
 .menu-button.visible {
   opacity: 1;
   visibility: visible;
 }
 
-/* Position for each button when visible */
 .menu-button.visible:nth-child(1) {
   top: 70%;
   left: 0;
@@ -41,7 +38,6 @@
   left: 100%;
 }
 
-/* Staggered delay for each button to create a sequence effect */
 .menu-button:nth-child(1) {
   transition-delay: 0.05s;
 }
