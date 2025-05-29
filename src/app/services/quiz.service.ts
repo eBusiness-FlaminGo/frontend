@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {ROUTES} from '../app.routes';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Timer} from '../classes/Timer';
+import {firstValueFrom} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 interface QuizQuestion {
   question: string;
   answers: string[];
-  correctAnswerIndex: number;
-  adText?: string;
+  correctAnswer: number;
   category: string;
 }
 
@@ -15,26 +16,11 @@ interface QuizQuestion {
   providedIn: 'root'
 })
 export class QuizService {
-  questions: QuizQuestion[] = [
-    {
-      question: 'What is the correct answer to this question?',
-      answers: ['Answer', 'Badge', 'Badge', 'Badge'],
-      correctAnswerIndex: 0,
-      category: 'ad1'
-    },
-    {
-      question: 'Another sample question?',
-      answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
-      correctAnswerIndex: 1,
-      category: 'ad2'
-    },
-    {
-      question: 'Yet another sample question?',
-      answers: ['Wrong', 'Right', 'Wrong', 'Wrong'],
-      correctAnswerIndex: 1,
-      category: ''
-    }
-  ];
+  private readonly API_URL = 'http://127.0.0.1:8000/quiz/question';
+  private loading = signal<boolean>(false);
+  private topic = signal<string | null>(null);
+  questions = signal<QuizQuestion[]>([]);
+  isLoading = this.loading.asReadonly();
 
   currentQuestionIndex = 0;
   selectedAnswerIndex: number | null = null;
@@ -43,18 +29,38 @@ export class QuizService {
   timer: Timer;
   isActive = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: HttpClient) {
     this.timer = new Timer(10);
   }
 
-  startGame() {
+  async startGame(topic: string | null) {
+    this.questions.set([])
+    await this.loadQuestions(3)
     this.isActive = true;
     this.currentQuestionIndex = 0;
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
+    this.topic.set(topic);
     this.timer = new Timer(10, () => this.endGame());
     this.timer.start();
+  }
+
+  async loadQuestions(numberOfQuestions: number, loadAsync: boolean = false) {
+    if (!loadAsync) {
+      this.loading.set(true);
+    }
+    let url = this.API_URL;
+    if (this.topic() !== null) {
+      url += `?category=${encodeURIComponent(this.topic() ?? '')}`;
+    }
+    for (let i = 0; i < numberOfQuestions; i++) {
+      const response: { message: string } = await firstValueFrom(this.http.get<{ message: string }>(url))
+      this.questions.update(questions => [...questions, JSON.parse(response.message)]);
+      if (!loadAsync) {
+        this.loading.set(numberOfQuestions !== this.questions().length)
+      }
+    }
   }
 
   selectAnswer(index: number) {
@@ -63,27 +69,23 @@ export class QuizService {
     this.timer.pause()
     this.selectedAnswerIndex = index;
 
-    if (index === this.questions[this.currentQuestionIndex].correctAnswerIndex) {
+    if (index === this.questions()[this.currentQuestionIndex].correctAnswer) {
       this.correctAnswers++;
       this.timer.addTime(2)
     } else {
       this.wrongAnswers++;
     }
-
-    //this.timer.stop();
   }
 
   nextQuestion() {
     this.selectedAnswerIndex = null;
+    this.timer.pause();
+    this.loadQuestions(1, true)
     this.currentQuestionIndex++;
-
-    if (this.currentQuestionIndex >= this.questions.length) {
+    if (this.currentQuestionIndex >= this.questions().length) {
       this.endGame();
       return;
     }
-
-    //this.timer = new Timer(10, () => this.endGame());
-    //this.timer.start();
     this.timer.resume()
   }
 
@@ -94,13 +96,13 @@ export class QuizService {
   }
 
   useFiftyFifty(): boolean {
-    const currentQuestion = this.questions[this.currentQuestionIndex];
+    const currentQuestion = this.questions()[this.currentQuestionIndex];
     if (this.selectedAnswerIndex !== null || currentQuestion.answers.length < 3) {
       return false;
     }
     const wrongAnswerIndices = currentQuestion.answers
       .map((_, index) => index)
-      .filter(index => index !== currentQuestion.correctAnswerIndex);
+      .filter(index => index !== currentQuestion.correctAnswer);
 
     for (let i = wrongAnswerIndices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -117,7 +119,7 @@ export class QuizService {
   }
 
   skipQuestion(): boolean {
-    if (this.currentQuestionIndex >= this.questions.length - 1) {
+    if (this.currentQuestionIndex >= this.questions().length - 1) {
       return false;
     }
     this.timer.pause()

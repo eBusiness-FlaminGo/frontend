@@ -67,10 +67,10 @@ export class QuizDropdownComponent {
     }
   }
 
-  skipQuestion() {
+  async skipQuestion() {
     if (this.jokers[this.skipQuestionIndex].count > 0) {
       this.toggleDropdown();
-      if (this.quizService.skipQuestion()) {
+      if (await this.quizService.skipQuestion()) {
         this.jokers[this.skipQuestionIndex].count--;
         console.log("Question skipped, remaining skips:", this.jokers[this.skipQuestionIndex].count);
       } else {

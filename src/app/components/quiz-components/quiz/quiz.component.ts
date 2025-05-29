@@ -19,11 +19,10 @@ export class QuizComponent implements OnInit {
   @Input() topic: string | null = null;
 
   constructor(private route: ActivatedRoute, protected quizService: QuizService) {
-    this.quizService.isActive = true;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.topic = this.route.snapshot.paramMap.get('topic');
-    this.quizService.startGame();
+    await this.quizService.startGame(this.topic);
   }
 }

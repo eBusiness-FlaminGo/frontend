@@ -4,6 +4,7 @@ export class Timer {
   private readonly duration: number;
   private readonly callback: () => void;
   public isStopped: boolean;
+  public isPaused: boolean;
 
   get timeLeft(): number {
     return this.remainingTime;
@@ -15,6 +16,7 @@ export class Timer {
     this.remainingTime = duration;
     this.callback = callback;
     this.isStopped = true;
+    this.isPaused = false;
   }
 
   start(isResume: boolean = false) {
@@ -31,13 +33,15 @@ export class Timer {
   }
 
   pause() {
-    if (this.isStopped) return;
+    if (this.isStopped || this.isPaused) return;
     console.log("Pausing timer");
+    this.isPaused = true;
     clearInterval(this.intervalId);
   }
 
   resume() {
-    if (this.isStopped) return;
+    if (this.isStopped || !this.isPaused) return;
+    this.isPaused = false;
     this.start(true);
   }
 
@@ -50,20 +54,5 @@ export class Timer {
   addTime(seconds: number): void {
     if (seconds <= 0) return;
     this.remainingTime += seconds;
-  }
-
-  removeTime(seconds: number): void {
-    if (seconds <= 0) return;
-    this.remainingTime = Math.max(0, this.remainingTime - seconds);
-
-    if (this.remainingTime === 0 && !this.isStopped) {
-      this.stop();
-      this.callback();
-    }
-  }
-
-  setTime(seconds: number): void {
-    if (seconds < 0) return;
-    this.remainingTime = seconds;
   }
 }
