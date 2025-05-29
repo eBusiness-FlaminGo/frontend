@@ -2,30 +2,35 @@
   <h2 class="text-2xl font-bold">Brain just got a boost?</h2>
 
   <div class="flex flex-col items-center space-y-4">
-    <img src="./flamingo.png" alt="avatar" class="w-16 h-16 rounded-full"/>
+    <img src="./flamingo.png" alt="avatar" class="w-16 h-16 rounded-full" />
 
-    <div class="bg-cyan-900 text-white px-4 py-2 rounded-lg text-sm font-semibold">
-      {{ result.points }} Pts<br/>
+    <div
+      class="bg-cyan-900 text-white px-4 rounded-lg text-sm font-semibold flex flex-col justify-center items-center transition-all duration-300"
+      [style.height]="pointsBarHeight">
+      {{ result.points }} Pts<br />
       <span class="text-base">{{ result.rank }}th</span>
     </div>
 
     <div class="text-base">
-      You answered <span class="font-bold text-lg">{{ result.correctAnswers }} out of {{ result.totalQuestions }}</span><br/>
+      You answered <span class="font-bold text-lg">{{ result.correctAnswers }} out of {{ result.totalQuestions
+        }}</span><br />
       questions correctly and earned <span class="font-semibold">{{ result.points }} points</span>!
     </div>
 
-    <button 
-      class="collect-tickets-btn text-yellow-400 px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2"
+    <button class="collect-tickets-btn text-yellow-400 px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2"
       (click)="collectTickets()">
       Collect {{ result.ticketsEarned }} tickets
-      <svg class="w-6 h-6 text-yellow-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+      <svg class="w-6 h-6 text-yellow-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z" />
       </svg>
     </button>
   </div>
 
   <div class="space-y-3">
-    <button [routerLink]="[ROUTES.root,ROUTES.stats]" class="w-full bg-cyan-100 text-black font-medium py-2 rounded-md flex justify-center items-center gap-2">
+    <button [routerLink]="[ROUTES.root,ROUTES.stats]"
+      class="w-full bg-cyan-100 text-black font-medium py-2 rounded-md flex justify-center items-center gap-2">
       See the leaderboard <span class="text-lg">📊</span>
     </button>
 
@@ -33,7 +38,8 @@
       Check out the Daily Challenges <span class="text-lg">🕒</span>
     </button>
 
-    <button [routerLink]="[ROUTES.root,ROUTES.quizSelection,ROUTES.quiz,'']" class="w-full bg-cyan-600 text-white font-semibold py-2 rounded-md flex justify-center items-center gap-2">
+    <button [routerLink]="[ROUTES.root,ROUTES.quizSelection,ROUTES.quiz,'']"
+      class="w-full bg-cyan-600 text-white font-semibold py-2 rounded-md flex justify-center items-center gap-2">
       Play again <span class="text-lg">→</span>
     </button>
 

@@ -22,6 +22,7 @@ export class QuizResultComponent {
   result: QuizResult;
 
   protected readonly ROUTES = ROUTES;
+  private readonly MAX_POINTS = 200;
   private readonly POINTS_PER_CORRECT = 20;
   private readonly ALL_CORRECT_BONUS_POINTS = 50;
   private readonly MAX_TICKETS = 10;
@@ -30,16 +31,18 @@ export class QuizResultComponent {
   constructor(
     private quizService: QuizService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {
     const correct = this.quizService.correctAnswers;
     const total = this.quizService.questions.length;
     const allCorrect = correct === total;
 
     this.result = {
-      points:
+      points: Math.min(
+        this.MAX_POINTS,
         correct * this.POINTS_PER_CORRECT +
-        (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0),
+          (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0),
+      ),
       correctAnswers: correct,
       totalQuestions: total,
       rank: 1,
@@ -49,7 +52,14 @@ export class QuizResultComponent {
     };
   }
   collectTickets() {
-      this.userService.addTickets(this.result.ticketsEarned);
-      this.router.navigate([`/${ROUTES.root}/${ROUTES.quizSelection}`]);
-    }
+    this.userService.addTickets(this.result.ticketsEarned);
+    this.router.navigate([`/${ROUTES.root}/${ROUTES.quizSelection}`]);
   }
+  get pointsBarHeight(): string {
+    const minHeight = 50;
+    const maxHeight = 200;
+    const percent = Math.min(1, this.result.points / this.MAX_POINTS);
+    const height = minHeight + (maxHeight - minHeight) * percent;
+    return `${height}px`;
+  }
+}
