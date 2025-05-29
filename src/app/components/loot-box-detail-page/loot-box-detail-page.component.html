@@ -6,10 +6,10 @@
     <div class="text-sm text-gray-600 mb-2">
       Box {{ boxesRemaining }} of {{ quantity }}
     </div>
-    <img *ngIf="!chestOpen" src="./chest-closed-glow.png"
+    <img *ngIf="!chestOpen" src="./whirlwind_stopped.png"
          [ngClass]="{'animate-pulse': showAnimation}"
          class="h-50"/>
-    <img *ngIf="chestOpen" src="./chest-closed-glow.png" class="h-50"/>
+    <img *ngIf="chestOpen" src="./whirlwind_stopped.png" class="h-50"/>
   </div>
 
   <div class="bg-cyan-100 p-4 rounded-lg space-y-4">
