@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 export interface Joker {
   id: string;
@@ -32,6 +32,8 @@ export interface UserProfile {
   tickets: number;
   friends: Friend[];
   jokers: Joker[];
+  isSetUp?: boolean;
+  isLoggedIn?: boolean;
 }
 
 @Injectable({
@@ -79,7 +81,19 @@ export class UserService {
     return this._userProfile;
   }
 
-  loadUserProfile(): void {
+  setLoginState(isLoggedIn: boolean): void {
+    if (this._userProfile !== null) {
+      this._userProfile.isLoggedIn = isLoggedIn;
+    }
+  }
+
+  setSetupState(isSetUp: boolean): void {
+    if (this._userProfile !== null) {
+      this._userProfile.isSetUp = isSetUp;
+    }
+  }
+
+  loadUserProfile(username: string, password: string): void {
     this._userProfile = {
       "id": "123e4567-e89b-12d3-a456-426614174000",
       "username": "admin",

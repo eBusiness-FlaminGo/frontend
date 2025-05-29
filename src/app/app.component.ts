@@ -4,7 +4,6 @@ import {Router, RouterOutlet} from '@angular/router';
 import {NavigationComponent} from './components/shared/navigation/navigation.component';
 import {HeaderComponent} from './components/shared/header/header.component';
 import {NgIf} from '@angular/common';
-import {isLoggedIn, isSetUp} from './utils/login';
 import {QuizService} from './services/quiz.service';
 import {isInSettings} from './utils/settings';
 import {UserService} from './services/user.service';
@@ -17,7 +16,8 @@ import {UserService} from './services/user.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(protected quizService: QuizService, public router: Router, protected userService: UserService) {
+  constructor(protected quizService: QuizService, public router: Router,
+              protected userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -25,7 +25,5 @@ export class AppComponent implements OnInit {
   }
 
   title = 'Brainstorm';
-  protected readonly isLoggedIn = isLoggedIn;
-  protected readonly isSetUp = isSetUp;
   protected readonly isInSettings = () => isInSettings(this.router);
 }

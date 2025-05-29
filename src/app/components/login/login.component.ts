@@ -2,7 +2,6 @@ import {Router} from '@angular/router';
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ROUTES} from '../../app.routes';
-import {login} from '../../utils/login';
 import {NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
 
@@ -41,10 +40,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const {username, password, rememberMe} = this.loginForm.value;
-      this.userService.loadUserProfile();
-      console.log(this.userService.getUserProfile());
-      login({username: username, isSetUp: false});
+      const {username, password} = this.loginForm.value;
+      this.userService.loadUserProfile(username, password);
+      this.userService.setLoginState(true)
       this.router.navigate([`/${ROUTES.onboarding}`]);
     } else {
       this.openModal();

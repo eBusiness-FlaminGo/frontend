@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {trigger, transition, style, animate} from '@angular/animations';
 import {Router} from '@angular/router';
 import {ROUTES} from '../../app.routes';
-import {toggleUserSetupState} from '../../utils/login';
 
 import {
   CdkDragDrop,
@@ -78,7 +77,7 @@ export class OnboardingComponent {
 
       let email = this.userService.getUserProfile()?.email;
       if (email) {
-        toggleUserSetupState(true, email ?? '');
+        this.userService.setSetupState(true)
       }
       this.router.navigate([ROUTES.facts]);
     }
