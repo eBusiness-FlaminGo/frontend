@@ -14,8 +14,13 @@
       questions correctly and earned <span class="font-semibold">{{ result.points }} points</span>!
     </div>
 
-    <button class="bg-black text-yellow-400 px-4 py-2 rounded-md font-bold text-sm">
-      Collect {{ result.ticketsEarned }} tickets 🎟️
+    <button 
+      class="collect-tickets-btn text-yellow-400 px-4 py-2 rounded-md font-bold text-sm flex items-center gap-2"
+      (click)="collectTickets()">
+      Collect {{ result.ticketsEarned }} tickets
+      <svg class="w-6 h-6 text-yellow-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+      </svg>
     </button>
   </div>
 

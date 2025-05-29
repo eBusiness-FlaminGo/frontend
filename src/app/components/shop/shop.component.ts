@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
+import { UserService } from '../../services/user.service';
 
 interface ShopItem {
   type: 'lootbox' | 'ticket';
@@ -21,7 +22,7 @@ interface ShopItem {
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
-  userTickets = 420;
+  constructor(public userService: UserService) {}
 
   lootboxes: ShopItem[] = [
     { type: 'lootbox', label: 'Lootbox', quantity: 1, cost: 99, priceEUR: '0,99€', image: './lootbox1.png' },
@@ -37,14 +38,14 @@ export class ShopComponent {
 
   purchase(item: ShopItem) {
     if (item.type === 'lootbox') {
-      if (this.userTickets >= item.cost) {
-        this.userTickets -= item.cost;
+      if (this.userService.getTickets() >= item.cost) {
+        this.userService.addTickets(-item.cost);
         alert(`You bought ${item.label}`);
       } else {
         alert('Not enough tickets!');
       }
     } else {
-      this.userTickets += item.quantity + (item.bonus ?? 0);
+      this.userService.addTickets(item.quantity + (item.bonus ?? 0));
       alert(`You bought ${item.label}`);
     }
   }

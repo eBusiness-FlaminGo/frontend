@@ -1,0 +1,8 @@
+.collect-tickets-btn {
+  background-color: #9F580A;
+  color: #fff;
+  transition: background 0.2s;
+}
+.collect-tickets-btn:active {
+  background-color: #000;
+}

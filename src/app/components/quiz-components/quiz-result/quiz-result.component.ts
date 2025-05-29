@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ROUTES } from '../../../app.routes';
 import { QuizService } from '../../../services/quiz.service';
+import { UserService } from '../../../services/user.service';
 
 interface QuizResult {
   points: number;
@@ -26,7 +27,11 @@ export class QuizResultComponent {
   private readonly MAX_TICKETS = 10;
   private readonly ALL_CORRECT_BONUS_TICKETS = 2;
 
-  constructor(private quizService: QuizService) {
+  constructor(
+    private quizService: QuizService,
+    private userService: UserService,
+    private router: Router
+  ) {
     const correct = this.quizService.correctAnswers;
     const total = this.quizService.questions.length;
     const allCorrect = correct === total;
@@ -43,4 +48,8 @@ export class QuizResultComponent {
         (allCorrect ? this.ALL_CORRECT_BONUS_TICKETS : 0),
     };
   }
-}
+  collectTickets() {
+      this.userService.addTickets(this.result.ticketsEarned);
+      this.router.navigate([`/${ROUTES.root}/${ROUTES.quizSelection}`]);
+    }
+  }

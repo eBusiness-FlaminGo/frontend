@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router
 import {ROUTES} from '../../../app.routes';
 import { Location, NgIf } from '@angular/common';
 import {filter, map} from 'rxjs';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private location: Location,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public userService: UserService
   ) {}
 
   goBack() {
