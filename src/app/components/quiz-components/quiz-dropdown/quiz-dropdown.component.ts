@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
 
@@ -17,6 +17,7 @@ interface Joker {
   styleUrls: ['./quiz-dropdown.component.css']
 })
 export class QuizDropdownComponent {
+  @Output() dropdownActivated = new EventEmitter<boolean>();
   dropdownVisible = false;
   jokers: Joker[] = [
     {type: 'fiftyFifty', count: 2},
@@ -33,17 +34,14 @@ export class QuizDropdownComponent {
   constructor(private quizService: QuizService) {
   }
 
-  closeDropdown() {
-    this.fadeOutActive = true;
-    setTimeout(() => {
-      this.dropdownVisible = false;
-      this.fadeOutActive = false;
-    }, 300);
-  }
-
   toggleDropdown() {
     if (!this.quizService.isLoading()) {
       this.dropdownVisible = !this.dropdownVisible;
+      if (!this.dropdownVisible) {
+        setTimeout(() => this.dropdownActivated.emit(this.dropdownVisible), 400);
+      } else {
+        this.dropdownActivated.emit(this.dropdownVisible);
+      }
       if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
         if (this.dropdownVisible) {
           this.quizService.timer.pause();
