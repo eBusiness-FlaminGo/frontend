@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {ROUTES} from '../../app.routes';
-import {UserProfile} from '../../models/user-profile.model';
 import {Joker} from '../../models/joker.model';
 
 @Component({
@@ -14,7 +13,6 @@ import {Joker} from '../../models/joker.model';
   standalone: true
 })
 export class ProfileComponent implements OnInit {
-  userProfile: UserProfile | null = null;
   activeFriendsTab = true;
   activeJokersTab = false;
 
@@ -22,10 +20,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userProfile = this.userService.getUserProfile();
-    console.log(this.userProfile);
-
-    if (!this.userProfile) {
+    if (!this.userService.getUserProfile()) {
       this.router.navigate([`/${ROUTES.login}`]);
     }
   }
@@ -41,21 +36,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getJokerIcon(type: string): string {
-    switch (type) {
-      case 'FIFTY_FIFTY':
-        return 'fa-balance-scale';
-      case 'EXTRA_TIME':
-        return 'fa-clock';
-      case 'ASK_A_FRIEND':
-        return 'fa-user-friends';
-      case 'SKIP_QUESTION':
-        return 'fa-forward';
-      default:
-        return 'fa-question';
-    }
-  }
-
-  getJokerIconForFlowbite(type: string): string {
     switch (type) {
       case 'FIFTY_FIFTY':
         return '<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>';
@@ -101,22 +81,7 @@ export class ProfileComponent implements OnInit {
   }
 
   buyJoker(joker: Joker): void {
-    if (this.userProfile && this.userProfile.tickets >= joker.price) {
-      this.userService.addTickets(-joker.price);
-      // Here you would typically add the joker to the user's inventory
-      this.showPurchaseConfirmation(joker);
-    } else {
-      this.showInsufficientFundsAlert();
-    }
-  }
-
-  showPurchaseConfirmation(joker: Joker): void {
-    // In a real app, this would be a modal dialog
-    alert(`You bought ${this.getJokerLabel(joker.type)}! It has been added to your inventory.`);
-  }
-
-  showInsufficientFundsAlert(): void {
-    // In a real app, this would be a modal dialog
-    alert('Not enough tickets! Earn more tickets by playing games or purchase them in the shop.');
+    console.log(`[DUMMY] Would purchase ${this.getJokerLabel(joker.type)} joker`);
+    alert(`This is a dummy function. In a real implementation, you would purchase a ${this.getJokerLabel(joker.type)} joker for ${joker.price} tickets.`);
   }
 }
