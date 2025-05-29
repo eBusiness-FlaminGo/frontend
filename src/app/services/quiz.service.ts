@@ -27,16 +27,17 @@ export class QuizService {
   correctAnswers = 0;
   wrongAnswers = 0;
   timer: Timer;
-  isActive = false;
+  private active = signal<boolean>(false);
+  isActive = this.active.asReadonly();
 
   constructor(private router: Router, private http: HttpClient) {
     this.timer = new Timer(10);
   }
 
   async startGame(topic: string | null) {
+    this.active.set(true);
     this.questions.set([])
     await this.loadQuestions(3)
-    this.isActive = true;
     this.currentQuestionIndex = 0;
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
@@ -90,7 +91,7 @@ export class QuizService {
   }
 
   endGame() {
-    this.isActive = false;
+    this.active.set(false);
     this.timer.stop();
     this.router.navigate([ROUTES.quizSelection, ROUTES.quizResults]);
   }

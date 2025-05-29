@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {QuizService} from '../../../services/quiz.service';
 
 interface Joker {
@@ -12,6 +12,7 @@ interface Joker {
   templateUrl: './quiz-dropdown.component.html',
   imports: [
     NgIf,
+    NgClass,
   ],
   styleUrls: ['./quiz-dropdown.component.css']
 })
@@ -27,8 +28,17 @@ export class QuizDropdownComponent {
   askAFriendIndex: number = 1;
   timeIndex: number = 2;
   skipQuestionIndex: number = 3;
+  fadeOutActive: boolean = false;
 
   constructor(private quizService: QuizService) {
+  }
+
+  closeDropdown() {
+    this.fadeOutActive = true;
+    setTimeout(() => {
+      this.dropdownVisible = false;
+      this.fadeOutActive = false;
+    }, 300);
   }
 
   toggleDropdown() {

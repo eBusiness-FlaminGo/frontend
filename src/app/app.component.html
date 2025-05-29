@@ -3,5 +3,5 @@
   <main class="content">
     <router-outlet></router-outlet>
   </main>
-  <app-navigation *ngIf="isLoggedIn() && isSetUp() && !this.quizService.isActive && !isInSettings()"></app-navigation>
+  <app-navigation *ngIf="isLoggedIn() && isSetUp() && !this.quizService.isActive() && !isInSettings()"></app-navigation>
 </div>
