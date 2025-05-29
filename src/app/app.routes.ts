@@ -14,7 +14,7 @@ import {LootBoxDetailPageComponent} from './components/loot-box-detail-page/loot
 import {SettingsComponent} from './components/settings/settings.component';
 import {LikedFactsComponent} from './components/liked-facts/liked-facts.component';
 import {ProfileComponent} from './components/profile/profile.component';
-
+import {ActivatedRouteSnapshot} from '@angular/router';
 
 export const ROUTES = {
   root: "/",
@@ -46,6 +46,12 @@ export const routes: Routes = [
   {
     path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`,
     component: LootBoxDetailPageComponent,
+    resolve: {
+      quantity: (route: ActivatedRouteSnapshot): number => {
+        const quantity = sessionStorage.getItem('lootbox_quantity');
+        return quantity ? parseInt(quantity, 10) : 1;
+      }
+    },
     data: {hasBackButton: true}
   },
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: {hasBackButton: true}},

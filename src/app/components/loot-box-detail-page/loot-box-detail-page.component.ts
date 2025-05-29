@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {NgClass, NgForOf, NgIf, SlicePipe} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {ROUTES} from '../../app.routes';
 
@@ -24,6 +24,7 @@ interface Reward {
   styleUrls: ['./loot-box-detail-page.component.css']
 })
 export class LootBoxDetailPageComponent implements OnInit {
+  @Input() quantity: number = 1;
   chestOpen = false;
   rewards: Reward[] = [
     {icon: '🎟️', label: 'Tickets', count: 50, type: 'TICKETS'},
@@ -35,18 +36,27 @@ export class LootBoxDetailPageComponent implements OnInit {
   selectedReward: Reward | null = null;
   rewardClaimed = false;
   showAnimation = false;
+  boxesRemaining: number = 0;
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     if (!this.userService.isLoggedIn()) {
       this.router.navigate([`/${ROUTES.login}`]);
+      return;
     }
 
+    const routeQuantity = this.route.snapshot.data['quantity'];
+    if (routeQuantity) {
+      this.quantity = routeQuantity;
+    }
+
+    this.boxesRemaining = this.quantity;
     this.shuffleRewards();
   }
 
@@ -59,6 +69,7 @@ export class LootBoxDetailPageComponent implements OnInit {
 
   openChest(): void {
     this.showAnimation = true;
+    this.boxesRemaining--;
     setTimeout(() => {
       this.chestOpen = true;
       this.showAnimation = false;
@@ -66,7 +77,7 @@ export class LootBoxDetailPageComponent implements OnInit {
   }
 
   pickReward(reward: Reward): void {
-    if (this.rewardClaimed) return;
+    if (this.rewardClaimed && this.boxesRemaining <= 0) return;
 
     this.selectedReward = reward;
     this.rewardClaimed = true;
@@ -100,6 +111,10 @@ export class LootBoxDetailPageComponent implements OnInit {
   }
 
   openNext(): void {
+    if (this.boxesRemaining <= 0) {
+      alert('No more loot boxes left!');
+      return;
+    }
     this.chestOpen = false;
     this.selectedReward = null;
     this.rewardClaimed = false;

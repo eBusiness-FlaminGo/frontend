@@ -44,6 +44,9 @@ export class ShopComponent {
       if (this.userService.getTickets() >= item.cost) {
         this.userService.addTickets(-item.cost);
         alert(`You bought ${item.label}`);
+
+        sessionStorage.setItem('lootbox_quantity', item.quantity.toString());
+
         this.router.navigate(['/', ROUTES.shop, ROUTES.lootBoxDetailPage]);
       } else {
         alert('Not enough tickets!');
@@ -51,7 +54,6 @@ export class ShopComponent {
     } else {
       this.userService.addTickets(item.quantity + (item.bonus ?? 0));
       alert(`You bought ${item.label}`);
-      this.router.navigate(['/', ROUTES.shop, ROUTES.lootBoxDetailPage]);
     }
   }
 }
