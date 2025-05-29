@@ -1,2 +1,4 @@
-
-/* Tailwind handles styling. Add custom styles here if needed */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

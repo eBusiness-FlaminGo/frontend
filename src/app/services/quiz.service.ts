@@ -41,7 +41,7 @@ export class QuizService {
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
-    this.topic.set(topic);
+    this.topic.set(topic ?? null);
     this.timer = new Timer(10, () => this.endGame());
     this.timer.start();
   }

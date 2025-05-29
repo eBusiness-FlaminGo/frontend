@@ -32,12 +32,14 @@ export class QuizDropdownComponent {
   }
 
   toggleDropdown() {
-    this.dropdownVisible = !this.dropdownVisible;
-    if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
-      if (this.dropdownVisible) {
-        this.quizService.timer.pause();
-      } else {
-        this.quizService.timer.resume();
+    if (!this.quizService.isLoading()) {
+      this.dropdownVisible = !this.dropdownVisible;
+      if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
+        if (this.dropdownVisible) {
+          this.quizService.timer.pause();
+        } else {
+          this.quizService.timer.resume();
+        }
       }
     }
   }

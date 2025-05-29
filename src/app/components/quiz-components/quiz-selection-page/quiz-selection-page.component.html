@@ -1,3 +1,76 @@
+<div *ngIf="showQuizPopup"
+     class="fixed inset-0 backdrop-blur-sm z-40 flex items-center justify-center p-4"
+     style="background-color: rgba(0, 0, 0, 0.5);">
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-md animate-fade-in-down">
+    <div class="p-5 border-b">
+      <div class="flex justify-between items-center">
+        <h3 class="text-xl font-medium text-gray-900">
+          Ready to start the quiz?
+        </h3>
+        <button type="button" (click)="showQuizPopup = false"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg p-1.5">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="p-5">
+      <div class="space-y-4">
+        <div class="bg-cyan-50 p-4 rounded-lg">
+          <h4 class="font-semibold mb-2">Quiz Details</h4>
+          <p class="text-sm text-gray-700">
+            Category:
+            <span *ngIf="isWeeklyQuiz" class="font-medium">{{ weeklyCategory }}</span>
+            <span *ngIf="!isWeeklyQuiz" class="font-medium">{{ selectedCategory || "All categories" }}</span>
+          </p>
+          <p class="text-sm text-gray-700">
+            Type: <span class="font-medium">{{ isWeeklyQuiz ? 'Weekly Challenge' : 'Time Race' }}</span>
+          </p>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+          <div class="flex items-center">
+            <span class="text-xl mr-2">🛍️</span>
+            <h4 class="font-semibold">Need an advantage?</h4>
+          </div>
+          <p class="text-sm text-gray-700 mt-1 mb-3">
+            Visit the shop to purchase power-ups and boosters before starting your quiz!
+          </p>
+          <button (click)="goToShop()"
+                  class="w-full py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white rounded-md transition-colors flex items-center justify-center">
+            <span class="mr-1">🛒</span> Shop Now
+          </button>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-semibold mb-2">Rules</h4>
+          <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
+            <li>Answer as many questions as possible</li>
+            <li>Each correct answer earns points</li>
+            <li>Time bonus for quick answers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="p-5 border-t">
+      <div class="flex space-x-3">
+        <button type="button"
+                (click)="showQuizPopup = false"
+                class="py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:outline-none w-1/2">
+          Cancel
+        </button>
+        <button type="button"
+                (click)="startQuiz()"
+                class="py-2.5 px-5 text-sm font-medium text-white bg-cyan-700 rounded-lg hover:bg-cyan-800 focus:outline-none w-1/2">
+          Start Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="p-4 max-w-md mx-auto">
   <h2 class="text-2xl font-bold text-center mb-2">Race against the time</h2>
   <p class="text-center text-gray-600 mb-4">Answer as many questions as possible before the time runs out!</p>
@@ -10,7 +83,7 @@
   </div>
 
   <button class="w-full bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 rounded-lg mb-10"
-          [routerLink]="[ROUTES.quiz, selectedCategory]">
+          (click)="prepareQuiz(false)">
     Start Quiz →
   </button>
 
@@ -24,7 +97,7 @@
   </div>
 
   <button class="w-full bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 rounded-lg"
-          [routerLink]="[ROUTES.quiz, weeklyCategory]">
+          (click)="prepareQuiz(true)">
     Start Quiz →
   </button>
 </div>

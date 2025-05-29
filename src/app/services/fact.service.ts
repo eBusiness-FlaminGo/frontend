@@ -10,11 +10,7 @@ export type Fact = { message: string; bg: string; category: string }
 })
 export class FactService {
   private readonly API_URL = 'http://127.0.0.1:8000/fun-fact';
-
-  // Signal for facts data
   facts = signal<Fact[]>([]);
-
-  // Track fact loading state
   private factsLoaded = 0;
   private lastLoadTime = 0;
   private isPremium = false;
