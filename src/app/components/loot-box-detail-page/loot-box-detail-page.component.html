@@ -3,7 +3,9 @@
   <hr/>
 
   <div class="flex justify-center">
-    <img *ngIf="!chestOpen" src="./chest-closed-glow.png" class="h-50"/>
+    <img *ngIf="!chestOpen" src="./chest-closed-glow.png"
+         [ngClass]="{'animate-pulse': showAnimation}"
+         class="h-50"/>
     <img *ngIf="chestOpen" src="./chest-closed-glow.png" class="h-50"/>
   </div>
 
@@ -11,29 +13,54 @@
     <div class="font-bold text-lg">REWARD: Pick One</div>
 
     <div class="flex justify-center gap-4">
-      <div *ngFor="let reward of rewards" class="relative"
-           [ngClass]="{ 'cursor-pointer': !selectedReward && chestOpen }"
+      <div *ngFor="let reward of rewards | slice:0:3" class="relative"
+           [ngClass]="{
+             'cursor-pointer': !selectedReward && chestOpen,
+             'opacity-50': selectedReward && selectedReward !== reward && chestOpen
+           }"
            (click)="chestOpen && !selectedReward && pickReward(reward)">
-        <div *ngIf="!chestOpen || !selectedReward" class="bg-cyan-600 text-white p-4 rounded-lg text-xl">?</div>
+        <div *ngIf="!chestOpen || (chestOpen && selectedReward !== reward)"
+             class="bg-cyan-600 text-white p-4 rounded-lg text-xl flex items-center justify-center h-24 w-24">
+          <span *ngIf="!chestOpen">?</span>
+          <div *ngIf="chestOpen && !selectedReward" class="text-center">
+            <div class="text-xl">{{ reward.icon }}</div>
+          </div>
+        </div>
         <div *ngIf="chestOpen && selectedReward === reward"
-             class="bg-white p-4 rounded-lg shadow text-center">
+             class="bg-white p-4 rounded-lg shadow text-center h-24 w-24 flex flex-col items-center justify-center transform scale-110 border-2 border-yellow-400">
           <div class="text-2xl">{{ reward.icon }}</div>
           <div class="text-sm font-medium">{{ reward.label }}</div>
-          <div class="text-xs">+{{ reward.count }}</div>
+          <div class="text-xs text-green-600">+{{ reward.count }}</div>
         </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedReward" class="mt-4 bg-green-100 p-3 rounded-lg">
+      <div class="text-green-800">
+        <span class="font-bold">Congratulations!</span> You received
+        <span class="font-semibold">{{ selectedReward.count }} {{ selectedReward.label }}</span>
+      </div>
+      <div class="text-xs text-green-700 mt-1">
+        {{ selectedReward.type === 'TICKETS' ? 'Tickets have been added to your account.' : 'Jokers have been added to your inventory.' }}
       </div>
     </div>
 
     <div *ngIf="!chestOpen" class="flex justify-center">
       <button (click)="openChest()"
-              class="bg-cyan-600 text-white px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-2">
+              class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors">
         🔥 OPEN
       </button>
     </div>
 
     <div *ngIf="chestOpen && selectedReward" class="flex justify-between mt-4">
-      <button class="bg-cyan-900 text-white px-4 py-2 rounded shadow">Back to Game</button>
-      <button class="bg-cyan-600 text-white px-4 py-2 rounded shadow" (click)="openNext()">OPEN NEXT</button>
+      <button (click)="backToGame()"
+              class="bg-cyan-900 hover:bg-cyan-950 text-white px-4 py-2 rounded shadow transition-colors">
+        Back to Game
+      </button>
+      <button (click)="openNext()"
+              class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded shadow transition-colors">
+        OPEN NEXT
+      </button>
     </div>
   </div>
 </div>

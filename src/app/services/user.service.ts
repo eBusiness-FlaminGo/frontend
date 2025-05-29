@@ -163,6 +163,37 @@ export class UserService {
     return this.jokers();
   }
 
+  getJokerByType(type: string): Joker | undefined {
+    return this.jokers().find(joker => joker.type === type);
+  }
+
+  useJoker(type: string): boolean {
+    const userId = this._userProfile()?.id;
+    const password = localStorage.getItem(STORAGE_KEYS.USER_PASSWORD);
+    if (!userId || !password) {
+      console.error('User ID or password not found. Cannot use joker.');
+      return false;
+    }
+    const jokers = [...this.jokers()];
+    const jokerIndex = jokers.findIndex(j => j.type === type);
+    if (jokerIndex === -1 || jokers[jokerIndex].count <= 0) {
+      console.error(`No ${type} jokers available.`);
+      return false;
+    }
+    jokers[jokerIndex] = {
+      ...jokers[jokerIndex],
+      count: jokers[jokerIndex].count - 1
+    };
+    this._userProfile.update(profile => {
+      if (profile) {
+        return {...profile, jokers};
+      }
+      return profile;
+    });
+    this.updateJokers(userId, jokers, password);
+    return true;
+  }
+
   logout(): void {
     localStorage.removeItem(STORAGE_KEYS.USER_EMAIL);
     localStorage.removeItem(STORAGE_KEYS.USER_PASSWORD);
@@ -173,7 +204,7 @@ export class UserService {
 
   saveUserData(userId: string, userData: Partial<UserProfile>, password: string): void {
     const url = `${this.apiBaseUrl}/users/${userId}`;
-    const body = {...userData, password};
+    const body = {...this._userProfile(), ...userData, password};
 
     this.http.put(url, body).subscribe({
       next: () => {
@@ -195,8 +226,7 @@ export class UserService {
 
   updateJokers(userId: string, jokers: Joker[], password: string): void {
     const url = `${this.apiBaseUrl}/users/${userId}/jokers`;
-    const body = {jokers, password};
-
+    const body = {jokers, password, email: this._userProfile()?.email, username: this._userProfile()?.username};
     this.http.patch(url, body).subscribe({
       next: () => {
         console.log('Jokers updated successfully.');
@@ -217,7 +247,7 @@ export class UserService {
 
   updateFriends(userId: string, friends: Friend[], password: string): void {
     const url = `${this.apiBaseUrl}/users/${userId}/friends`;
-    const body = {friends, password};
+    const body = {friends, password, email: this._userProfile()?.email, username: this._userProfile()?.username};
 
     this.http.patch(url, body).subscribe({
       next: () => {

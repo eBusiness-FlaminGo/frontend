@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import { UserService } from '../../services/user.service';
+import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
+import {ROUTES} from '../../app.routes';
 
 interface ShopItem {
   type: 'lootbox' | 'ticket';
@@ -22,18 +24,19 @@ interface ShopItem {
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private router: Router) {
+  }
 
   lootboxes: ShopItem[] = [
-    { type: 'lootbox', label: 'Lootbox', quantity: 1, cost: 99, priceEUR: '0,99€', image: './lootbox1.png' },
-    { type: 'lootbox', label: '3x Lootbox', quantity: 3, cost: 249, priceEUR: '2,47€', image: './lootbox3.png' },
-    { type: 'lootbox', label: '9x Lootbox', quantity: 9, cost: 699, priceEUR: '6,99€', image: './lootbox9.png' }
+    {type: 'lootbox', label: 'Lootbox', quantity: 1, cost: 99, priceEUR: '0,99€', image: './lootbox1.png'},
+    {type: 'lootbox', label: '3x Lootbox', quantity: 3, cost: 249, priceEUR: '2,47€', image: './lootbox3.png'},
+    {type: 'lootbox', label: '9x Lootbox', quantity: 9, cost: 699, priceEUR: '6,99€', image: './lootbox9.png'}
   ];
 
   tickets: ShopItem[] = [
-    { type: 'ticket', label: '100 Tickets', quantity: 100, cost: 0, priceEUR: '0,99€' },
-    { type: 'ticket', label: '600 Tickets', quantity: 500, bonus: 100, cost: 0, priceEUR: '4,99€' },
-    { type: 'ticket', label: '1300 Tickets', quantity: 1000, bonus: 300, cost: 0, priceEUR: '9,99€' }
+    {type: 'ticket', label: '100 Tickets', quantity: 100, cost: 0, priceEUR: '0,99€'},
+    {type: 'ticket', label: '600 Tickets', quantity: 500, bonus: 100, cost: 0, priceEUR: '4,99€'},
+    {type: 'ticket', label: '1300 Tickets', quantity: 1000, bonus: 300, cost: 0, priceEUR: '9,99€'}
   ];
 
   purchase(item: ShopItem) {
@@ -41,12 +44,14 @@ export class ShopComponent {
       if (this.userService.getTickets() >= item.cost) {
         this.userService.addTickets(-item.cost);
         alert(`You bought ${item.label}`);
+        this.router.navigate(['/', ROUTES.shop, ROUTES.lootBoxDetailPage]);
       } else {
         alert('Not enough tickets!');
       }
     } else {
       this.userService.addTickets(item.quantity + (item.bonus ?? 0));
       alert(`You bought ${item.label}`);
+      this.router.navigate(['/', ROUTES.shop, ROUTES.lootBoxDetailPage]);
     }
   }
 }
