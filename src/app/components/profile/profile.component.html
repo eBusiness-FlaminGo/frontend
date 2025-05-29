@@ -1,9 +1,7 @@
 <div class="bg-gray-50 min-h-screen">
-  <!-- User Profile Header with Flowbite styling -->
   <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg">
     <div class="container mx-auto px-4 py-8">
       <div class="flex flex-col md:flex-row items-center">
-        <!-- Avatar using Flowbite avatar styling -->
         <div class="mb-4 md:mb-0 md:mr-6">
           <div class="relative w-24 h-24 overflow-hidden bg-white rounded-full">
             <div class="flex items-center justify-center w-full h-full text-3xl font-bold text-blue-600">
@@ -12,7 +10,6 @@
           </div>
         </div>
 
-        <!-- User Info -->
         <div class="text-center md:text-left flex-grow">
           <h1 class="text-2xl font-bold">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</h1>
           <p class="text-blue-100">&#64;{{ userProfile?.username }}</p>
@@ -20,7 +17,6 @@
           <p class="text-xs text-blue-200 mt-1">Member since {{ userProfile?.createdAt | date:'mediumDate' }}</p>
         </div>
 
-        <!-- Game Resources with Flowbite badge styling -->
         <div class="flex mt-4 md:mt-0 space-x-6">
           <div class="flex flex-col items-center">
             <div class="flex items-center">
@@ -51,10 +47,8 @@
     </div>
   </div>
 
-  <!-- Content Tabs using Flowbite tab component -->
   <div class="container mx-auto px-4 py-6">
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-      <!-- Flowbite tab headers -->
       <div class="border-b border-gray-200">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
           <li class="mr-2 flex-1">
@@ -84,7 +78,6 @@
         </ul>
       </div>
 
-      <!-- Friends Tab Content with Flowbite card styling -->
       <div *ngIf="activeFriendsTab" class="p-4">
         <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Friends</h2>
 
@@ -99,7 +92,6 @@
           </div>
         </div>
 
-        <!-- Friends list with Flowbite list styling -->
         <ul class="divide-y divide-gray-200">
           <li *ngFor="let friend of userService.getUserProfile()?.friends" class="py-3 sm:py-4">
             <div class="flex items-center justify-between">
@@ -152,7 +144,6 @@
         </ul>
       </div>
 
-      <!-- Jokers Tab Content using Flowbite card components -->
       <div *ngIf="activeJokersTab" class="p-4">
         <h2 class="text-xl font-semibold mb-4 text-gray-800">Available Jokers</h2>
 
