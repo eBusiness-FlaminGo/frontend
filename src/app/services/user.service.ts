@@ -86,12 +86,10 @@ export class UserService {
     }
   }
 
-  // Renamed from getStreak to getFlames
   getFlames(): number {
     return this.flames();
   }
 
-  // Renamed from incrementStreak to incrementFlames
   incrementFlames(): void {
     if (this._userProfile()) {
       this._userProfile.update(profile => {
@@ -103,7 +101,6 @@ export class UserService {
     }
   }
 
-  // Renamed from resetStreak to resetFlames
   resetFlames(): void {
     if (this._userProfile()) {
       this._userProfile.update(profile => {
@@ -136,7 +133,6 @@ export class UserService {
   }
 
   loadUserProfile(email: string, password: string): void {
-    // Store credentials in localStorage
     localStorage.setItem(STORAGE_KEYS.USER_EMAIL, email);
     localStorage.setItem(STORAGE_KEYS.USER_PASSWORD, password);
 
@@ -169,5 +165,47 @@ export class UserService {
     localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
     this._userProfile.set(null);
     this._username.set('');
+  }
+
+  saveUserData(userId: string, userData: Partial<UserProfile>, password: string): void {
+    const url = `${this.apiBaseUrl}/users/${userId}`;
+    const body = {...userData, password};
+
+    this.http.put(url, body).subscribe({
+      next: () => {
+        console.log('User data saved successfully.');
+      },
+      error: (error) => {
+        console.error('Error saving user data:', error);
+      }
+    });
+  }
+
+  updateJokers(userId: string, jokers: Joker[], password: string): void {
+    const url = `${this.apiBaseUrl}/users/${userId}/jokers`;
+    const body = {jokers, password};
+
+    this.http.patch(url, body).subscribe({
+      next: () => {
+        console.log('Jokers updated successfully.');
+      },
+      error: (error) => {
+        console.error('Error updating jokers:', error);
+      }
+    });
+  }
+
+  updateFriends(userId: string, friends: Friend[], password: string): void {
+    const url = `${this.apiBaseUrl}/users/${userId}/friends`;
+    const body = {friends, password};
+
+    this.http.patch(url, body).subscribe({
+      next: () => {
+        console.log('Friends updated successfully.');
+      },
+      error: (error) => {
+        console.error('Error updating friends:', error);
+      }
+    });
   }
 }
