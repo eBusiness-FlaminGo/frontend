@@ -17,7 +17,6 @@ interface Joker {
   styleUrls: ['./quiz-dropdown.component.css']
 })
 export class QuizDropdownComponent {
-  @Output() dropdownActivated = new EventEmitter<boolean>();
   dropdownVisible = false;
   jokers: Joker[] = [
     {type: 'fiftyFifty', count: 2},
@@ -37,11 +36,6 @@ export class QuizDropdownComponent {
   toggleDropdown() {
     if (!this.quizService.isLoading()) {
       this.dropdownVisible = !this.dropdownVisible;
-      if (!this.dropdownVisible) {
-        setTimeout(() => this.dropdownActivated.emit(this.dropdownVisible), 400);
-      } else {
-        this.dropdownActivated.emit(this.dropdownVisible);
-      }
       if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
         if (this.dropdownVisible) {
           this.quizService.timer.pause();

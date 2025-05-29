@@ -17,17 +17,11 @@ import {QuizService} from '../../../services/quiz.service';
 })
 export class QuizComponent implements OnInit {
   @Input() topic: string | null = null;
-  dropdownActive = signal(false);
-
   constructor(private route: ActivatedRoute, protected quizService: QuizService) {
   }
 
   async ngOnInit() {
     this.topic = this.route.snapshot.paramMap.get('topic');
     await this.quizService.startGame(this.topic);
-  }
-
-  onDropdownActivated(isActive: boolean) {
-    this.dropdownActive.set(isActive);
   }
 }

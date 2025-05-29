@@ -1,6 +1,6 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
   <div class="p-4 max-w-md mx-auto text-center space-y-6">
-    <app-quiz-dropdown (dropdownActivated)="onDropdownActivated($event)"></app-quiz-dropdown>
+    <app-quiz-dropdown *ngIf="quizService.selectedAnswerIndex === null"></app-quiz-dropdown>
     <div *ngIf="!this.quizService.isLoading()" class="mt-2">
       <div class="text-sm text-gray-500 mb-1">Sponsored</div>
       <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/5]">
@@ -58,10 +58,6 @@
     <button
       *ngIf="quizService.selectedAnswerIndex !== null && quizService.currentQuestionIndex <= quizService.questions().length"
       class="mt-6 w-full py-2 bg-primary-500 text-white rounded-md relative"
-      [ngClass]="{
-      'z-999' : !this.dropdownActive(),
-      'z-9' : this.dropdownActive(),
-      }"
       (click)="quizService.nextQuestion()">
       <span *ngIf="quizService.currentQuestionIndex < quizService.questions().length - 1">Next →</span>
       <span *ngIf="quizService.currentQuestionIndex === quizService.questions().length - 1">Finish Quiz</span>
