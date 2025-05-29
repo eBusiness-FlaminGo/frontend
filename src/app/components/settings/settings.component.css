@@ -1,3 +1,52 @@
 .settings-item:hover {
   background-color: #f9fafb;
 }
+
+.badge {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  display: inline-block;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-outline {
+  background-color: #f9fafb;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.drop-zone {
+  min-height: 4rem;
+  transition: background-color 0.2s ease;
+  border: 2px dashed transparent;
+}
+
+.drop-zone.cdk-drop-list-dragging {
+  border-color: #6366f1;
+  background-color: #e0e7ff !important;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[cdkDrag] {
+  cursor: grab;
+}

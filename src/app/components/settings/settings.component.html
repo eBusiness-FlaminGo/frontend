@@ -6,18 +6,27 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
       </svg>
     </button>
-    <h2 class="text-xl font-semibold">Settings</h2>
+    <h2 class="text-xl font-semibold">
+      {{ settingsView === 'topics' ? 'Settings > Topic Preferences' : 'Settings' }}
+    </h2>
   </div>
+
   <hr class="mb-2 border-gray-300"/>
-  <div class="flex flex-col divide-y divide-gray-200 rounded-md overflow-hidden bg-white">
+
+  <div *ngIf="settingsView === 'main'" class="flex flex-col divide-y divide-gray-200 rounded-md overflow-hidden bg-white">
     <div
+      tabindex="0"
+      role="button"
+      (click)="openTopicPreferences()"
+      (keydown.enter)="openTopicPreferences()"
       class="min-h-[64px] flex justify-between items-center px-4 hover:bg-gray-50 active:bg-gray-100 cursor-pointer transition-colors">
       <span class="text-base font-medium text-gray-800">Topic Preferences</span>
       <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
-           viewBox="0 0 24 24">
+          viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
       </svg>
     </div>
+
     <div
       class="min-h-[64px] flex justify-between items-center px-4 hover:bg-gray-50 active:bg-gray-100 cursor-pointer transition-colors">
       <span class="flex items-center gap-2 text-base font-medium text-gray-800">
@@ -104,6 +113,92 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
       </svg>
     </div>
+  </div>
 
+  <div *ngIf="settingsView === 'topics'" class="w-full space-y-4 p-4">
+    <div>
+      <h4 class="text-sm font-semibold text-left mb-1">Topics of Interest</h4>
+      <input
+        [(ngModel)]="newFavorite"
+        (keydown.enter)="addFavorite()"
+        placeholder="Add new topic of interest"
+        class="w-full border border-gray-300 rounded px-3 py-2 mb-3 text-sm"
+      />
+      <div
+        cdkDropList
+        cdkDropListSortingDisabled="true"
+        [cdkDropListData]="favorites"
+        [cdkDropListConnectedTo]="['exclusionsList']"
+        class="drop-zone bg-green-50 p-3 rounded-md"
+        (cdkDropListDropped)="drop($event, 'favorites')"
+        id="favoritesList"
+      >
+        <div class="flex flex-wrap gap-2 min-h-[2rem]">
+          <div
+            *ngFor="let fav of favorites"
+            cdkDrag
+            class="badge badge-success"
+            [cdkDragData]="fav"
+            (cdkDragEnded)="onDragEnd($event)"
+          >
+            {{ fav }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6">
+      <h4 class="text-sm font-semibold text-left mb-1">Topics to Avoid</h4>
+      <input
+        [(ngModel)]="newExclusion"
+        (keydown.enter)="addExclusion()"
+        placeholder="Add new topic to exclude"
+        class="w-full border border-gray-300 rounded px-3 py-2 mb-3 text-sm"
+      />
+      <div
+        cdkDropList
+        cdkDropListSortingDisabled="true"
+        [cdkDropListData]="exclusions"
+        [cdkDropListConnectedTo]="['favoritesList']"
+        class="drop-zone bg-red-50 p-3 rounded-md"
+        (cdkDropListDropped)="drop($event, 'exclusions')"
+        id="exclusionsList"
+      >
+        <div class="flex flex-wrap gap-2 min-h-[2rem]">
+          <div
+            *ngFor="let excl of exclusions"
+            cdkDrag
+            class="badge badge-error"
+            [cdkDragData]="excl"
+            (cdkDragEnded)="onDragEnd($event)"
+          >
+            {{ excl }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6">
+    <h4 class="text-sm font-semibold text-left mb-1">Suggested Categories</h4>
+      <div
+        cdkDropList
+        cdkDropListSortingDisabled="true"
+        [cdkDropListData]="suggestedCategories"
+        [cdkDropListConnectedTo]="['favoritesList', 'exclusionsList']"
+        class="drop-zone bg-gray-100 p-3 rounded-md shadow-inner"
+        (cdkDropListDropped)="drop($event, 'suggested')"
+        id="suggestedList"
+      >
+        <div class="flex flex-wrap gap-2">
+          <div
+            *ngFor="let cat of suggestedCategories"
+            cdkDrag
+            class="badge badge-outline cursor-move"
+            [cdkDragData]="cat"
+            (cdkDragEnded)="onDragEnd($event)"
+          >
+            {{ cat }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

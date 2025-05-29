@@ -8,9 +8,10 @@ import { toggleUserSetupState } from '../../utils/login';
 
 import {
   CdkDragDrop,
+  CdkDragEnd,
   DragDropModule,
   moveItemInArray,
-  transferArrayItem
+  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -44,9 +45,12 @@ export class OnboardingComponent {
   exclusions: string[] = ['Finance', 'Clothing'];
   suggestedCategories: string[] = ['Games', 'Climbing', 'Astronomy', 'Party', 'Food', 'Design', 'Basketball'];
 
+  lastDroppedItem: string | null = null;
+
   constructor(private router: Router) {
     const savedFavs = localStorage.getItem('onboarding-favorites');
     const savedExcls = localStorage.getItem('onboarding-exclusions');
+    const savedSugg = localStorage.getItem('onboarding-suggested');
 
     if (savedFavs) {
       this.favorites = JSON.parse(savedFavs);
@@ -54,6 +58,10 @@ export class OnboardingComponent {
 
     if (savedExcls) {
       this.exclusions = JSON.parse(savedExcls);
+    }
+
+    if (savedSugg) {
+      this.suggestedCategories = JSON.parse(savedSugg);
     }
   }
 
@@ -65,6 +73,7 @@ export class OnboardingComponent {
     if (this.step === 3) {
       localStorage.setItem('onboarding-favorites', JSON.stringify(this.favorites));
       localStorage.setItem('onboarding-exclusions', JSON.stringify(this.exclusions));
+      localStorage.setItem('onboarding-suggested', JSON.stringify(this.suggestedCategories));
 
       toggleUserSetupState(true);
       this.router.navigate([ROUTES.facts]);
@@ -79,6 +88,7 @@ export class OnboardingComponent {
 
   drop(event: CdkDragDrop<string[]>, target: 'suggested' | 'favorites' | 'exclusions') {
     const item = event.item.data;
+    this.lastDroppedItem = item;
     const lists = {
       suggested: this.suggestedCategories,
       favorites: this.favorites,
@@ -100,5 +110,21 @@ export class OnboardingComponent {
         );
       }
     }
+  }
+
+  onDragEnd(event: CdkDragEnd<string>) {
+    const item = event.source.data;
+
+    if (item !== this.lastDroppedItem) {
+      this.favorites = this.favorites.filter(f => f !== item);
+      this.exclusions = this.exclusions.filter(e => e !== item);
+      this.suggestedCategories = this.suggestedCategories.filter(s => s !== item);
+
+      if (!this.suggestedCategories.includes(item)) {
+        this.suggestedCategories.push(item);
+      }
+    }
+
+    this.lastDroppedItem = null;
   }
 }

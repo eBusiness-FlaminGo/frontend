@@ -23,6 +23,7 @@
           cdkDrag
           class="badge badge-success"
           [cdkDragData]="fav"
+          (cdkDragEnded)="onDragEnd($event)"
         >
           {{ fav }}
         </div>
@@ -44,6 +45,7 @@
           cdkDrag
           class="badge badge-error"
           [cdkDragData]="excl"
+          (cdkDragEnded)="onDragEnd($event)"
         >
           {{ excl }}
         </div>
@@ -65,6 +67,7 @@
           cdkDrag
           class="badge badge-outline cursor-move"
           [cdkDragData]="cat"
+          (cdkDragEnded)="onDragEnd($event)"
         >
           {{ cat }}
         </div>
