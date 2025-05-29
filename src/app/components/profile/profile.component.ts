@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {UserService, UserProfile, Friend, Joker} from '../../services/user.service';
+import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {ROUTES} from '../../app.routes';
+import {UserProfile} from '../../models/user-profile.model';
+import {Joker} from '../../models/joker.model';
 
 @Component({
   selector: 'app-profile',

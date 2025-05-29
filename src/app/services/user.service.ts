@@ -1,40 +1,8 @@
 import {Injectable} from '@angular/core';
-
-export interface Joker {
-  id: string;
-  type: string;
-  price: number;
-}
-
-export interface Friend {
-  id: string;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  updatedAt: string;
-  flames: number;
-  tickets: number;
-  friends: null;
-  jokers: null;
-}
-
-export interface UserProfile {
-  id: string;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  updatedAt: string;
-  flames: number;
-  tickets: number;
-  friends: Friend[];
-  jokers: Joker[];
-  isSetUp?: boolean;
-  isLoggedIn?: boolean;
-}
+import {HttpClient} from '@angular/common/http';
+import {UserProfile} from '../models/user-profile.model';
+import {Friend} from '../models/friend.model';
+import {Joker} from '../models/joker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +12,10 @@ export class UserService {
   private _tickets = 500;
   private _streak = 0;
   private _username = '';
+  private apiBaseUrl = 'http://127.0.0.1:8081/api';
+
+  constructor(private http: HttpClient) {
+  }
 
   getTickets(): number {
     return this._userProfile?.tickets || this._tickets;
@@ -94,67 +66,18 @@ export class UserService {
   }
 
   loadUserProfile(username: string, password: string): void {
-    this._userProfile = {
-      "id": "123e4567-e89b-12d3-a456-426614174000",
-      "username": "admin",
-      "email": "admin@example.com",
-      "firstName": "Admin",
-      "lastName": "User",
-      "createdAt": "2025-05-29T16:20:30.260637Z",
-      "updatedAt": "2025-05-29T16:20:30.260637Z",
-      "flames": 5,
-      "tickets": 100,
-      "friends": [
-        {
-          "id": "223e4567-e89b-12d3-a456-426614174000",
-          "username": "user1",
-          "email": "user1@example.com",
-          "firstName": "John",
-          "lastName": "Doe",
-          "createdAt": "2025-05-29T16:20:30.260637Z",
-          "updatedAt": "2025-05-29T16:20:30.260637Z",
-          "flames": 3,
-          "tickets": 50,
-          "friends": null,
-          "jokers": null
+    localStorage.setItem('userPassword', password); // replace it before production
+
+    this.http.get<UserProfile>(`${this.apiBaseUrl}/users/search/by-email?email=user1@example.com`)
+      .subscribe({
+        next: (profile) => {
+          this._userProfile = profile;
+          this._userProfile.isLoggedIn = true;
         },
-        {
-          "id": "323e4567-e89b-12d3-a456-426614174000",
-          "username": "user2",
-          "email": "user2@example.com",
-          "firstName": "Jane",
-          "lastName": "Smith",
-          "createdAt": "2025-05-29T16:20:30.260637Z",
-          "updatedAt": "2025-05-29T16:20:30.260637Z",
-          "flames": 7,
-          "tickets": 75,
-          "friends": null,
-          "jokers": null
+        error: (error) => {
+          console.error('Error loading user profile:', error);
         }
-      ],
-      "jokers": [
-        {
-          "id": "523e4567-e89b-12d3-a456-426614174000",
-          "type": "FIFTY_FIFTY",
-          "price": 10
-        },
-        {
-          "id": "623e4567-e89b-12d3-a456-426614174000",
-          "type": "EXTRA_TIME",
-          "price": 15
-        },
-        {
-          "id": "723e4567-e89b-12d3-a456-426614174000",
-          "type": "ASK_A_FRIEND",
-          "price": 20
-        },
-        {
-          "id": "823e4567-e89b-12d3-a456-426614174000",
-          "type": "SKIP_QUESTION",
-          "price": 25
-        }
-      ]
-    };
+      });
   }
 
   getFlames(): number {
