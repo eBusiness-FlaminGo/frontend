@@ -1,7 +1,9 @@
 <div class="layout">
-  <app-header *ngIf="isLoggedIn() && isSetUp() && !isInSettings()"></app-header>
+  <app-header
+    *ngIf="isLoggedIn(userService.getUserProfile()?.email ?? '') && isSetUp(userService.getUserProfile()?.email ?? '') && !isInSettings()"></app-header>
   <main class="content">
     <router-outlet></router-outlet>
   </main>
-  <app-navigation *ngIf="isLoggedIn() && isSetUp() && !this.quizService.isActive() && !isInSettings()"></app-navigation>
+  <app-navigation
+    *ngIf="isLoggedIn(userService.getUserProfile()?.email ?? '') && isSetUp(userService.getUserProfile()?.email ?? '') && !this.quizService.isActive() && !isInSettings()"></app-navigation>
 </div>

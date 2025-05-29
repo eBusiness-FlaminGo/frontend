@@ -18,3 +18,22 @@ input[type="password"] {
   border: 1px solid #ccc;
   font-size: 16px;
 }
+
+.blur-sm {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+.fixed {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

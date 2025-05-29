@@ -6,7 +6,8 @@ import {HeaderComponent} from './components/shared/header/header.component';
 import {NgIf} from '@angular/common';
 import {isLoggedIn, isSetUp} from './utils/login';
 import {QuizService} from './services/quiz.service';
-import { isInSettings } from './utils/settings';
+import {isInSettings} from './utils/settings';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { isInSettings } from './utils/settings';
 })
 export class AppComponent implements OnInit {
 
-  constructor(protected quizService: QuizService, public router: Router) {
+  constructor(protected quizService: QuizService, public router: Router, protected userService: UserService) {
   }
 
   ngOnInit(): void {

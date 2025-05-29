@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { Router } from '@angular/router';
-import { ROUTES } from '../../app.routes';
-import { toggleUserSetupState } from '../../utils/login';
+import {Component} from '@angular/core';
+import {NgForOf, NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {trigger, transition, style, animate} from '@angular/animations';
+import {Router} from '@angular/router';
+import {ROUTES} from '../../app.routes';
+import {toggleUserSetupState} from '../../utils/login';
 
 import {
   CdkDragDrop,
@@ -13,6 +13,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -28,12 +29,12 @@ import {
   animations: [
     trigger('fade', [
       transition(':enter', [
-        style({ position: 'absolute', width: '100%', opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
+        style({position: 'absolute', width: '100%', opacity: 0}),
+        animate('300ms ease-in', style({opacity: 1}))
       ]),
       transition(':leave', [
-        style({ position: 'absolute', width: '100%' }),
-        animate('200ms ease-out', style({ opacity: 0 }))
+        style({position: 'absolute', width: '100%'}),
+        animate('200ms ease-out', style({opacity: 0}))
       ])
     ])
   ]
@@ -47,7 +48,7 @@ export class OnboardingComponent {
 
   lastDroppedItem: string | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     const savedFavs = localStorage.getItem('onboarding-favorites');
     const savedExcls = localStorage.getItem('onboarding-exclusions');
     const savedSugg = localStorage.getItem('onboarding-suggested');
@@ -75,7 +76,10 @@ export class OnboardingComponent {
       localStorage.setItem('onboarding-exclusions', JSON.stringify(this.exclusions));
       localStorage.setItem('onboarding-suggested', JSON.stringify(this.suggestedCategories));
 
-      toggleUserSetupState(true);
+      let email = this.userService.getUserProfile()?.email;
+      if (email) {
+        toggleUserSetupState(true, email ?? '');
+      }
       this.router.navigate([ROUTES.facts]);
     }
   }

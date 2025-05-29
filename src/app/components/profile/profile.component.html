@@ -1,0 +1,194 @@
+<div class="bg-gray-50 min-h-screen">
+  <!-- User Profile Header with Flowbite styling -->
+  <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-8">
+      <div class="flex flex-col md:flex-row items-center">
+        <!-- Avatar using Flowbite avatar styling -->
+        <div class="mb-4 md:mb-0 md:mr-6">
+          <div class="relative w-24 h-24 overflow-hidden bg-white rounded-full">
+            <div class="flex items-center justify-center w-full h-full text-3xl font-bold text-blue-600">
+              {{ (userService.getUserProfile()?.firstName ?? '').charAt(0) }}{{ (userService.getUserProfile()?.lastName ?? '').charAt(0) }}
+            </div>
+          </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="text-center md:text-left flex-grow">
+          <h1 class="text-2xl font-bold">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</h1>
+          <p class="text-blue-100">&#64;{{ userProfile?.username }}</p>
+          <p class="text-blue-100">{{ userProfile?.email }}</p>
+          <p class="text-xs text-blue-200 mt-1">Member since {{ userProfile?.createdAt | date:'mediumDate' }}</p>
+        </div>
+
+        <!-- Game Resources with Flowbite badge styling -->
+        <div class="flex mt-4 md:mt-0 space-x-6">
+          <div class="flex flex-col items-center">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 text-orange-400 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
+                      clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-2xl font-bold">{{ userProfile?.flames }}</span>
+            </div>
+            <span class="text-xs">Flames</span>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 text-yellow-300 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path>
+                <path fill-rule="evenodd" d="M3 10h14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-2xl font-bold">{{ userProfile?.tickets }}</span>
+            </div>
+            <span class="text-xs">Tickets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Tabs using Flowbite tab component -->
+  <div class="container mx-auto px-4 py-6">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <!-- Flowbite tab headers -->
+      <div class="border-b border-gray-200">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+          <li class="mr-2 flex-1">
+            <button
+              [ngClass]="{'inline-block p-4 border-b-2 border-blue-600 rounded-t-lg text-blue-600': activeFriendsTab, 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300': !activeFriendsTab}"
+              (click)="showFriendsTab()">
+              <svg class="w-4 h-4 mr-2 inline-block" fill="currentColor" viewBox="0 0 20 20"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+              </svg>
+              Friends
+            </button>
+          </li>
+          <li class="mr-2 flex-1">
+            <button
+              [ngClass]="{'inline-block p-4 border-b-2 border-blue-600 rounded-t-lg text-blue-600': activeJokersTab, 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300': !activeJokersTab}"
+              (click)="showJokersTab()">
+              <svg class="w-4 h-4 mr-2 inline-block" fill="currentColor" viewBox="0 0 20 20"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+              Jokers
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Friends Tab Content with Flowbite card styling -->
+      <div *ngIf="activeFriendsTab" class="p-4">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Friends</h2>
+
+        <div *ngIf="userProfile?.friends?.length === 0" class="flex items-center justify-center p-8 text-gray-500">
+          <div class="text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No friends yet</h3>
+            <p class="mt-1 text-sm text-gray-500">You don't have any friends yet. Start by adding some!</p>
+          </div>
+        </div>
+
+        <!-- Friends list with Flowbite list styling -->
+        <ul class="divide-y divide-gray-200">
+          <li *ngFor="let friend of userService.getUserProfile()?.friends" class="py-3 sm:py-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center min-w-0">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-md font-semibold text-gray-600">
+                    {{ friend.firstName.charAt(0) }}{{ friend.lastName.charAt(0) }}
+                  </div>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-gray-900 truncate">
+                    {{ friend.firstName }} {{ friend.lastName }}
+                  </p>
+                  <p class="text-sm text-gray-500 truncate">
+                    &#64;{{ friend.username }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-4">
+                <div class="inline-flex items-center text-base font-semibold text-orange-500">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
+                          clip-rule="evenodd"></path>
+                  </svg>
+                  {{ friend.flames }}
+                </div>
+
+                <div class="inline-flex items-center text-base font-semibold text-yellow-500">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path>
+                    <path fill-rule="evenodd" d="M3 10h14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  {{ friend.tickets }}
+                </div>
+
+                <button type="button"
+                        class="text-blue-600 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg p-1.5"
+                        title="Send message">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Jokers Tab Content using Flowbite card components -->
+      <div *ngIf="activeJokersTab" class="p-4">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Available Jokers</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div *ngFor="let joker of userProfile?.jokers"
+               class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+            <div class="p-5">
+              <div class="flex items-center mb-3">
+                <div class="p-2 mr-3 rounded-full bg-blue-100 text-blue-500">
+                  <svg class="w-6 h-6" [ngClass]="getJokerIconForFlowbite(joker.type)" fill="currentColor"
+                       viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+                <h5 class="text-xl font-semibold tracking-tight text-gray-900">{{ getJokerLabel(joker.type) }}</h5>
+              </div>
+              <p class="mb-3 text-sm text-gray-700">{{ getJokerDescription(joker.type) }}</p>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-bold text-gray-900 flex items-center">
+                  {{ joker.price }}
+                  <svg class="w-5 h-5 ml-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path>
+                    <path fill-rule="evenodd" d="M3 10h14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+                <button
+                  (click)="buyJoker(joker)"
+                  [disabled]="userProfile && userProfile.tickets < joker.price"
+                  [ngClass]="{'bg-blue-600 hover:bg-blue-700 focus:ring-blue-300': userProfile && userProfile.tickets >= joker.price, 'bg-gray-400 cursor-not-allowed': userProfile && userProfile.tickets < joker.price}"
+                  class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

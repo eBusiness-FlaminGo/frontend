@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {isLoggedIn, isSetUp} from './utils/login';
 import {FactsComponent} from './components/facts/facts.component';
 import {LoginComponent} from './components/login/login.component';
 import {OnboardingComponent} from './components/onboarding/onboarding.component';
@@ -14,6 +13,7 @@ import {ShopComponent} from './components/shop/shop.component';
 import {LootBoxDetailPageComponent} from './components/loot-box-detail-page/loot-box-detail-page.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import {LikedFactsComponent} from './components/liked-facts/liked-facts.component';
+import {ProfileComponent} from './components/profile/profile.component';
 
 
 export const ROUTES = {
@@ -30,14 +30,11 @@ export const ROUTES = {
   pageNotFound: "page-not-found",
   settings: "settings",
   likedFacts: "liked-facts",
+  profile: "profile",
 }
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: isLoggedIn() && isSetUp() ? `/${ROUTES.facts}` : `/${ROUTES.login}`,
-    pathMatch: 'full',
-  },
+  {path: '', component: LoginComponent},
   {path: ROUTES.facts, component: FactsComponent},
   {path: ROUTES.login, component: LoginComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
@@ -54,5 +51,6 @@ export const routes: Routes = [
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: {hasBackButton: true}},
   {path: ROUTES.settings, component: SettingsComponent, data: {hasBackButton: true}},
   {path: ROUTES.likedFacts, component: LikedFactsComponent, data: {hasBackButton: true}},
+  {path: ROUTES.profile, component: ProfileComponent, data: {hasBackButton: true}},
   {path: '**', component: PageNotFoundComponent, data: {hasBackButton: true}},
 ];

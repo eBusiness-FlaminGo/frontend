@@ -1,0 +1,44 @@
+/* Using TailwindCSS for most styling */
+
+/* Custom scrollbar for the friends list */
+.divide-y {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.divide-y::-webkit-scrollbar {
+  width: 6px;
+}
+
+.divide-y::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.divide-y::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
+}
+
+/* Animation for card hover */
+.max-w-sm {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.max-w-sm:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Button pulse animation for Buy Now */
+button:not([disabled]).bg-blue-600:focus {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
