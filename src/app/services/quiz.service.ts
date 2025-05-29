@@ -36,13 +36,13 @@ export class QuizService {
 
   async startGame(topic: string | null) {
     this.active.set(true);
+    this.topic.set(topic ?? null);
     this.questions.set([])
     await this.loadQuestions(3)
     this.currentQuestionIndex = 0;
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
-    this.topic.set(topic ?? null);
     this.timer = new Timer(10, () => this.endGame());
     this.timer.start();
   }
@@ -52,6 +52,7 @@ export class QuizService {
       this.loading.set(true);
     }
     let url = this.API_URL;
+    console.log(this.topic())
     if (this.topic() !== null) {
       url += `?category=${encodeURIComponent(this.topic() ?? '')}`;
     }
