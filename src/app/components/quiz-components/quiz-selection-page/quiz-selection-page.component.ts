@@ -19,7 +19,7 @@ export class QuizSelectionPageComponent {
     'Science',
     'History',
     'Geography',
-    'Sports',
+    'Sport',
     'Movies',
     'Music',
     'Literature',

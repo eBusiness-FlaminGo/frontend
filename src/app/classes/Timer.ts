@@ -34,7 +34,6 @@ export class Timer {
 
   pause() {
     if (this.isStopped || this.isPaused) return;
-    console.log("Pausing timer");
     this.isPaused = true;
     clearInterval(this.intervalId);
   }

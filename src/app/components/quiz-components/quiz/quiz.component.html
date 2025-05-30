@@ -1,15 +1,20 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
-  <div class="p-4 max-w-md mx-auto text-center space-y-6">
+  <div class="max-w-md mx-auto text-center space-y-6">
     <app-quiz-dropdown *ngIf="quizService.selectedAnswerIndex === null"></app-quiz-dropdown>
-    <div *ngIf="!this.quizService.isLoading()" class="mt-2">
+    <div *ngIf="!this.quizService.isLoading()" class="mt-0">
       <div class="text-sm text-gray-500 mb-1">Sponsored</div>
-      <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/5]">
-        <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="absolute inset-0">
-          <img
-            [src]="'./ads/' + (quizService.questions()[quizService.currentQuestionIndex].category || 'ad_fallback') + '.png'"
-            alt="Advertisement"
-            class="w-full h-full object-cover">
-        </a>
+      <div class="rounded-lg shadow-md p-4 bg-white border border-gray-200">
+        <div class="flex flex-col items-center">
+          <div class="rounded-lg shadow-md overflow-hidden relative aspect-[16/5] w-full">
+            <img
+              [src]="'./ads/' + quizService.questions()[quizService.currentQuestionIndex].category.toLowerCase() + '.png'"
+              [alt]="'Ad for ' + quizService.questions()[quizService.currentQuestionIndex].category"
+              class="w-full h-full object-cover rounded"
+              onerror="this.src='./ads/_fallback.png'; this.onerror=null;"
+            />
+          </div>
+          <p class="mt-2 text-sm">{{ quizService.questions()[quizService.currentQuestionIndex].ad }}</p>
+        </div>
       </div>
     </div>
     <div *ngIf="this.quizService.isLoading()" class="mt-2">

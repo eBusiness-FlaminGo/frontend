@@ -19,8 +19,6 @@ import {Fact, FactService} from '../../services/fact.service';
 export class MyHammerConfig extends HammerGestureConfig {
 }
 
-type Ad = { imageUrl: string; link: string; category: string };
-
 @Component({
   selector: 'app-facts',
   standalone: true,
@@ -100,23 +98,17 @@ type Ad = { imageUrl: string; link: string; category: string };
 export class FactsComponent implements OnInit, OnDestroy {
   lastExitDirection: 'left' | 'right' = 'left';
 
-  fallbackAd: Ad = {imageUrl: './ads/ad_fallback.png', link: 'https://example.com/ad1', category: '*'};
-  ads: Ad[] = [
-    {imageUrl: './ads/ad1.png', link: 'https://example.com/ad1', category: 'Botany'},
-    {imageUrl: './ads/ad2.png', link: 'https://example.com/ad3', category: 'Biotechnology'}
-  ];
-
   ngOnInit() {
-    this.factService.loadFacts();
+    const favouriteCategories: string[] = JSON.parse(localStorage.getItem('onboarding-favorites') ?? '{}');
+    if (favouriteCategories && favouriteCategories.length > 0) {
+      this.factService.loadFacts(favouriteCategories.join(','));
+    } else {
+      this.factService.loadFacts();
+    }
   }
 
   ngOnDestroy() {
     this.factService.cleanup();
-  }
-
-  getFilteredAd(category: string): Ad {
-    const filteredAds = this.ads.filter(ad => ad.category === category);
-    return filteredAds.length > 0 ? filteredAds[0] : this.fallbackAd;
   }
 
   likedFacts: Fact[] = [];
@@ -145,7 +137,7 @@ export class FactsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const current = this.factService.facts()[this.currentIndex];
       if (current) {
-        this.likedFacts.push({message: current.message, category: current.category, bg: current.bg});
+        this.likedFacts.push(current);
         localStorage.setItem('likedFacts', JSON.stringify(this.likedFacts));
       }
       this.nextFact();

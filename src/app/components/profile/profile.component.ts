@@ -81,7 +81,6 @@ export class ProfileComponent implements OnInit {
   }
 
   buyJoker(joker: Joker): void {
-    console.log(`[DUMMY] Would purchase ${this.getJokerLabel(joker.type)} joker`);
     alert(`This is a dummy function. In a real implementation, you would purchase a ${this.getJokerLabel(joker.type)} joker for ${joker.price} tickets.`);
   }
 }

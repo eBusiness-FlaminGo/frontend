@@ -208,7 +208,6 @@ export class UserService {
 
     this.http.put(url, body).subscribe({
       next: () => {
-        console.log('User data saved successfully.');
         if (this._userProfile()) {
           this._userProfile.update(profile => {
             if (profile) {
@@ -229,7 +228,6 @@ export class UserService {
     const body = {jokers, password, email: this._userProfile()?.email, username: this._userProfile()?.username};
     this.http.patch(url, body).subscribe({
       next: () => {
-        console.log('Jokers updated successfully.');
         if (this._userProfile()) {
           this._userProfile.update(profile => {
             if (profile) {
@@ -251,7 +249,6 @@ export class UserService {
 
     this.http.patch(url, body).subscribe({
       next: () => {
-        console.log('Friends updated successfully.');
         if (this._userProfile()) {
           this._userProfile.update(profile => {
             if (profile) {

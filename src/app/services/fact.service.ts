@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
-export type Fact = { message: string; bg: string; category: string }
+export type Fact = { message: string; bg: string; category: string; ad: string }
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +32,9 @@ export class FactService {
 
     for (let i = 0; i < 10; i++) {
       this.http.get<Fact>(url).pipe(
-        tap(fact => {
+        tap(response => {
           const factWithBg = {
-            ...fact,
+            ...response,
             bg: `hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`
           }
           this.facts.update(facts => [...facts, factWithBg]);

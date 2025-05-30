@@ -10,6 +10,7 @@ interface QuizQuestion {
   answers: string[];
   correctAnswer: number;
   category: string;
+  ad: string;
 }
 
 @Injectable({
@@ -52,13 +53,12 @@ export class QuizService {
       this.loading.set(true);
     }
     let url = this.API_URL;
-    console.log(this.topic())
     if (this.topic() !== null) {
       url += `?category=${encodeURIComponent(this.topic() ?? '')}`;
     }
     for (let i = 0; i < numberOfQuestions; i++) {
-      const response: { message: string } = await firstValueFrom(this.http.get<{ message: string }>(url))
-      this.questions.update(questions => [...questions, JSON.parse(response.message)]);
+      const response = await firstValueFrom(this.http.get<{message: QuizQuestion}>(url));
+      this.questions.update(questions => [...questions, response.message]);
       if (!loadAsync) {
         this.loading.set(numberOfQuestions !== this.questions().length)
       }

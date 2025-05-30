@@ -78,7 +78,6 @@ export class QuizDropdownComponent implements OnInit {
     if (this.askAFriendIndex !== -1 && this.jokers[this.askAFriendIndex].count > 0) {
       // Use the joker through the user service
       this.userService.useJoker('ASK_A_FRIEND');
-      console.log("Asked a friend, remaining:", this.jokers[this.askAFriendIndex].count - 1);
       this.toggleDropdown();
     }
   }
@@ -87,7 +86,6 @@ export class QuizDropdownComponent implements OnInit {
     if (this.timeIndex !== -1 && this.jokers[this.timeIndex].count > 0) {
       this.userService.useJoker('EXTRA_TIME');
       this.quizService.timer.addTime(5);
-      console.log("Extra time added, remaining:", this.jokers[this.timeIndex].count - 1);
       this.toggleDropdown();
     }
   }
@@ -97,7 +95,6 @@ export class QuizDropdownComponent implements OnInit {
       this.toggleDropdown();
       if (await this.quizService.skipQuestion()) {
         this.userService.useJoker('SKIP_QUESTION');
-        console.log("Question skipped, remaining skips:", this.jokers[this.skipQuestionIndex].count - 1);
       } else {
         console.log("Cannot skip the last question");
       }
