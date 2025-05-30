@@ -14,7 +14,7 @@
     </button>
   </div>
 
-  <div class="text-center text-sm text-gray-600 mb-4">
+  <div class="text-center text-sm text-gray-600 mb-10">
     ⏳ <span *ngIf="currentView === 'Week'">3d left</span>
     <span *ngIf="currentView === 'Month'">10d left</span>
   </div>
@@ -22,34 +22,59 @@
   <div class="grid grid-cols-3 gap-2 items-end mb-6">
     <!-- Second Place - Left -->
     <div class="text-center">
-      <div class="flex flex-col justify-end items-center rounded-t-lg text-white p-2 h-28 bg-[#048491]">
-        <div class="text-4xl">{{ podium[1].avatar }}</div>
-        <div class="text-sm font-medium">{{ podium[1].name }}</div>
-        <div class="text-xs text-white">{{ podium[1].points }} Pts</div>
+      <div class="flex flex-col justify-end items-center rounded-t-lg text-white p-2 h-28 bg-primary-500">
+        <div class="bg-primary-500 rounded-full p-2">
+          <div class="text-4xl">{{ podium[1].avatar }}</div>
+          <div class="text-sm font-medium">{{ podium[1].name }}</div>
+          <div class="text-xs text-white">{{ podium[1].points }} Pts</div>
+        </div>
         <div class="text-2xl font-bold mt-1">2</div>
-        <div *ngIf="podium[1].reward" class="text-sm">{{ podium[1].reward }} 🎟</div>
+        <div *ngIf="podium[1].reward" class="text-sm">{{ podium[1].reward }}
+          <svg class="w-auto h-5 text-yellow-900 inline" aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+          </svg>
+        </div>
       </div>
     </div>
 
-    <!-- First Place - Center -->
     <div class="text-center">
       <div class="flex flex-col justify-end items-center rounded-t-lg text-white p-2 h-32 bg-[#047481]">
-        <div class="text-4xl">{{ podium[0].avatar }}</div>
-        <div class="text-sm font-medium">{{ podium[0].name }}</div>
-        <div class="text-xs text-white">{{ podium[0].points }} Pts</div>
+        <div class="bg-primary-600 rounded-full p-2">
+          <div class="text-4xl">{{ podium[0].avatar }}</div>
+          <div class="text-sm font-medium">{{ podium[0].name }}</div>
+          <div class="text-xs text-white">{{ podium[0].points }} Pts</div>
+        </div>
         <div class="text-2xl font-bold mt-1">1</div>
-        <div *ngIf="podium[0].reward" class="text-sm">{{ podium[0].reward }} 🎟</div>
+        <div *ngIf="podium[0].reward" class="text-sm">{{ podium[0].reward }}
+          <svg class="w-auto h-5 text-yellow-900 inline" aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+          </svg>
+        </div>
       </div>
     </div>
 
-    <!-- Third Place - Right -->
     <div class="text-center">
       <div class="flex flex-col justify-end items-center rounded-t-lg text-white p-2 h-24 bg-[#0494a1]">
-        <div class="text-4xl">{{ podium[2].avatar }}</div>
-        <div class="text-sm font-medium">{{ podium[2].name }}</div>
-        <div class="text-xs text-white">{{ podium[2].points }} Pts</div>
+        <div class="bg-primary-500 rounded-full p-2">
+          <div class="text-4xl">{{ podium[2].avatar }}</div>
+          <div class="text-sm font-medium">{{ podium[2].name }}</div>
+          <div class="text-xs text-white">{{ podium[2].points }} Pts</div>
+        </div>
         <div class="text-2xl font-bold mt-1">3</div>
-        <div *ngIf="podium[2].reward" class="text-sm">{{ podium[2].reward }} 🎟</div>
+        <div *ngIf="podium[2].reward" class="text-sm">{{ podium[2].reward }}
+          <svg class="w-auto h-5 text-yellow-900 inline" aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +91,16 @@
         <span>{{ player.name }}</span>
       </div>
       <div class="text-right text-sm w-2/6">
-        {{ player.reward ? player.reward + ' 🎟' : player.points + ' Pts' }}
+        <span>
+          {{ player.reward ?? 'No Reward' }}
+          <svg class="w-auto h-5 text-yellow-900 inline" aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z"/>
+        </svg>
+        </span><br/>
+        {{ player.points + ' Pts' }}
       </div>
     </div>
   </div>
