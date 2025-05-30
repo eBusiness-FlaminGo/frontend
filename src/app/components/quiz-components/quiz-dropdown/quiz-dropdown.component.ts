@@ -21,6 +21,7 @@ export class QuizDropdownComponent implements OnInit {
   timeIndex: number = -1;
   skipQuestionIndex: number = -1;
   fadeOutActive: boolean = false;
+  dropdownIntervalId: any;
 
   constructor(private quizService: QuizService, private userService: UserService) {
     this.loadJokersFromUserService();
@@ -47,6 +48,13 @@ export class QuizDropdownComponent implements OnInit {
   toggleDropdown() {
     if (!this.quizService.isLoading()) {
       this.dropdownVisible = !this.dropdownVisible;
+      if (this.dropdownVisible) {
+        this.dropdownIntervalId = setTimeout(() => {
+          this.toggleDropdown()
+        }, 5000)
+      } else if (this.dropdownIntervalId) {
+        clearInterval(this.dropdownIntervalId);
+      }
       if (!this.quizService.timer.isStopped && !this.quizService.selectedAnswerIndex) {
         if (this.dropdownVisible) {
           this.quizService.timer.pause();
