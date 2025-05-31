@@ -1,20 +1,15 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
-  <div class="text-left text-lg font-semibold">Lootbox</div>
-  <hr/>
-
-  <div class="flex flex-col items-center">
-    <div class="text-sm text-gray-600 mb-2">
+  <div class="flex flex-col items-center mb-10">
+    <h2 class="text-2xl text-gray-600 mb-2">
       Box {{ boxesRemaining }} of {{ quantity }}
-    </div>
-    <img *ngIf="!chestOpen" src="./whirlwind_stopped.png"
+    </h2>
+    <img src="./whirlwind_stopped.png"
          [ngClass]="{'animate-pulse': showAnimation}"
          class="h-50"/>
-    <img *ngIf="chestOpen" src="./whirlwind_stopped.png" class="h-50"/>
   </div>
 
-  <div class="bg-cyan-100 p-4 rounded-lg space-y-4">
-    <div class="font-bold text-lg">REWARD: Pick One</div>
-
+  <div class="bg-cyan-100 p-4 rounded-t-lg space-y-4 h-[53vh]">
+    <p class="font-bold text-lg">REWARD: Pick One</p>
     <div class="flex justify-center gap-4">
       <div *ngFor="let reward of rewards | slice:0:3" class="relative"
            [ngClass]="{
@@ -24,14 +19,20 @@
            (click)="chestOpen && !selectedReward && pickReward(reward)">
         <div *ngIf="!chestOpen || (chestOpen && selectedReward !== reward)"
              class="bg-cyan-600 text-white p-4 rounded-lg text-xl flex items-center justify-center h-24 w-24">
-          <span *ngIf="!chestOpen">?</span>
+          <span *ngIf="!chestOpen">
+            <svg class="w-20 h-20 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                 fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+          </span>
           <div *ngIf="chestOpen && !selectedReward" class="text-center">
-            <div class="text-xl">{{ reward.icon }}</div>
+            <div class="text-xl" [innerHtml]="reward.icon"></div>
           </div>
         </div>
         <div *ngIf="chestOpen && selectedReward === reward"
-             class="bg-white p-4 rounded-lg shadow text-center h-24 w-24 flex flex-col items-center justify-center transform scale-110 border-2 border-yellow-400">
-          <div class="text-2xl">{{ reward.icon }}</div>
+             class="bg-yellow-100 p-4 rounded-lg shadow text-center h-24 w-24 flex flex-col items-center justify-center transform scale-110 border-2 border-yellow-400">
+          <div class="text-2xl text-black" [innerHtml]="reward.icon"></div>
           <div class="text-sm font-medium">{{ reward.label }}</div>
           <div class="text-xs text-green-600">+{{ reward.count }}</div>
         </div>

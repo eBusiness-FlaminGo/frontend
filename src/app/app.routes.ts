@@ -35,11 +35,11 @@ export const ROUTES = {
 
 export const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: ROUTES.facts, component: FactsComponent},
   {path: ROUTES.login, component: LoginComponent},
+  {path: ROUTES.facts, component: FactsComponent},
   {path: ROUTES.onboarding, component: OnboardingComponent},
   {path: ROUTES.quizSelection, component: QuizSelectionPageComponent},
-  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent, data: {hasBackButton: true}},
+  {path: `${ROUTES.quizSelection}/${ROUTES.quiz}/:topic`, component: QuizComponent, data: {hasBackButton: false}},
   {path: `${ROUTES.quizSelection}/${ROUTES.quizResults}`, component: QuizResultComponent},
   {path: ROUTES.stats, component: StatsComponent, data: {hasBackButton: true}},
   {path: ROUTES.shop, component: ShopComponent},
@@ -52,7 +52,7 @@ export const routes: Routes = [
         return quantity ? parseInt(quantity, 10) : 1;
       }
     },
-    data: {hasBackButton: true}
+    data: {hasBackButton: false}
   },
   {path: ROUTES.pageNotFound, component: PageNotFoundComponent, data: {hasBackButton: true}},
   {path: ROUTES.settings, component: SettingsComponent, data: {hasBackButton: true}},
