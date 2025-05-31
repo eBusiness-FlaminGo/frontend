@@ -48,7 +48,7 @@ export class LootBoxDetailPageComponent implements OnInit {
       },
       {
         icon: this.sanitizer.bypassSecurityTrustHtml('<div class="fifty-fifty-icon">50/50</div>'),
-        label: '50/50 Joker',
+        label: '50/50',
         count: 3,
         type: 'JOKER',
         jokerType: 'FIFTY_FIFTY'
