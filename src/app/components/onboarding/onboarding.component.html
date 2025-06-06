@@ -78,8 +78,9 @@
     </p>
   </div>
   <div class="w-full space-y-4" *ngIf="step === 3">
+    <img src="logo.png" alt="Brainstorm Logo" class="mx-auto w-32 h-auto rounded-xl shadow-md"/>
     <h2 class="text-2xl font-bold">Done!</h2>
-    <p class="text-gray-500">Now you’re ready to start your adventure.</p>
+    <p class="text-gray-500">Your preferences have been saved successfully! Now you're ready to start your adventure and discover amazing content tailored just for you.</p>
   </div>
   <div class="w-full">
     <div class="flex justify-center mb-4 space-x-2">
@@ -89,8 +90,9 @@
     </div>
     <div class="flex justify-end items-center">
       <div class="space-x-2">
-        <button *ngIf="step > 1" (click)="previous()" class="btn btn-outline btn-sm">Previous</button>
-        <button (click)="next()" class="btn btn-sm btn-next">Next →</button>
+        <button *ngIf="step > 1 && step < 3" (click)="previous()" class="btn btn-outline btn-sm">Previous</button>
+        <button *ngIf="step < 3" (click)="next()" class="btn btn-sm btn-next">Next →</button>
+        <button *ngIf="step === 3" (click)="complete()" class="btn btn-sm btn-next">Get Started →</button>
       </div>
     </div>
   </div>

@@ -69,18 +69,18 @@ export class OnboardingComponent {
     if (this.step < 3) {
       this.step++;
     }
+  }
 
-    if (this.step === 3) {
-      localStorage.setItem('onboarding-favorites', JSON.stringify(this.favorites));
-      localStorage.setItem('onboarding-exclusions', JSON.stringify(this.exclusions));
-      localStorage.setItem('onboarding-suggested', JSON.stringify(this.suggestedCategories));
+  complete() {
+    localStorage.setItem('onboarding-favorites', JSON.stringify(this.favorites));
+    localStorage.setItem('onboarding-exclusions', JSON.stringify(this.exclusions));
+    localStorage.setItem('onboarding-suggested', JSON.stringify(this.suggestedCategories));
 
-      let email = this.userService.getUserProfile()?.email;
-      if (email) {
-        this.userService.setSetupState(true)
-      }
-      this.router.navigate([ROUTES.facts]);
+    let email = this.userService.getUserProfile()?.email;
+    if (email) {
+      this.userService.setSetupState(true)
     }
+    this.router.navigate([ROUTES.facts]);
   }
 
   previous() {
