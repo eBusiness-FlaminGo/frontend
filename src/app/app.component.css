@@ -5,9 +5,9 @@
 
 .content {
   flex: 1 0 auto;
-  padding-bottom: 63px;
-  height: calc(100vh - 63px);
-  overflow-y: auto;
+  padding-bottom: 0;
+  height: calc(100vh - 23px);
+  overflow-y: hidden;
 }
 
 app-navigation {
