@@ -8,7 +8,7 @@
       class="bg-cyan-900 text-white px-4 rounded-lg text-sm font-semibold flex flex-col justify-center items-center transition-all duration-300"
       [style.height]="pointsBarHeight">
       {{ result.points }} Pts<br />
-      <span class="text-base">{{ result.rank }}th</span>
+      <span class="text-base">{{ getOrdinal(result.rank) }}</span>
     </div>
 
     <div class="text-base">

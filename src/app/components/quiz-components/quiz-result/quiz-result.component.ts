@@ -65,4 +65,20 @@ export class QuizResultComponent {
     const height = minHeight + (maxHeight - minHeight) * percent;
     return `${height}px`;
   }
+
+  getOrdinal(rank: number): string {
+    const lastTwoDigits = rank % 100;
+    const lastDigit = rank % 10;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+      return rank + 'th';
+    }
+
+    switch (lastDigit) {
+      case 1: return rank + 'st';
+      case 2: return rank + 'nd';
+      case 3: return rank + 'rd';
+      default: return rank + 'th';
+    }
+  }
 }
