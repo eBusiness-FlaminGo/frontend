@@ -56,11 +56,7 @@
       </button>
     </div>
 
-    <div *ngIf="chestOpen && selectedReward" class="flex justify-between mt-4">
-      <button (click)="backToGame()"
-              class="bg-cyan-900 hover:bg-cyan-950 text-white px-4 py-2 rounded shadow transition-colors">
-        Back to Game
-      </button>
+    <div *ngIf="chestOpen && selectedReward" class="flex justify-center w-full mt-4">
       <button *ngIf="boxesRemaining > 0" (click)="openNext()"
               class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded shadow transition-colors">
         OPEN NEXT ({{ boxesRemaining }} left)
