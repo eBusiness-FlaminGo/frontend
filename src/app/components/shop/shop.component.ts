@@ -28,9 +28,9 @@ export class ShopComponent {
   }
 
   lootboxes: ShopItem[] = [
-    {type: 'lootbox', label: 'Lootbox', quantity: 1, cost: 99, priceEUR: '0,99€', image: './lootbox1.png'},
-    {type: 'lootbox', label: '3x Lootbox', quantity: 3, cost: 249, priceEUR: '2,47€', image: './lootbox3.png'},
-    {type: 'lootbox', label: '9x Lootbox', quantity: 9, cost: 699, priceEUR: '6,99€', image: './lootbox9.png'}
+    {type: 'lootbox', label: 'Brainstorm', quantity: 1, cost: 99, priceEUR: '0,99€', image: './lootbox1.png'},
+    {type: 'lootbox', label: '3x Brainstorm', quantity: 3, cost: 249, priceEUR: '2,47€', image: './lootbox3.png'},
+    {type: 'lootbox', label: '9x Brainstorm', quantity: 9, cost: 699, priceEUR: '6,92€', image: './lootbox9.png'}
   ];
 
   tickets: ShopItem[] = [
