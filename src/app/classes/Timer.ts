@@ -1,6 +1,6 @@
 export class Timer {
   private intervalId: any;
-  private remainingTime: number;
+  remainingTime: number;
   private readonly duration: number;
   private readonly callback: () => void;
   public isStopped: boolean;

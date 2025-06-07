@@ -76,7 +76,12 @@ export class QuizService {
 
     if (index === this.questions()[this.currentQuestionIndex].correctAnswer) {
       this.correctAnswers++;
-      this.timer.addTime(2)
+      
+      if ((this.timer.remainingTime + 2) <= 10) {
+        this.timer.addTime(2)
+      } else {
+        this.timer.remainingTime = 10;
+      }
 
       if(this.multiplierActive()) {
         this.bonus += 1;
