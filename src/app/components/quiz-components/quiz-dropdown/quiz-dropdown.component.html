@@ -37,8 +37,8 @@
               [class.visible]="dropdownVisible"
               [class.disabled]="multiplyPointsIndex === -1 || jokers[multiplyPointsIndex].count === 0">
         <svg class="w-16 h-16 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 17-4-4-4 4m8-6-4-4-4 4"/>
+             width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 17-4-4-4 4m8-6-4-4-4 4"/>
         </svg>
         <span class="badge"
               *ngIf="multiplyPointsIndex !== -1 && (jokers[multiplyPointsIndex]?.count ?? -1) > 0">{{ jokers[multiplyPointsIndex].count }}</span>
