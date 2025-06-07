@@ -76,9 +76,8 @@ export class QuizDropdownComponent implements OnInit {
 
   multiplyPoints() {
     if (this.multiplyPointsIndex !== -1 && this.jokers[this.multiplyPointsIndex].count > 0) {
-      // Use the joker through the user service
       this.userService.useJoker('MULTIPLY_POINTS');
-      // TODO implement functionality
+      this.quizService.activateMultiplier();
       this.toggleDropdown();
     }
   }
