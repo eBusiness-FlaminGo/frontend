@@ -34,13 +34,14 @@ export class QuizResultComponent {
     private router: Router,
   ) {
     const correct = this.quizService.correctAnswers;
+    const bonus = this.quizService.bonus;
     const total = this.quizService.questions.length;
     const allCorrect = correct === total;
 
     this.result = {
       points: Math.min(
         this.MAX_POINTS,
-        correct * this.POINTS_PER_CORRECT +
+        (correct + bonus) * this.POINTS_PER_CORRECT +
           (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0),
       ),
       correctAnswers: correct,

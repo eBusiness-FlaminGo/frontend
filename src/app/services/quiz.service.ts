@@ -27,7 +27,9 @@ export class QuizService {
   selectedAnswerIndex: number | null = null;
   correctAnswers = 0;
   wrongAnswers = 0;
+  bonus = 0;
   timer: Timer;
+  private multiplierActive = signal<boolean>(false);
   private active = signal<boolean>(false);
   isActive = this.active.asReadonly();
 
@@ -44,6 +46,7 @@ export class QuizService {
     this.selectedAnswerIndex = null;
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
+    this.bonus = 0;
     this.timer = new Timer(10, () => this.endGame());
     this.timer.start();
   }
@@ -74,6 +77,11 @@ export class QuizService {
     if (index === this.questions()[this.currentQuestionIndex].correctAnswer) {
       this.correctAnswers++;
       this.timer.addTime(2)
+
+      if(this.multiplierActive()) {
+        this.bonus += 1;
+        this.multiplierActive.set(false);
+      }
     } else {
       this.wrongAnswers++;
     }
@@ -117,6 +125,12 @@ export class QuizService {
       currentQuestion.answers[index] = '';
     });
 
+    return true;
+  }
+
+  activateMultiplier(): boolean {
+    if (this.multiplierActive()) return false;
+    this.multiplierActive.set(true);
     return true;
   }
 
