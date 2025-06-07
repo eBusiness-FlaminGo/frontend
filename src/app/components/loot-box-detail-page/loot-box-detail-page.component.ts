@@ -61,11 +61,11 @@ export class LootBoxDetailPageComponent implements OnInit {
         jokerType: 'EXTRA_TIME'
       },
       {
-        icon: this.sanitizer.bypassSecurityTrustHtml('<div>Ask a Friend</div>'), // todo replace
-        label: 'Ask a Friend',
+        icon: this.sanitizer.bypassSecurityTrustHtml('<div><svg class="w-10 h-10 text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.008-3.018a1.502 1.502 0 0 1 2.522 1.159v.024a1.44 1.44 0 0 1-1.493 1.418 1 1 0 0 0-1.037.999V14a1 1 0 1 0 2 0v-.539a3.44 3.44 0 0 0 2.529-3.256 3.502 3.502 0 0 0-7-.255 1 1 0 0 0 2 .076c.014-.398.187-.774.48-1.044Zm.982 7.026a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2h-.01Z" clip-rule="evenodd"/></svg></div>'),
+        label: 'Multiply Points',
         count: 1,
         type: 'JOKER',
-        jokerType: 'ASK_A_FRIEND'
+        jokerType: 'MULTIPLY_POINTS'
       },
       {
         icon: this.sanitizer.bypassSecurityTrustHtml('<div><svg class="w-10 h-10 text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17 6a1 1 0 1 0-2 0v4L8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8L15 14v4a1 1 0 1 0 2 0V6Z" clip-rule="evenodd"/></svg></div>'),

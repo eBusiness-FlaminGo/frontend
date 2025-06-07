@@ -17,7 +17,7 @@ export class QuizDropdownComponent implements OnInit {
   dropdownVisible = false;
   jokers: Joker[] = [];
   fiftyFiftyIndex: number = -1;
-  askAFriendIndex: number = -1;
+  multiplyPointsIndex: number = -1;
   timeIndex: number = -1;
   skipQuestionIndex: number = -1;
   fadeOutActive: boolean = false;
@@ -40,7 +40,7 @@ export class QuizDropdownComponent implements OnInit {
   private loadJokersFromUserService(): void {
     this.jokers = [...this.userService.getJokers()];
     this.fiftyFiftyIndex = this.jokers.findIndex(joker => joker.type === 'FIFTY_FIFTY');
-    this.askAFriendIndex = this.jokers.findIndex(joker => joker.type === 'ASK_A_FRIEND');
+    this.multiplyPointsIndex = this.jokers.findIndex(joker => joker.type === 'MULTIPLY_POINTS');
     this.timeIndex = this.jokers.findIndex(joker => joker.type === 'EXTRA_TIME');
     this.skipQuestionIndex = this.jokers.findIndex(joker => joker.type === 'SKIP_QUESTION');
   }
@@ -74,10 +74,11 @@ export class QuizDropdownComponent implements OnInit {
     }
   }
 
-  askAFriend() {
-    if (this.askAFriendIndex !== -1 && this.jokers[this.askAFriendIndex].count > 0) {
+  multiplyPoints() {
+    if (this.multiplyPointsIndex !== -1 && this.jokers[this.multiplyPointsIndex].count > 0) {
       // Use the joker through the user service
-      this.userService.useJoker('ASK_A_FRIEND');
+      this.userService.useJoker('MULTIPLY_POINTS');
+      // TODO implement functionality
       this.toggleDropdown();
     }
   }
