@@ -22,10 +22,10 @@ export class QuizResultComponent {
   result: QuizResult;
 
   protected readonly ROUTES = ROUTES;
-  private readonly MAX_POINTS = 200;
+  private readonly MAX_POINTS: number;
   private readonly POINTS_PER_CORRECT = 20;
   private readonly ALL_CORRECT_BONUS_POINTS = 50;
-  private readonly MAX_TICKETS = 10;
+  private readonly TICKETS_PER_CORRECT = 1;
   private readonly ALL_CORRECT_BONUS_TICKETS = 2;
 
   constructor(
@@ -37,19 +37,18 @@ export class QuizResultComponent {
     const bonus = this.quizService.bonus;
     const total = this.quizService.currentQuestionIndex + 1;
     const allCorrect = correct === total;
+    this.MAX_POINTS = total * 10;
 
     this.result = {
-      points: Math.min(
-        this.MAX_POINTS,
+      points:
         (correct + bonus) * this.POINTS_PER_CORRECT +
           (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0),
-      ),
       correctAnswers: correct,
       totalQuestions: total,
       rank: 1,
       ticketsEarned:
-        Math.round((correct / total) * this.MAX_TICKETS) +
-        (allCorrect ? this.ALL_CORRECT_BONUS_TICKETS : 0),
+        correct * this.TICKETS_PER_CORRECT +
+          (allCorrect ? this.ALL_CORRECT_BONUS_TICKETS : 0)
     };
   }
 
