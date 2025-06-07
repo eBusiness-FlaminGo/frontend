@@ -1,12 +1,12 @@
 <div *ngIf="dropdownVisible"
      [ngClass]="{'animate-fade-in': !fadeOutActive, 'animate-fade-out': fadeOutActive}"
      class="fixed inset-0 backdrop-blur-sm z-10 overlay"
-     style="background-color: rgba(0, 0, 0, 0.5);">
+     style="background-color: rgba(0, 0, 0, 0.1);">
 </div>
 <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20">
   <div class="relative group">
     <button (click)="toggleDropdown()"
-            class="w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-lg hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 transition-all duration-300">
+            class="w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-lg hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 transition-all duration-300">
       <ng-container *ngIf="!dropdownVisible; else closeIcon">
         <svg class="w-9 h-9 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
              fill="none" viewBox="0 0 24 24">
@@ -24,7 +24,7 @@
 
     <div class="absolute w-64 h-32 -top-32 left-1/2 transform -translate-x-1/2">
       <button (click)="useFiftyFifty()"
-              class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
+              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700"
               [class.visible]="dropdownVisible"
               [class.disabled]="fiftyFiftyIndex === -1 || jokers[fiftyFiftyIndex].count === 0">
         50/50
@@ -33,7 +33,7 @@
       </button>
 
       <button (click)="multiplyPoints()"
-              class="menu-button absolute w-18 h-18 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-2xl hover:bg-teal-700"
+              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700"
               [class.visible]="dropdownVisible"
               [class.disabled]="multiplyPointsIndex === -1 || jokers[multiplyPointsIndex].count === 0">
         <svg class="w-16 h-16 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@
       </button>
 
       <button (click)="addTime()"
-              class="menu-button absolute w-18 h-18 rounded-full bg-gray-600 text-white flex items-center justify-center shadow-2xl hover:bg-gray-700"
+              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700"
               [class.visible]="dropdownVisible"
               [class.disabled]="timeIndex === -1 || jokers[timeIndex].count === 0">
         <svg class="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@
       </button>
 
       <button (click)="skipQuestion()"
-              class="menu-button absolute w-18 h-18 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl hover:bg-green-600"
+              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700"
               [class.visible]="dropdownVisible"
               [class.disabled]="skipQuestionIndex === -1 || jokers[skipQuestionIndex].count === 0">
         <svg class="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
