@@ -35,7 +35,7 @@ export class QuizResultComponent {
   ) {
     const correct = this.quizService.correctAnswers;
     const bonus = this.quizService.bonus;
-    const total = this.quizService.questions.length;
+    const total = this.quizService.currentQuestionIndex + 1;
     const allCorrect = correct === total;
 
     this.result = {
@@ -52,10 +52,12 @@ export class QuizResultComponent {
         (allCorrect ? this.ALL_CORRECT_BONUS_TICKETS : 0),
     };
   }
+
   collectTickets() {
     this.userService.addTickets(this.result.ticketsEarned);
     this.router.navigate([`/${ROUTES.root}/${ROUTES.quizSelection}`]);
   }
+
   get pointsBarHeight(): string {
     const minHeight = 50;
     const maxHeight = 200;
