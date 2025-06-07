@@ -18,7 +18,7 @@
   <div class="grid grid-cols-3 gap-4">
     <div *ngFor="let box of lootboxes" (click)="purchase(box)"
          class="bg-primary-100 p-2 rounded-lg text-center space-y-2 cursor-pointer hover:shadow">
-      <img [src]="box.image" alt="lootbox" class="mx-auto h-16"/>
+      <img [src]="box.image" alt="brainstorm" class="mx-auto h-16"/>
       <div class="font-semibold">{{ box.label }}</div>
       <div class="bg-primary-500 text-white rounded-md px-2 py-1 text-sm flex items-center gap-1 justify-center">
         <span class="translate-y-[-1px]">{{ box.cost }}</span>
@@ -44,11 +44,14 @@
   <div class="grid grid-cols-3 gap-4">
     <div *ngFor="let ticket of tickets" (click)="purchase(ticket)"
          class="bg-primary-100 p-2 rounded-lg text-center space-y-2 relative cursor-pointer hover:shadow">
-      <img src="./tickets.png" alt="lootbox" class="mx-auto h-16"/>
-      <div *ngIf="ticket.bonus" class="absolute top-1 left-1 bg-yellow-200 text-yellow-800 text-xs px-1 rounded">
+      <div *ngIf="ticket.bonus" class="absolute top-[-12px] right-2 bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded">
         +{{ ticket.bonus }} Bonus!
       </div>
-      <div class="text-xl font-bold">{{ ticket.quantity + (ticket.bonus ?? 0) }}</div>
+      <img src="./tickets.png" alt="tickets" class="mx-auto h-16"/>
+      <div class="text-sm rounded-md bg-primary-50 flex items-center justify-center">
+        <div>{{ ticket.quantity }}</div>
+        <div *ngIf="(ticket.bonus ?? 0) !== 0">+{{ (ticket.bonus ?? 0) }}</div>
+      </div>
       <div class="font-semibold">{{ ticket.label }}</div>
       <div class="bg-primary-500 text-white rounded-md px-2 py-1 text-sm flex items-center gap-1 justify-center">
         <div>{{ ticket.priceEUR }}</div>
