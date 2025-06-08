@@ -10,7 +10,7 @@
   transform: translate(-50%, -50%);
   transition: all 0.3s ease-out;
   visibility: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .menu-button.visible {
@@ -56,19 +56,26 @@
 
 .badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: #ff4500;
-  color: white;
+  top: 80%;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #d5f5f6;
+  color: #05505c;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 12px;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  /*width: 32px;*/
+  /*height: 32px;*/
+  /*font-size: 16px;*/
+  /*top: 110%;*/
+  /*left: 50%;*/
+  /*transform: translateX(-50%);*/
 }
 
 .menu-button.disabled {

@@ -24,7 +24,7 @@
 
     <div class="absolute w-64 h-32 -top-32 left-1/2 transform -translate-x-1/2">
       <button (click)="useFiftyFifty()"
-              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700"
+              class="menu-button absolute w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-2xl hover:bg-primary-700 text-xl font-bold"
               [class.visible]="dropdownVisible"
               [class.disabled]="fiftyFiftyIndex === -1 || jokers[fiftyFiftyIndex].count === 0">
         50/50
