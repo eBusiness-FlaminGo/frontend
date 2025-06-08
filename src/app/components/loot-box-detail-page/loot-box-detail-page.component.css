@@ -22,3 +22,8 @@ img {
 .animate-pulse {
   animation: pulse 0.6s infinite;
 }
+
+.animate-box-open {
+  transform: rotate(360deg) scale(0.7);
+  opacity: 0.2;
+}

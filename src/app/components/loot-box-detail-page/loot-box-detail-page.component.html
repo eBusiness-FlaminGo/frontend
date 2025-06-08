@@ -1,7 +1,7 @@
 <div class="p-4 max-w-md mx-auto text-center space-y-6">
   <div class="flex flex-col items-center mb-10">
     <h2 class="text-2xl text-gray-600 mb-2">
-      Box {{ boxesRemaining }} of {{ quantity }}
+      Storms remaining: {{ boxesRemaining }} of {{ quantity }}
     </h2>
     <img src="./whirlwind_stopped.png"
          [ngClass]="{'animate-pulse': showAnimation}"
@@ -19,10 +19,12 @@
       <h2 class="text-2xl font-bold text-primary-800 dark:text-white">Brain Boost: Choose One</h2>
     </div>
     <div class="flex justify-center gap-4">
-      <div *ngFor="let reward of rewards | slice:0:3" class="relative"
+      <div *ngFor="let reward of rewards | slice:0:3"
+           class="relative transition-all duration-500 ease-in-out"
            [ngClass]="{
              'cursor-pointer': !selectedReward && chestOpen,
-             'opacity-50': selectedReward && selectedReward !== reward && chestOpen
+             'opacity-50': selectedReward && selectedReward !== reward && chestOpen,
+             'animate-box-open': showAnimation && !chestOpen
            }"
            (click)="chestOpen && !selectedReward && pickReward(reward)">
         <div *ngIf="!chestOpen || (chestOpen && selectedReward !== reward)"
