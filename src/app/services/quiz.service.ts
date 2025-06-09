@@ -61,7 +61,8 @@ export class QuizService {
     }
     for (let i = 0; i < numberOfQuestions; i++) {
       const response = await firstValueFrom(this.http.get<{message: QuizQuestion}>(url));
-      this.questions.update(questions => [...questions, response.message]);
+      const shuffledQuestion = this.shuffleAnswers(response.message);
+      this.questions.update(questions => [...questions, shuffledQuestion]);
       if (!loadAsync) {
         this.loading.set(numberOfQuestions !== this.questions().length)
       }
@@ -76,7 +77,7 @@ export class QuizService {
 
     if (index === this.questions()[this.currentQuestionIndex].correctAnswer) {
       this.correctAnswers++;
-      
+
       if ((this.timer.remainingTime + 2) <= 10) {
         this.timer.addTime(2)
       } else {
@@ -146,5 +147,23 @@ export class QuizService {
     this.timer.pause()
     this.nextQuestion()
     return true;
+  }
+
+  private shuffleAnswers(question: QuizQuestion): QuizQuestion {
+    const correctAnswer = question.answers[question.correctAnswer];
+    const shuffledAnswers = [...question.answers];
+
+    for (let i = shuffledAnswers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
+    }
+
+    const newCorrectAnswerIndex = shuffledAnswers.indexOf(correctAnswer);
+
+    return {
+      ...question,
+      answers: shuffledAnswers,
+      correctAnswer: newCorrectAnswerIndex,
+    }
   }
 }
