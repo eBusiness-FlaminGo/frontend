@@ -1,9 +1,11 @@
 <div class="layout">
   <app-header
-    *ngIf="this.userService.getUserProfile()?.isLoggedIn && this.userService.getUserProfile()?.isSetUp && !isInSettings()"></app-header>
-  <main class="content">
+    *ngIf="showHeader()"></app-header>
+  <main class="content"
+        [class.no-header]="!showHeader()"
+        [class.no-navigation]="!showNavigation()">
     <router-outlet></router-outlet>
   </main>
   <app-navigation
-    *ngIf="this.userService.getUserProfile()?.isLoggedIn && this.userService.getUserProfile()?.isSetUp && !this.quizService.isActive() && !isInSettings()"></app-navigation>
+    *ngIf="showNavigation()"></app-navigation>
 </div>

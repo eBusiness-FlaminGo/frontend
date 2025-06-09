@@ -5,8 +5,17 @@
 
 .content {
   flex: 1 0 auto;
-  padding-bottom: 0;
+  padding-top: 56px;
+  padding-bottom: 63px;
   overflow-y: hidden;
+}
+
+.no-header {
+  padding-top: 0;
+}
+
+.no-navigation {
+  padding-bottom: 0;
 }
 
 app-navigation {

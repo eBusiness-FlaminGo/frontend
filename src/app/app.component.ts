@@ -26,4 +26,16 @@ export class AppComponent implements OnInit {
 
   title = 'Brainstorm';
   protected readonly isInSettings = () => isInSettings(this.router);
+
+  showHeader(): boolean {
+    return (this.userService.getUserProfile()?.isLoggedIn || false) &&
+      (this.userService.getUserProfile()?.isSetUp || false) &&
+      !this.isInSettings();
+  }
+
+  showNavigation(): boolean {
+    return (this.userService.getUserProfile()?.isLoggedIn || false) &&
+      (this.userService.getUserProfile()?.isSetUp ||false) &&
+      !this.quizService.isActive() && !this.isInSettings();
+  }
 }
