@@ -39,7 +39,7 @@
     <div *ngIf="!this.quizService.isLoading()" class="grid grid-cols-2 gap-4 mt-4">
       <button *ngFor="let answer of quizService.questions()[quizService.currentQuestionIndex].answers; let i = index"
               (click)="answer.length > 0 ? quizService.selectAnswer(i) : null"
-              class="pl-4 pr-4 pt-6 pb-6 rounded-lg text-lg font-medium border transition
+              class="z-10 pl-4 pr-4 pt-6 pb-6 rounded-lg text-lg font-medium border transition
                    duration-200"
               [ngClass]="{
               'bg-gray-100 text-green-400 border-dashed': quizService.selectedAnswerIndex !== i && quizService.selectedAnswerIndex !== null && i === quizService.questions()[quizService.currentQuestionIndex].correctAnswer,

@@ -1,9 +1,14 @@
 <div *ngIf="dropdownVisible"
      [ngClass]="{'animate-fade-in': !fadeOutActive, 'animate-fade-out': fadeOutActive}"
-     class="fixed inset-0 backdrop-blur-sm z-10 overlay"
+     class="fixed inset-0 backdrop-blur-sm z-20 overlay"
      style="background-color: rgba(0, 0, 0, 0.1);">
 </div>
-<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20">
+<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2"
+     [ngClass]="{
+        'z-30': dropdownVisible || animationActive,
+        'z-0': !dropdownVisible && !animationActive
+  }"
+>
   <div class="relative group">
     <button (click)="toggleDropdown()"
             class="w-18 h-18 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-lg hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 transition-all duration-300">
