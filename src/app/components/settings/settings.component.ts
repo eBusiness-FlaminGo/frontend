@@ -27,7 +27,7 @@ import { FormsModule } from '@angular/forms';
 export class SettingsComponent {
   protected readonly ROUTES = ROUTES;
 
-  settingsView: 'main' | 'topics' = 'main';
+  settingsView: 'main' | 'topics' | 'premium' = 'main';
 
   favorites: string[] = [];
   exclusions: string[] = [];
@@ -41,7 +41,7 @@ export class SettingsComponent {
   constructor(private location: Location) {}
 
   goBack(): void {
-    if (this.settingsView === 'topics') {
+    if (this.settingsView === 'topics' || this.settingsView === 'premium') {
       this.settingsView = 'main';
     } else {
       this.location.back();
@@ -121,5 +121,9 @@ export class SettingsComponent {
     }
 
     this.lastDroppedItem = null;
+  }
+
+  openPremiumInfo(): void {
+    this.settingsView = 'premium';
   }
 }
