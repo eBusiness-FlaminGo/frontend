@@ -20,7 +20,13 @@
     <div class="p-5">
       <div class="space-y-4">
         <div class="bg-cyan-50 p-4 rounded-lg">
-          <h4 class="font-semibold mb-2">Quiz Details</h4>
+          <div class="flex items-center align-middle gap-2">
+            <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8"/>
+            </svg>
+
+            <h4 class="text-center font-semibold">Quiz Details</h4>
+          </div>
           <p class="text-sm text-gray-700">
             Category:
             <span *ngIf="isWeeklyQuiz" class="font-medium">{{ weeklyCategory }}</span>
@@ -32,19 +38,34 @@
         </div>
         <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
           <div class="flex items-center">
-            <span class="text-xl mr-2">🛍️</span>
-            <h4 class="font-semibold">Need an advantage?</h4>
+            <div class="flex items-center align-middle gap-2">
+              <svg class="w-8 h-8 text-amber-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M5.535 7.677c.313-.98.687-2.023.926-2.677H17.46c.253.63.646 1.64.977 2.61.166.487.312.953.416 1.347.11.42.148.675.148.779 0 .18-.032.355-.09.515-.06.161-.144.3-.243.412-.1.111-.21.192-.324.245a.809.809 0 0 1-.686 0 1.004 1.004 0 0 1-.324-.245c-.1-.112-.183-.25-.242-.412a1.473 1.473 0 0 1-.091-.515 1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.401 1.401 0 0 1 13 9.736a1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.4 1.4 0 0 1 9 9.74v-.008a1 1 0 0 0-2 .003v.008a1.504 1.504 0 0 1-.18.712 1.22 1.22 0 0 1-.146.209l-.007.007a1.01 1.01 0 0 1-.325.248.82.82 0 0 1-.316.08.973.973 0 0 1-.563-.256 1.224 1.224 0 0 1-.102-.103A1.518 1.518 0 0 1 5 9.724v-.006a2.543 2.543 0 0 1 .029-.207c.024-.132.06-.296.11-.49.098-.385.237-.85.395-1.344ZM4 12.112a3.521 3.521 0 0 1-1-2.376c0-.349.098-.8.202-1.208.112-.441.264-.95.428-1.46.327-1.024.715-2.104.958-2.767A1.985 1.985 0 0 1 6.456 3h11.01c.803 0 1.539.481 1.844 1.243.258.641.67 1.697 1.019 2.72a22.3 22.3 0 0 1 .457 1.487c.114.433.214.903.214 1.286 0 .412-.072.821-.214 1.207A3.288 3.288 0 0 1 20 12.16V19a2 2 0 0 1-2 2h-6a1 1 0 0 1-1-1v-4H8v4a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2v-6.888ZM13 15a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2Z" clip-rule="evenodd"/>
+              </svg>
+              <h4 class="text-center font-bold">Need an advantage?</h4>
+            </div>
+
           </div>
           <p class="text-sm text-gray-700 mt-1 mb-3">
             Visit the shop to purchase power-ups and boosters before starting your quiz!
           </p>
           <button (click)="goToShop()"
                   class="w-full py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white rounded-md transition-colors flex items-center justify-center">
-            <span class="mr-1">🛒</span> Shop Now
+            <div class="flex items-center align-middle gap-2">
+              <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+              </svg>
+              <span class="text-center">Shop Now</span>
+            </div>
           </button>
         </div>
         <div class="bg-gray-50 p-4 rounded-lg">
-          <h4 class="font-semibold mb-2">Rules</h4>
+          <div class="flex items-center align-middle gap-2">
+            <svg class="w-8 h-8 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-3 5h3m-6 0h.01M12 16h3m-6 0h.01M10 3v4h4V3h-4Z"/>
+            </svg>
+            <h4 class="text-center font-semibold">Rules</h4>
+          </div>
           <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
             <li>Answer as many questions as possible</li>
             <li>Each correct answer earns points</li>
