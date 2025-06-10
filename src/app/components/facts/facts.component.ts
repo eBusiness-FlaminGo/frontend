@@ -48,6 +48,11 @@ export class MyHammerConfig extends HammerGestureConfig {
         transform: 'translateX(150%) rotate(10deg)',
         zIndex: 1
       })),
+      state('top', style({
+        opacity: 0,
+        transform: 'translateY(-150%) rotate(0deg)',
+        zIndex: 1
+      })),
       state('dragging', style({
         transform: '{{transform}}',
         opacity: '{{opacity}}',
@@ -57,6 +62,9 @@ export class MyHammerConfig extends HammerGestureConfig {
         animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
       ]),
       transition('center => right', [
+        animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+      ]),
+      transition('center => top', [
         animate('650ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
       ]),
       transition('dragging => center', [
@@ -115,7 +123,7 @@ export class FactsComponent implements OnInit, OnDestroy {
   private swipeCoordinates?: [number, number];
   private swipeTime?: number;
 
-  animationState: 'center' | 'left' | 'right' | 'dragging' = 'center';
+  animationState: 'center' | 'left' | 'right' | 'top' | 'dragging' = 'center';
   animationParams = {transform: 'translateX(0) rotate(0deg)', opacity: 1};
 
   constructor(protected factService: FactService) {
@@ -156,6 +164,14 @@ export class FactsComponent implements OnInit, OnDestroy {
       this.nextFact();
     }, 650);
   }
+
+  skip() {
+    this.animationState = 'top';
+    setTimeout(() => {
+      this.nextFact();
+    }, 650);
+  }
+
 
   nextFact() {
     if (this.currentIndex < this.factService.facts().length - 1) {
