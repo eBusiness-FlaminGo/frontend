@@ -133,6 +133,7 @@ export class FactsComponent implements OnInit, OnDestroy {
 
   showThumbsUp = false;
   showThumbsDown = false;
+  showSkipIcon = false;
 
   like() {
     this.showThumbsUp = true;
@@ -166,6 +167,11 @@ export class FactsComponent implements OnInit, OnDestroy {
   }
 
   skip() {
+    this.showSkipIcon = true;
+    setTimeout(() => {
+      this.showSkipIcon = false;
+    }, 1000);
+
     this.animationState = 'top';
     setTimeout(() => {
       this.nextFact();
