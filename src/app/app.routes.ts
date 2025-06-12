@@ -15,6 +15,7 @@ import {SettingsComponent} from './components/settings/settings.component';
 import {LikedFactsComponent} from './components/liked-facts/liked-facts.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ActivatedRouteSnapshot} from '@angular/router';
+import { DailyChallengesComponent } from './components/daily-challenges/daily-challenges.component';
 
 export const ROUTES = {
   root: "/",
@@ -31,6 +32,7 @@ export const ROUTES = {
   settings: "settings",
   likedFacts: "liked-facts",
   profile: "profile",
+  dailyChallenges: "daily-challenges"
 }
 
 export const routes: Routes = [
@@ -43,6 +45,7 @@ export const routes: Routes = [
   {path: `${ROUTES.quizSelection}/${ROUTES.quizResults}`, component: QuizResultComponent},
   {path: ROUTES.stats, component: StatsComponent, data: {hasBackButton: true}},
   {path: ROUTES.shop, component: ShopComponent},
+  {path: ROUTES.dailyChallenges, component: DailyChallengesComponent, data: {hasBackButton: true}},
   {
     path: `${ROUTES.shop}/${ROUTES.lootBoxDetailPage}`,
     component: LootBoxDetailPageComponent,
