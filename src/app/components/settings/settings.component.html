@@ -212,47 +212,96 @@
     </div>
   </div>
   <div *ngIf="settingsView === 'premium'" class="w-full p-4 space-y-4">
-    <h3 class="text-2xl font-semibold text-left mt-8">Become a Premium-User Today!</h3>
-    <div class="border rounded-md p-4 shadow-sm bg-white max-w-md mx-auto mt-8">
-      <h4 class="text-lg text-gray-500 font-semibold mb-1">Premium plan</h4>
-      <p class="text-5xl font-extrabold text-gray-900 leading-tight">
-        $4.99 <span class="text-xl font-medium text-gray-500">/month</span>
-      </p>
-      <ul class="mt-4 space-y-2 text-sm mt-8">
-        <li class="flex items-center gap-2 text-green-600">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-          No ads
-        </li>
-        <li class="flex items-center gap-2 text-green-600">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          Generate unlimited facts
-        </li>
-        <li class="flex items-center gap-2 text-green-600">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          3x Jokers a day (up to 10 per type)
-        </li>
-        <li class="flex items-center gap-2 text-green-600">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-          Bonus multiplier
-        </li>
-        <li class="flex items-center gap-2 text-green-600">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-          Monthly tickets
-        </li>
-      </ul>
-      <button class="mt-6 w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded transition">
-        Choose plan
-      </button>
+    <h3 class="text-2xl font-semibold text-left mt-5">Become a Premium-User Today!</h3>
+    <div class="flex flex-col md:flex-row gap-10 justify-center mt-15">
+      <!-- Bestehender Premium-Plan -->
+      <div class="border rounded-md p-4 shadow-sm bg-white max-w-md w-full transition-transform duration-300 hover:scale-105 hover:shadow-lg animate__animated animate__fadeIn">
+        <h4 class="text-lg text-gray-500 font-semibold mb-1">Premium plan</h4>
+        <p class="text-5xl font-extrabold text-gray-900 leading-tight">
+          $4.99 <span class="text-xl font-medium text-gray-500">/month</span>
+        </p>
+        <ul class="mt-4 space-y-2 text-sm mt-8">
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            No ads
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Generate unlimited facts
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            3x Jokers a day (up to 10 per type)
+          </li>
+          <li class="flex items-center gap-2 text-gray-400 line-through">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8"/>
+            </svg>
+            Bonus multiplier
+          </li>
+          <li class="flex items-center gap-2 text-gray-400 line-through">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8"/>
+            </svg>
+            Monthly tickets
+          </li>
+        </ul>
+        <button class="mt-6 w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded transition">
+          Choose plan
+        </button>
+      </div>
+      <!-- Ultimate-Plan -->
+      <div class="border-4 border-yellow-400 rounded-md p-4 shadow-sm bg-white max-w-md w-full transition-transform duration-300 hover:scale-105 hover:shadow-lg animate__animated animate__fadeIn animate pulse-border">
+        <h4 class="text-lg font-semibold mb-1 text-yellow-400">Ultimate plan</h4>
+        <p class="text-5xl font-extrabold text-gray-900 leading-tight">
+          $9.99 <span class="text-xl font-medium text-gray-500">/month</span>
+        </p>
+        <ul class="mt-4 space-y-2 text-sm mt-8">
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            No ads
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Generate unlimited facts
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            10x Jokers a day (up to 10 per type)
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            Bonus multiplier
+          </li>
+          <li class="flex items-center gap-2 text-green-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            Monthly tickets
+          </li>
+        </ul>
+        <button class="mt-6 w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded transition">
+          Choose plan
+        </button>
+      </div>
     </div>
+  </div>
 </div>
