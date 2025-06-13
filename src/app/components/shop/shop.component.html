@@ -44,7 +44,7 @@
   <div class="grid grid-cols-3 gap-4">
     <div *ngFor="let ticket of tickets" (click)="purchase(ticket)"
          class="bg-primary-100 p-2 rounded-lg text-center space-y-2 relative cursor-pointer hover:shadow">
-      <div *ngIf="ticket.bonus" class="absolute top-[-12px] right-2 bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded">
+      <div *ngIf="ticket.bonus" class="absolute top-[-12px] right-2 bg-yellow-200 text-yellow-800 text-xs px-2 py-1 rounded pulse">
         +{{ ticket.bonus }} Bonus!
       </div>
       <img src="./tickets.png" alt="tickets" class="mx-auto h-16"/>
@@ -66,7 +66,7 @@
   </div>
   <div class="flex justify-center">
     <button
-      class="bg-primary-500 text-white px-4 py-2 rounded-md mt-2 text-sm flex items-center gap-1"
+      class="bg-primary-500 text-white px-8 py-2 rounded-md text-sm flex items-center gap-1"
       [routerLink]="['/daily-challenges']">
       Daily Challenges →
     </button>
