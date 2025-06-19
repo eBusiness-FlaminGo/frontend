@@ -27,6 +27,7 @@ export class UserService {
   public readonly username = computed(() => this._userProfile()?.username || this._username());
   public readonly friends = computed(() => this._userProfile()?.friends || []);
   public readonly jokers = computed(() => this._userProfile()?.jokers || []);
+  public readonly unlockedFactCount = computed(() => this._userProfile()?.unlockedFactCount || 0);
   public readonly isLoggedIn = computed(() => !!this._userProfile() || this._userProfile()?.isLoggedIn);
   public readonly isSetUp = computed(() => !this._userProfile()?.isSetUp);
 
@@ -192,6 +193,26 @@ export class UserService {
     });
     this.updateJokers(userId, jokers, password);
     return true;
+  }
+
+  getUnlockedFactCount(): number {
+    return this.unlockedFactCount();
+  }
+
+  updateUnlockedFactCount(amount: number): void {
+    const profile = this._userProfile();
+
+    if (profile) {
+      const currentCount = profile.unlockedFactCount ?? 0;
+      const updatedProfile = {
+        ...profile,
+        unlockedFactCount: currentCount + amount
+      }
+      this._userProfile.set(updatedProfile);
+      this.saveProfileChanges({unlockedFactCount: this._userProfile()?.unlockedFactCount});
+    } else {
+      console.error('Error updating unlocked facts. Not logged in.');
+    }
   }
 
   logout(): void {

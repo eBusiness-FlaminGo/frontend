@@ -1,6 +1,6 @@
 <div class="container mx-auto py-4 px-4 max-w-xl">
   <ng-container
-    *ngIf="!factService.isLoading() && currentIndex >= 0 && this.factService.facts()[currentIndex]; else emptyMessage">
+    *ngIf="!factService.isLoading() && currentIndex >= 0 && this.factService.facts()[currentIndex] && this.userService.unlockedFactCount() > 0; else emptyMessage">
     <div
       class="rounded-4xl p-6 shadow-md cursor-default card"
       [@cardAnimation]="{ value: animationState, params: animationParams }"
@@ -105,12 +105,16 @@
     </div>
   </ng-container>
   <ng-template #emptyMessage>
-    <div class="text-center text-gray-500 mt-12">
+    <div class="flex flex-col items-center text-center justify-center text-gray-500 mt-12">
       <img src="./whoops.png" alt="Whoops!" class="mx-auto mb-4 w-32 h-32 object-contain"/>
       <p class="text-2xl font-bold">Whoops!</p>
       <p class="mt-2 font-semibold">You’ve hit your fact limit for now.</p>
-      <p class="font-semibold">Looks like the fact machine needs a quick nap.</p>
-      <p class="mt-4 font-semibold">Come back soon or test your skills in the quiz.</p>
+      <p class="mt-8 font-semibold">Maybe you can reactivate the fact machine with some energy from a brainstorm?</p>
+      <button class="bg-primary-500 text-white px-8 py-2 rounded-md text-sm flex items-center gap-1 mt-4"
+              (click)="goToShop()">
+        Get Brainstorm
+      </button>
+      <p class="mt-8 font-semibold">Come back soon or test your skills in the quiz.</p>
     </div>
   </ng-template>
 </div>

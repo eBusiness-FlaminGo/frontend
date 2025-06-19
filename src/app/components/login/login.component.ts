@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       const {username, password} = this.loginForm.value;
       this.userService.loadUserProfile(username, password);
       this.userService.setLoginState(true)
+      this.userService.updateUnlockedFactCount(5); // simulate daily refresh of fact generation tokens
       this.router.navigate([`/${ROUTES.onboarding}`]);
     } else {
       this.openModal();
