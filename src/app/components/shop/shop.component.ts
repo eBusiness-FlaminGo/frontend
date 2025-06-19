@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {ROUTES} from '../../app.routes';
 
 interface ShopItem {
@@ -19,7 +19,8 @@ interface ShopItem {
   templateUrl: './shop.component.html',
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   styleUrls: ['./shop.component.css']
 })

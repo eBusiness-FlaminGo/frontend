@@ -1,2 +1,16 @@
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12);
+  }
+}
+
+.pulse {
+  animation: pulse 3.4s infinite;
+}
 
 
