@@ -12,7 +12,6 @@ export class FactService {
   private readonly API_URL = 'http://127.0.0.1:8000/fun-fact';
   facts = signal<Fact[]>([]);
   private factsLoaded = 0;
-  factsLoaded = 0;
   private lastLoadTime = 0;
   private isPremium = false;
   private loading = signal<boolean>(false);
