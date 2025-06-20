@@ -24,9 +24,8 @@ export class QuizResultComponent {
   protected readonly ROUTES = ROUTES;
   private readonly MAX_POINTS: number;
   private readonly POINTS_PER_CORRECT = 20;
+  private readonly POINTS_DEDUCT_PER_WRONG = 5;
   private readonly ALL_CORRECT_BONUS_POINTS = 50;
-  private readonly TICKETS_PER_CORRECT = 1;
-  private readonly ALL_CORRECT_BONUS_TICKETS = 2;
 
   constructor(
     private quizService: QuizService,
@@ -34,21 +33,20 @@ export class QuizResultComponent {
     private router: Router,
   ) {
     const correct = this.quizService.correctAnswers;
+    const wrong = this.quizService.wrongAnswers;
     const bonus = this.quizService.bonus;
     const total = this.quizService.currentQuestionIndex + 1;
     const allCorrect = correct === total;
+    const calculatedPoints = this.calculatePoints(correct, wrong, bonus, allCorrect);
     this.MAX_POINTS = total * 10;
 
     this.result = {
-      points:
-        (correct + bonus) * this.POINTS_PER_CORRECT +
-          (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0),
+      points: calculatedPoints,
       correctAnswers: correct,
       totalQuestions: total,
       rank: 1,
       ticketsEarned:
-        correct * this.TICKETS_PER_CORRECT +
-          (allCorrect ? this.ALL_CORRECT_BONUS_TICKETS : 0)
+        this.calculateTickets(calculatedPoints),
     };
   }
 
@@ -79,5 +77,17 @@ export class QuizResultComponent {
       case 3: return rank + 'rd';
       default: return rank + 'th';
     }
+  }
+
+  private calculatePoints(correct: number, wrong: number, bonus: number, allCorrect: boolean): number {
+    const points = ((correct + bonus) * this.POINTS_PER_CORRECT +
+      (allCorrect ? this.ALL_CORRECT_BONUS_POINTS : 0) -
+      wrong * this.POINTS_DEDUCT_PER_WRONG);
+    return points > 0 ? points : 0;
+  }
+
+  private calculateTickets(points: number) {
+    const tickets = Math.floor(points / 20);
+    return tickets > 0 ? tickets : 1;
   }
 }
