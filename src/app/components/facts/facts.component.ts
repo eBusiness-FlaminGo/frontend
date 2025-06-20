@@ -16,7 +16,7 @@ import {
 import {Fact, FactService} from '../../services/fact.service';
 import {UserService} from '../../services/user.service';
 import {ROUTES} from '../../app.routes';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -25,7 +25,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 @Component({
   selector: 'app-facts',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './facts.component.html',
   styleUrls: ['./facts.component.css'],
   providers: [
