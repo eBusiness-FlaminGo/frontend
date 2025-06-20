@@ -168,6 +168,6 @@ export class LootBoxDetailPageComponent implements OnInit {
   }
 
   private addNewFacts(count: number) {
-    this.userService.updateUnlockedFactCount(count);
+    this.userService.updateUnlockedFacts(count);
   }
 }

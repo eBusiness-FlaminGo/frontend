@@ -25,7 +25,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 @Component({
   selector: 'app-facts',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './facts.component.html',
   styleUrls: ['./facts.component.css'],
   providers: [
@@ -216,7 +216,7 @@ export class FactsComponent implements OnInit, OnDestroy {
   }
 
   async nextFact() {
-    this.userService.updateUnlockedFactCount(-1);
+    this.userService.updateUnlockedFacts(-1);
 
     if (this.currentIndex < this.factService.facts().length - 1) {
       this.currentIndex++;

@@ -1,6 +1,6 @@
 <div class="container mx-auto py-4 px-4 max-w-xl">
   <ng-container
-    *ngIf="!factService.isLoading() && currentIndex >= 0 && this.factService.facts()[currentIndex] && this.userService.unlockedFactCount() > 0; else emptyMessage">
+    *ngIf="!factService.isLoading() && currentIndex >= 0 && this.factService.facts()[currentIndex] && this.userService.unlockedFacts() > 0; else emptyMessage">
     <div
       class="rounded-4xl p-6 shadow-md cursor-default card"
       [@cardAnimation]="{ value: animationState, params: animationParams }"

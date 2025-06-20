@@ -13,7 +13,7 @@ export interface UserProfile {
   tickets: number;
   friends: Friend[];
   jokers: Joker[];
-  unlockedFactCount: number;
+  unlockedFacts: number;
   isSetUp?: boolean;
   isLoggedIn?: boolean;
 }

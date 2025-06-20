@@ -12,7 +12,6 @@ export class FactService {
   private readonly API_URL = 'http://127.0.0.1:8000/fun-fact';
   facts = signal<Fact[]>([]);
   private factsLoaded = 0;
-  factsLoaded = 0;
   private lastLoadTime = 0;
   private isPremium = false;
   private loading = signal<boolean>(false);
@@ -31,7 +30,8 @@ export class FactService {
       url += `?category=${encodeURIComponent(category)}`;
     }
 
-    for (let i = 0; i < 10; i++) {
+    const LOAD_LIMITER = 10;
+    for (let i = 0; i < LOAD_LIMITER; i++) {
       this.http.get<Fact>(url).pipe(
         tap(response => {
           const factWithBg = {
