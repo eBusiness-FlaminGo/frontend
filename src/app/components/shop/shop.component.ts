@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {Router, RouterLink} from '@angular/router';
 import {ROUTES} from '../../app.routes';
@@ -20,7 +20,8 @@ interface ShopItem {
   imports: [
     NgIf,
     NgForOf,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   styleUrls: ['./shop.component.css']
 })
@@ -40,21 +41,30 @@ export class ShopComponent {
     {type: 'ticket', label: '1300 Tickets', quantity: 1000, bonus: 300, cost: 0, priceEUR: '9,99€'}
   ];
 
+  alertMessage: string | null = null;
+  alertType: 'success' | 'error' = 'success';
+
   purchase(item: ShopItem) {
     if (item.type === 'lootbox') {
       if (this.userService.getTickets() >= item.cost) {
         this.userService.addTickets(-item.cost);
-        alert(`You bought ${item.label}`);
-
+        this.showAlert(`You bought ${item.label}`, 'success');
         sessionStorage.setItem('lootbox_quantity', item.quantity.toString());
-
         this.router.navigate(['/', ROUTES.shop, ROUTES.lootBoxDetailPage]);
       } else {
-        alert('Not enough tickets!');
+        this.showAlert('Not enough tickets!', 'error');
       }
     } else {
       this.userService.addTickets(item.quantity + (item.bonus ?? 0));
-      alert(`You bought ${item.label}`);
+      this.showAlert(`You bought ${item.label}`, 'success');
     }
+  }
+
+  showAlert(message: string, type: 'success' | 'error') {
+    this.alertMessage = message;
+    this.alertType = type;
+    setTimeout(() => {
+      this.alertMessage = null;
+    }, 2500);
   }
 }
